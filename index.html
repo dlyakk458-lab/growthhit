@@ -1,0 +1,2083 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GROWTH — Создание сайтов и продвижение в Казахстане</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0a0a0b;--bg-card:#121214;--text:#f5f5f7;--muted:#a1a1aa;--accent:#ff5c1a;--accent-h:#ff7a3d;--border:#2a2a2e;--green:#22c55e;--blue:#5b9cff}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:auto}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;overflow-x:hidden}
+a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:none}
+.top-bar{background:#111;font-size:13px;padding:8px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
+.top-bar .left{display:flex;align-items:center;gap:8px;color:var(--muted)}
+.top-bar .right{display:flex;align-items:center;gap:16px}
+.top-bar a{color:var(--text)}.top-bar a:hover{color:var(--accent)}
+.lang{display:flex;gap:6px}.lang span{padding:2px 8px;border-radius:12px;font-size:12px;background:#222}
+.lang span.active{background:var(--accent);color:#fff}
+header{position:sticky;top:0;z-index:100;background:rgba(10,10,11,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav{max-width:1280px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{font-weight:900;font-size:22px;letter-spacing:-.5px}.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:28px;font-size:14px;font-weight:500;color:var(--muted)}
+.nav-links a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:10px;font-weight:600;font-size:14px;transition:.25s cubic-bezier(.22,1,.36,1)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-h);transform:translateY(-2px) scale(1.02);box-shadow:0 10px 28px rgba(255,92,26,.4)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-outline:hover{border-color:#555;background:rgba(255,255,255,.04)}
+.hero{position:relative;min-height:92vh;display:flex;align-items:center;padding:80px 24px 100px;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 60% at 50% 40%,black,transparent)}
+.hero-inner{max-width:1280px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;position:relative;z-index:2}
+.hero-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.hero-label::after{content:'';width:40px;height:2px;background:var(--accent)}
+.hero h1{font-size:clamp(40px,5.5vw,68px);font-weight:900;line-height:1.05;letter-spacing:-1.5px;margin-bottom:24px}
+.hero h1 .accent{color:var(--blue)}
+.hero p{font-size:17px;color:var(--muted);max-width:460px;margin-bottom:36px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.hero-visual{position:relative;height:420px;display:flex;align-items:center;justify-content:center}
+#heroParticles{width:100%;height:100%;max-width:520px}
+.marquees{border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;background:#0d0d0f}
+.marquee-row{overflow:hidden;white-space:nowrap;border-bottom:1px solid var(--border);line-height:1}
+.marquee-row:last-child{border-bottom:none}
+.marquee-track{display:inline-flex;padding:14px 0;font-size:12px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;will-change:transform}
+.marquee-track span{display:inline-flex;align-items:center;gap:10px;padding:0 36px;color:var(--muted);flex-shrink:0}
+.marquee-track span::before{content:'•';color:var(--accent);font-size:10px}
+.marquee-top .marquee-track{animation:mL 50s linear infinite}
+.marquee-bottom .marquee-track{animation:mR 55s linear infinite}
+@keyframes mL{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes mR{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
+.particles-wrapper{position:relative;height:800vh}
+.particles-inner{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg);overflow:hidden}
+#particlesCanvas{width:100%;max-width:920px;height:340px}
+.particles-caption{text-align:center;margin-top:28px;min-height:64px}
+.particles-caption h3{font-size:15px;font-weight:700;color:var(--blue);margin-bottom:6px}
+.particles-caption p{font-size:13px;color:var(--muted)}
+.section{padding:100px 24px}.section-inner{max-width:1200px;margin:0 auto}
+.section-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.section-label::after{content:'';width:32px;height:2px;background:var(--accent)}
+.section h2{font-size:clamp(32px,5vw,48px);font-weight:800;letter-spacing:-1px;margin-bottom:16px}
+.section h2 .light{color:var(--blue)}
+.section-desc{color:var(--muted);max-width:520px;margin-bottom:48px;font-size:16px}
+.services-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.service-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:16px;transition:.3s cubic-bezier(.22,1,.36,1)}
+.service-card:hover{border-color:#3f3f46;transform:translateY(-4px) scale(1.015);box-shadow:0 20px 50px rgba(0,0,0,.4);background:#16161a}
+.code-preview{background:#0d0d10;border-radius:10px;padding:16px;font-family:SF Mono,Fira Code,monospace;font-size:13px;line-height:1.65;color:#a5b4c8;min-height:140px;overflow:hidden}
+.code-preview .c-tag{color:#7dd3fc}.code-preview .c-attr{color:#86efac}.code-preview .c-str{color:#fcd34d}.code-preview .c-php{color:#c084fc}.code-preview .c-plain{color:#e2e8f0}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat-box{background:#16161a;border-radius:10px;padding:14px 10px;text-align:center}
+.stat-box .num{font-size:24px;font-weight:800;color:var(--text);line-height:1.2}
+.stat-box .delta{font-size:12px;color:var(--green);opacity:0;transform:translateY(4px);transition:.4s}
+.stat-box .delta.show{opacity:1;transform:translateY(0)}
+.stat-box .label{font-size:11px;color:var(--muted);margin-top:4px;text-transform:uppercase}
+.service-title{font-size:17px;font-weight:700}.service-desc{font-size:14px;color:var(--muted);flex:1}
+.service-footer{display:flex;justify-content:space-between;align-items:center}
+.service-price{font-size:13px;color:var(--muted)}.service-price strong{color:var(--text);font-size:17px}
+.service-btn{width:42px;height:42px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;transition:.25s}
+.service-card:hover .service-btn{transform:scale(1.1);box-shadow:0 6px 20px rgba(255,92,26,.45)}
+.ads-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.metric{background:#16161a;border-radius:8px;padding:12px 6px;text-align:center}
+.metric .v{font-weight:700;font-size:15px}.metric .l{font-size:10px;color:var(--muted);margin-top:2px;text-transform:uppercase}
+.chart-wrap{height:70px;background:#0f0f12;border-radius:8px;overflow:hidden}
+.chart-svg{width:100%;height:100%}
+.chart-svg path{fill:none;stroke:#3b82f6;stroke-width:2.5;stroke-linecap:round;stroke-dasharray:400;stroke-dashoffset:400;transition:stroke-dashoffset 1.2s ease}
+.chart-svg path.drawn{stroke-dashoffset:0}
+.chart-svg .area{fill:url(#chartGrad);opacity:0;transition:opacity .8s .3s}
+.chart-svg .area.show{opacity:1}
+.how-wrapper{position:relative;height:450vh;background:#0c0c0e;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.how-inner{position:sticky;top:0;height:100vh;display:flex;align-items:center;padding:40px 24px;overflow:hidden}
+.how-content{max-width:1200px;margin:0 auto;width:100%}
+.how-grid{display:grid;grid-template-columns:300px 1fr;gap:36px;align-items:start;margin-top:36px}
+.steps-list{display:flex;flex-direction:column;gap:10px}
+.step-item{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;transition:.35s;opacity:.45}
+.step-item.active{opacity:1;border-color:var(--accent);background:#16141a;box-shadow:0 0 0 1px var(--accent)}
+.step-icon{width:34px;height:34px;border-radius:9px;background:#1e1e22;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;transition:.25s}
+.step-item.active .step-icon{background:var(--accent)}
+.step-text h4{font-size:14px;font-weight:600;margin-bottom:3px}.step-text p{font-size:12px;color:var(--muted)}
+.demo-screen{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;min-height:380px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.demo-inner{width:88%;max-width:460px;background:#0f0f12;border-radius:12px;border:1px solid var(--border);padding:18px;position:relative;min-height:280px}
+.demo-url{display:flex;gap:6px;margin-bottom:14px;align-items:center}
+.demo-url .dot{width:10px;height:10px;border-radius:50%}
+.demo-url .name{margin-left:8px;font-size:12px;color:var(--muted)}
+.search-bar{background:#1a1a1e;border:1px solid var(--border);border-radius:24px;padding:11px 16px;display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);max-width:340px;opacity:0;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) translateY(8px);width:85%;transition:.45s}
+.search-bar.visible{opacity:1;transform:translate(-50%,-50%) translateY(0)}
+.search-bar.fade{opacity:0;transform:translate(-50%,-60%)}
+.cursor-blink{display:inline-block;width:2px;height:15px;background:var(--text);animation:blink 1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+.demo-bars{display:none;flex-direction:column;gap:9px;margin:40px 0 20px;padding:0 10px}
+.demo-bar{height:9px;background:#1e1e24;border-radius:4px;overflow:hidden}
+.demo-bar .fill{height:100%;background:#3b82f6;width:0;transition:width .8s ease}
+.cta-wrap{text-align:center;margin-top:16px;position:relative}
+.cta-btn-demo{background:var(--accent);color:#fff;padding:11px 22px;border-radius:8px;font-weight:600;font-size:14px;display:inline-block;opacity:0;transform:scale(.9);transition:.4s;position:relative}
+.cta-btn-demo.visible{opacity:1;transform:scale(1)}
+.fake-cursor{position:absolute;width:20px;height:20px;pointer-events:none;opacity:0;z-index:20;left:0;top:0;transition:left .7s cubic-bezier(.22,1,.36,1),top .7s cubic-bezier(.22,1,.36,1),opacity .3s}
+.fake-cursor svg{width:100%;height:100%;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+.notif{position:absolute;top:14px;right:14px;background:#1a1a1e;border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:12px;display:flex;align-items:center;gap:8px;opacity:0;transform:translateY(-8px);transition:.4s;z-index:5}
+.notif.visible{opacity:1;transform:translateY(0)}
+.notif .badge{background:var(--accent);color:#fff;font-size:10px;padding:2px 6px;border-radius:4px}
+.leads-counter{position:absolute;bottom:18px;left:18px;font-size:26px;font-weight:800;opacity:0;transition:.5s;z-index:5}
+.leads-counter.visible{opacity:1}
+.leads-counter span{font-size:12px;font-weight:500;color:var(--muted)}
+.portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.project-card{background:var(--bg-card);border-radius:16px;overflow:hidden;border:1px solid var(--border);transition:.3s cubic-bezier(.22,1,.36,1)}
+.project-card:hover{transform:translateY(-8px) scale(1.02);border-color:#3a3a42;box-shadow:0 24px 50px rgba(0,0,0,.4)}
+.project-img{height:190px;background:#16161a;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--muted);position:relative;overflow:hidden}
+.project-img img{width:100%;height:100%;object-fit:cover;display:block;transition:.4s}
+.project-card:hover .project-img img{transform:scale(1.05)}
+.project-badge{position:absolute;top:12px;left:12px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;background:#1e1e24;color:var(--muted);z-index:2}
+.project-badge.flag{background:var(--accent);color:#fff}
+.project-body{padding:18px}.project-body h4{font-size:16px;font-weight:700;margin-bottom:5px}.project-body p{font-size:13px;color:var(--muted)}
+.project-tag{display:inline-block;margin-top:10px;font-size:12px;color:var(--accent);font-weight:600}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px}
+.process-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:22px 18px;transition:.3s cubic-bezier(.22,1,.36,1)}
+.process-card:hover{transform:translateY(-5px) scale(1.02);border-color:#3a3a42;box-shadow:0 16px 40px rgba(0,0,0,.3)}
+.process-num{font-size:13px;color:var(--muted);margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.process-icon{width:34px;height:34px;border-radius:9px;background:#1e1e24;display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:14px}
+.process-card h4{font-size:15px;font-weight:700;margin-bottom:8px}.process-card p{font-size:13px;color:var(--muted);line-height:1.5}
+.code-sticky-wrapper{position:relative;height:450vh}
+.code-sticky-inner{position:sticky;top:0;height:100vh;display:flex;align-items:center;padding:0 24px;background:var(--bg);overflow:hidden}
+.code-content{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.code-text h2{font-size:clamp(28px,4vw,40px);font-weight:800;margin-bottom:14px}
+.code-text h2 .orange{color:var(--accent)}.code-text p{color:var(--muted)}
+.code-window{background:#0d0d10;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.5);transition:.3s}
+.code-window:hover{border-color:#3a3a42;transform:scale(1.01)}
+.code-window-header{background:#16161a;padding:10px 14px;display:flex;gap:6px;align-items:center}
+.code-window-header .dot{width:10px;height:10px;border-radius:50%}
+.code-window-header .fname{margin-left:10px;font-size:12px;color:var(--muted)}
+.code-body{padding:18px;font-family:SF Mono,Fira Code,monospace;font-size:12.5px;line-height:1.7;min-height:260px;color:#a5b4c8}
+.code-cursor{display:inline-block;width:7px;height:15px;background:var(--accent);vertical-align:middle;animation:blink .8s step-end infinite}
+.faq-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:50px}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-q{width:100%;background:none;border:none;color:var(--text);padding:18px 0;display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:500;text-align:left;cursor:pointer}
+.faq-q:hover{color:#fff}
+.faq-q .icon{width:26px;height:26px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:.25s}
+.faq-item.open .faq-q .icon{background:var(--accent);border-color:var(--accent);transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s;color:var(--muted);font-size:14px;line-height:1.6}
+.faq-item.open .faq-a{max-height:220px;padding-bottom:18px}
+.audit{background:#0c0c0e;border-top:1px solid var(--border);padding:100px 24px}
+.audit-inner{max-width:780px;margin:0 auto;text-align:center}
+.audit h2{font-size:clamp(30px,4.5vw,44px);font-weight:800;margin-bottom:14px}
+.audit h2 .orange{color:var(--accent)}
+.audit p{color:var(--muted);margin-bottom:36px;max-width:500px;margin-left:auto;margin-right:auto}
+.audit-form{display:flex;max-width:540px;margin:0 auto;background:#16161a;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.audit-form:focus-within{border-color:#444;box-shadow:0 0 0 3px rgba(255,92,26,.15)}
+.audit-form input{flex:1;background:transparent;border:none;padding:15px 16px;color:var(--text);font-size:14px;outline:none}
+.audit-form input::placeholder{color:#555}
+.audit-form input+input{border-left:1px solid var(--border)}
+.audit-form button{background:var(--accent);color:#fff;padding:15px 26px;font-weight:600;font-size:14px;white-space:nowrap}
+.audit-form button:hover{background:var(--accent-h)}
+.audit-note{margin-top:14px;font-size:13px;color:var(--muted)}
+footer{border-top:1px solid var(--border);padding:48px 24px 28px}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:32px}
+.footer-brand .logo{margin-bottom:10px}.footer-brand p{font-size:14px;color:var(--muted);max-width:260px}
+.footer-links{display:flex;gap:44px}
+.footer-col h5{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:12px}
+.footer-col a{display:block;font-size:14px;margin-bottom:7px}.footer-col a:hover{color:var(--accent)}
+.footer-bottom{max-width:1200px;margin:36px auto 0;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--muted);display:flex;justify-content:space-between}
+.wa-float{position:fixed;bottom:22px;left:22px;width:54px;height:54px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:99;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:.25s}
+.wa-float:hover{transform:scale(1.1)}.wa-float svg{width:26px;height:26px;fill:#fff}
+@media(max-width:960px){
+.hero-inner,.how-grid,.code-content,.faq-grid,.services-grid{grid-template-columns:1fr}
+.nav-links{display:none}.portfolio-grid,.process-grid{grid-template-columns:1fr 1fr}
+.ads-metrics{grid-template-columns:repeat(2,1fr)}.hero-visual{height:280px}
+.particles-wrapper,.how-wrapper,.code-sticky-wrapper{height:auto}
+.particles-inner,.how-inner,.code-sticky-inner{position:relative;height:auto;min-height:80vh;padding:60px 0}
+}
+@media(max-width:600px){.portfolio-grid,.process-grid{grid-template-columns:1fr}.audit-form{flex-direction:column}.audit-form input+input{border-left:none;border-top:1px solid var(--border)}}
+
+/* === Service pages shared === */
+.page-view{display:none}
+.page-view.active{display:block}
+.nav-item{position:relative}
+.nav-item>a{display:flex;align-items:center;gap:4px;padding:6px 0}
+.dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(8px);background:#16161a;border:1px solid var(--border);border-radius:12px;padding:8px;min-width:220px;opacity:0;visibility:hidden;transition:.2s;box-shadow:0 20px 50px rgba(0,0,0,.5);z-index:50}
+.nav-item:hover .dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(4px)}
+.dropdown a{display:block;padding:10px 14px;border-radius:8px;font-size:13px;color:var(--muted)}
+.dropdown a:hover{background:#1e1e24;color:var(--text)}
+.page-hero{padding:100px 24px 80px;position:relative;overflow:hidden}
+.page-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:50px 50px;mask-image:radial-gradient(ellipse 70% 50% at 30% 40%,black,transparent)}
+.page-hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;position:relative;z-index:2}
+.breadcrumb{font-size:13px;color:var(--muted);margin-bottom:18px}
+.page-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.page-label::after{content:'';width:36px;height:2px;background:var(--accent)}
+.page-hero h1{font-size:clamp(34px,4.5vw,52px);font-weight:900;line-height:1.05;letter-spacing:-1.2px;margin-bottom:20px}
+.page-hero h1 .blue{color:var(--blue)}
+.page-hero p{font-size:16px;color:var(--muted);max-width:440px;margin-bottom:32px}
+.page-hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.hero-side-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:8px}
+.side-item{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:12px;transition:.2s;cursor:pointer}
+.side-item:hover{background:#1a1a1e}
+.side-icon{width:36px;height:36px;border-radius:10px;background:#1e1e24;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.side-item h4{font-size:14px;font-weight:600;margin-bottom:2px}
+.side-item p{font-size:12px;color:var(--muted)}
+.side-item .arrow{margin-left:auto;color:var(--muted);font-size:16px}
+.side-footer{padding:12px 16px;font-size:12px;color:var(--muted);border-top:1px solid var(--border);margin-top:4px}
+.includes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.include-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:24px;transition:.3s}
+.include-card:hover{transform:translateY(-4px);border-color:#3a3a42}
+.include-icon{width:40px;height:40px;border-radius:10px;background:#1e1e24;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:14px;color:var(--blue)}
+.include-card h3{font-size:14px;font-weight:700;margin-bottom:12px}
+.include-card ul{list-style:none}
+.include-card li{font-size:13px;color:var(--muted);padding:3px 0;padding-left:16px;position:relative}
+.include-card li::before{content:'✓';position:absolute;left:0;color:var(--green);font-size:11px}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.price-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px;position:relative;transition:.3s}
+.price-card:hover{transform:translateY(-4px);border-color:#3a3a42}
+.price-card.popular{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.price-card .pop{position:absolute;top:-10px;right:20px;background:var(--accent);color:#fff;font-size:11px;padding:3px 12px;border-radius:12px;font-weight:600}
+.price-card h3{font-size:14px;font-weight:700;margin-bottom:4px;color:var(--muted)}
+.price-card .price{font-size:28px;font-weight:900;margin:12px 0}
+.price-card .price span{font-size:13px;font-weight:500;color:var(--muted)}
+.price-card ul{list-style:none;margin:16px 0 24px}
+.price-card li{font-size:13px;color:var(--muted);padding:4px 0;padding-left:16px;position:relative}
+.price-card li::before{content:'✓';position:absolute;left:0;color:var(--green)}
+.price-card .btn{width:100%;justify-content:center}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);z-index:200;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:.3s}
+.modal-overlay.open{opacity:1;visibility:visible}
+.modal{background:#16161a;border:1px solid var(--border);border-radius:18px;padding:32px;width:90%;max-width:420px;position:relative;transform:translateY(16px);transition:.3s}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;background:#1e1e24;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--muted);cursor:pointer}
+.modal h3{font-size:22px;font-weight:800;margin-bottom:6px}
+.modal p{font-size:14px;color:var(--muted);margin-bottom:24px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+.form-group input,.form-group textarea{width:100%;background:#0f0f12;border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-size:14px;outline:none}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textarea{min-height:80px;resize:vertical}
+.modal .btn{width:100%;justify-content:center;margin-top:8px}
+.modal-secure{text-align:center;font-size:12px;color:var(--muted);margin-top:14px}
+.modal-or{text-align:center;font-size:12px;color:var(--muted);margin:16px 0}
+.modal-messengers{display:flex;gap:10px}
+.modal-messengers a{flex:1;text-align:center;padding:10px;border:1px solid var(--border);border-radius:10px;font-size:13px}
+@media(max-width:900px){
+  .particles-wrapper,.how-wrapper,.code-sticky-wrapper{height:auto}
+  .particles-inner,.how-inner,.code-sticky-inner{position:relative;height:auto;min-height:100vh;padding:60px 16px}
+  .how-grid,.code-content,.hero-inner,.services-grid,.faq-grid{grid-template-columns:1fr}
+  .page-hero-inner{grid-template-columns:1fr}
+  .includes-grid,.pricing-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
+
+/* === from sites === */
+
+
+
+
+
+
+
+.logo span{color:var(--accent)}
+
+.nav-links a:hover,.nav-item:hover>
+.nav-item{position:relative}
+.nav-item>
+.dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(8px);background:#16161a;border:1px solid var(--border);border-radius:12px;padding:8px;min-width:220px;opacity:0;visibility:hidden;transition:.2s;box-shadow:0 20px 50px rgba(0,0,0,.5);z-index:50}
+.nav-item:hover .dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(4px)}
+.dropdown 
+.dropdown a:hover{background:#1e1e24;color:var(--text)}
+
+
+
+
+
+
+/* Hero */
+.page-hero{padding:100px 24px 80px;position:relative;overflow:hidden}
+.page-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:50px 50px;mask-image:radial-gradient(ellipse 70% 50% at 30% 40%,black,transparent)}
+.page-hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;position:relative;z-index:2}
+.breadcrumb{font-size:13px;color:var(--muted);margin-bottom:18px}
+.breadcrumb a:hover{color:var(--accent)}
+.page-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:16px;opacity:0;transform:translateY(12px);transition:.5s}
+.page-label.show{opacity:1;transform:translateY(0)}
+.page-label::after{content:'';width:36px;height:2px;background:var(--accent)}
+.page-hero h1{font-size:clamp(36px,5vw,56px);font-weight:900;line-height:1.05;letter-spacing:-1.2px;margin-bottom:20px;opacity:0;transform:translateY(18px);transition:.6s .1s}
+.page-hero h1.show{opacity:1;transform:translateY(0)}
+.page-hero h1 .blue{color:var(--blue)}
+.page-hero p{font-size:16px;color:var(--muted);max-width:440px;margin-bottom:32px;opacity:0;transform:translateY(14px);transition:.55s .2s}
+.page-hero p.show{opacity:1;transform:translateY(0)}
+.page-hero-btns{display:flex;gap:12px;flex-wrap:wrap;opacity:0;transform:translateY(12px);transition:.5s .3s}
+.page-hero-btns.show{opacity:1;transform:translateY(0)}
+.hero-side-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:8px;opacity:0;transform:translateY(20px);transition:.6s .25s}
+.hero-side-card.show{opacity:1;transform:translateY(0)}
+.side-item{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:12px;transition:.2s;cursor:pointer}
+.side-item:hover{background:#1a1a1e}
+.side-icon{width:36px;height:36px;border-radius:10px;background:#1e1e24;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.side-item h4{font-size:14px;font-weight:600;margin-bottom:2px}
+.side-item p{font-size:12px;color:var(--muted)}
+.side-item .arrow{margin-left:auto;color:var(--muted);font-size:16px}
+.side-
+
+/* Sticky birth */
+.birth-wrapper{position:relative;height:600vh;border-top:1px solid var(--border)}
+.birth-inner{position:sticky;top:0;height:100vh;display:flex;align-items:center;padding:40px 24px;overflow:hidden}
+.birth-content{max-width:1200px;margin:0 auto;width:100%}
+.birth-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.birth-title{font-size:clamp(28px,4vw,42px);font-weight:800;margin-bottom:36px;letter-spacing:-.8px}
+.birth-grid{display:grid;grid-template-columns:280px 1fr;gap:40px;align-items:center}
+.birth-steps{display:flex;flex-direction:column;gap:0;position:relative}
+.birth-steps::before{content:'';position:absolute;left:15px;top:20px;bottom:20px;width:2px;background:var(--border)}
+.birth-step{display:flex;gap:14px;padding:12px 0;opacity:.4;transition:.4s;position:relative}
+.birth-step.active{opacity:1}
+.birth-step .num{width:32px;height:32px;border-radius:50%;background:#1e1e24;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;z-index:1;transition:.3s}
+.birth-step.active .num{background:var(--accent);border-color:var(--accent);color:#fff}
+.birth-step h4{font-size:14px;font-weight:700;margin-bottom:3px}
+.birth-step p{font-size:12px;color:var(--muted);line-height:1.4}
+.browser{background:#0f0f12;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5);position:relative;min-height:360px}
+.browser-bar{background:#16161a;padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.browser-dot{width:10px;height:10px;border-radius:50%}
+.browser-url{flex:1;background:#0a0a0b;border-radius:6px;padding:5px 12px;font-size:12px;color:var(--muted);margin:0 8px}
+.browser-tag{font-size:11px;padding:3px 10px;border-radius:12px;background:#1e1e24;color:var(--muted);font-weight:600}
+.browser-
+.browser-stage{position:absolute;inset:24px;opacity:0;transform:translateY(12px);transition:.5s;pointer-events:none}
+.browser-stage.active{opacity:1;transform:translateY(0);pointer-events:auto}
+.wire{display:flex;flex-direction:column;gap:12px}
+.wire-block{background:#1a1a1e;border:1px dashed #333;border-radius:8px;height:28px}
+.wire-block.lg{height:48px}.wire-block.sm{height:18px;width:60%}
+.wire-row{display:flex;gap:10px}.wire-row .wire-block{flex:1;height:70px}
+.design-bar{height:48px;background:linear-gradient(90deg,#1e3a5f,#1a1a1e);border-radius:8px 8px 0 0;display:flex;align-items:center;padding:0 16px;gap:8px}
+.design-btn{width:60px;height:24px;background:var(--accent);border-radius:6px}
+.design-content{padding:20px;text-align:center}
+.design-content h3{font-size:20px;margin-bottom:6px}
+.design-content p{font-size:13px;color:var(--muted);margin-bottom:14px}
+.design-ct
+.design-cards{display:flex;gap:10px;margin-top:20px}
+.design-card{flex:1;height:60px;background:#1a1a1e;border-radius:8px}
+.phone-mock{position:absolute;right:20px;bottom:20px;width:90px;height:160px;background:#111;border:3px solid #333;border-radius:14px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.4);transform:translateX(20px);opacity:0;transition:.6s}
+.phone-mock.show{transform:translateX(0);opacity:1}
+.phone-screen{padding:10px 8px;height:100%}
+.phone-line{height:8px;background:#2a2a30;border-radius:3px;margin-bottom:6px}
+.phone-line.orange{background:var(--accent);width:70%}
+.notif-bar{position:absolute;bottom:16px;left:16px;background:#1a1a1e;border:1px solid var(--border);border-radius:10px;padding:8px 12px;font-size:12px;display:flex;align-items:center;gap:8px;opacity:0;transform:translateY(10px);transition:.4s}
+.notif-bar.show{opacity:1;transform:translateY(0)}
+.status-online{position:absolute;top:12px;right:12px;background:#16331f;color:var(--green);font-size:11px;padding:3px 10px;border-radius:12px;font-weight:600;opacity:0;transition:.4s}
+.status-online.show{opacity:1}
+
+/* Includes */
+.section{padding:90px 24px}.section-inner{max-width:1200px;margin:0 auto}
+.section-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.section-label::after{content:'';width:32px;height:2px;background:var(--accent)}
+.section h2{font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.8px;margin-bottom:12px}
+.section h2 .blue{color:var(--blue)}
+.section-desc{color:var(--muted);max-width:480px;margin-bottom:40px}
+.includes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.include-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:24px;transition:.3s}
+.include-card:hover{transform:translateY(-4px);border-color:#3a3a42;box-shadow:0 16px 40px rgba(0,0,0,.3)}
+.include-icon{width:40px;height:40px;border-radius:10px;background:#1e1e24;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:14px;color:var(--blue)}
+.include-card h3{font-size:15px;font-weight:700;margin-bottom:12px}
+.include-card ul{list-style:none}
+.include-card li{font-size:13px;color:var(--muted);padding:4px 0;padding-left:18px;position:relative}
+.include-card li::before{content:'✓';position:absolute;left:0;color:var(--green);font-size:12px}
+
+/* Portfolio */
+.portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.project-card{background:var(--bg-card);border-radius:14px;overflow:hidden;border:1px solid var(--border);transition:.3s}
+.project-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 20px 50px rgba(0,0,0,.4);border-color:#3a3a42}
+.project-img{height:180px;background:linear-gradient(135deg,#1a1a22,#252530);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px}
+.project-
+.project-body h4{font-size:15px;font-weight:700;margin-bottom:4px}
+.project-body p{font-size:13px;color:var(--muted)}
+
+/* Modal */
+
+
+
+
+
+
+
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+.form-group input,.form-group textare
+.form-group input:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textare
+
+
+
+
+
+
+
+
+
+@media(max-width:900px){
+  .page-hero-inner{grid-template-columns:1fr}
+  .birth-grid{grid-template-columns:1fr;gap:24px}
+  .birth-steps{flex-direction:row;overflow-x:auto;gap:12px;padding-bottom:8px}
+  .birth-steps::before{display:none}
+  .birth-step{flex-direction:column;align-items:center;text-align:center;min-width:100px;padding:8px}
+  .birth-step p{display:none}
+  .includes-grid,.portfolio-grid{grid-template-columns:1fr}
+  
+  .birth-wrapper{height:auto}
+  .birth-inner{position:relative;height:auto;padding:60px 24px}
+}
+
+/* === from seo === */
+
+
+
+
+
+
+
+.logo span{color:var(--accent)}
+
+.nav-links a:hover,.nav-item:hover>
+.nav-item{position:relative}
+.nav-item>
+.dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(8px);background:#16161a;border:1px solid var(--border);border-radius:12px;padding:8px;min-width:220px;opacity:0;visibility:hidden;transition:.2s;box-shadow:0 20px 50px rgba(0,0,0,.5);z-index:50}
+.nav-item:hover .dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(4px)}
+.dropdown 
+.dropdown a:hover{background:#1e1e24;color:var(--text)}
+
+
+
+
+
+
+.page-hero{padding:100px 24px 80px;position:relative;overflow:hidden}
+.page-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:50px 50px;mask-image:radial-gradient(ellipse 70% 50% at 30% 40%,black,transparent)}
+.page-hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;position:relative;z-index:2}
+.breadcrumb{font-size:13px;color:var(--muted);margin-bottom:18px}
+.page-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.page-label::after{content:'';width:36px;height:2px;background:var(--accent)}
+.page-hero h1{font-size:clamp(34px,4.5vw,52px);font-weight:900;line-height:1.05;letter-spacing:-1.2px;margin-bottom:20px}
+.page-hero h1 .blue{color:var(--blue)}
+.page-hero p{font-size:16px;color:var(--muted);max-width:440px;margin-bottom:32px}
+.page-hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+
+.seo-mock{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.seo-mock-bar{background:#16161a;padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);font-size:12px;color:var(--muted)}
+.seo-mock-
+.seo-line{opacity:0;transform:translateY(6px);transition:.35s}
+.seo-line.show{opacity:1;transform:translateY(0)}
+.seo-line .tag{color:#7dd3fc}.seo-line .val{color:#86efac}.seo-line .ok{color:var(--green)}
+.seo-score{position:absolute;bottom:16px;right:16px;width:70px;height:70px;border-radius:50%;border:4px solid var(--green);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:22px;background:#0f0f12}
+.seo-score span{font-size:10px;font-weight:500;color:var(--muted)}
+
+/* Sticky path */
+.path-wrapper{position:relative;height:700vh;border-top:1px solid var(--border)}
+.path-inner{position:sticky;top:0;height:100vh;display:flex;align-items:center;padding:40px 24px;overflow:hidden}
+.path-content{max-width:1200px;margin:0 auto;width:100%}
+.path-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.path-title{font-size:clamp(26px,4vw,40px);font-weight:800;margin-bottom:32px}
+.path-grid{display:grid;grid-template-columns:260px 1fr;gap:36px;align-items:center}
+.path-steps{display:flex;flex-direction:column;gap:0;position:relative}
+.path-steps::before{content:'';position:absolute;left:15px;top:18px;bottom:18px;width:2px;background:var(--border)}
+.path-step{display:flex;gap:14px;padding:11px 0;opacity:.4;transition:.4s}
+.path-step.active{opacity:1}
+.path-step .num{width:32px;height:32px;border-radius:50%;background:#1e1e24;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;z-index:1;transition:.3s}
+.path-step.active .num{background:var(--accent);border-color:var(--accent);color:#fff}
+.path-step h4{font-size:13px;font-weight:700;margin-bottom:2px}
+.path-step p{font-size:11px;color:var(--muted)}
+
+.path-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:22px;min-height:340px;position:relative}
+.path-card-title{font-size:14px;font-weight:600;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.path-card-title .badge{font-size:11px;padding:3px 10px;border-radius:12px;background:#1e1e24;color:var(--muted)}
+.tags-cloud{display:flex;flex-wrap:wrap;gap:8px}
+.tag-pill{padding:6px 14px;border-radius:20px;background:#1a1a1e;border:1px solid var(--border);font-size:12px;opacity:0;transform:scale(.85);transition:.4s}
+.tag-pill.show{opacity:1;transform:scale(1)}
+.tag-pill.hot{border-color:var(--accent);color:var(--accent)}
+.audit-list{display:flex;flex-direction:column;gap:8px}
+.audit-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#16161a;border-radius:8px;font-size:13px;opacity:.5;transition:.3s}
+.audit-item.done{opacity:1;background:#132a1a}
+.audit-item .check{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.audit-item.done .check{background:var(--green);border-color:var(--green);color:#fff}
+.circle-progress{position:absolute;right:24px;top:50%;transform:translateY(-50%);width:90px;height:90px}
+.circle-progress svg{transform:rotate(-90deg)}
+.circle-progress circle{fill:none;stroke-width:8}
+.circle-progress .bg{stroke:#1e1e24}
+.circle-progress .fg{stroke:var(--green);stroke-dasharray:251;stroke-dashoffset:251;transition:stroke-dashoffset 1s ease}
+.circle-progress .val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:24px}
+.circle-progress .val span{font-size:10px;font-weight:500;color:var(--muted)}
+.bars-list{display:flex;flex-direction:column;gap:10px}
+.bar-row{display:flex;align-items:center;gap:10px}
+.bar-track{flex:1;height:12px;background:#1a1a1e;border-radius:6px;overflow:hidden}
+.bar-fill{height:100%;background:var(--blue);border-radius:6px;width:0;transition:width 1s ease}
+.link-net{display:flex;align-items:center;justify-content:center;height:240px;position:relative}
+.link-center{width:70px;height:70px;border-radius:50%;background:#1e3a5f;border:2px solid var(--blue);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;text-align:center;z-index:2}
+.link-node{position:absolute;width:14px;height:14px;border-radius:50%;background:#2a2a30;border:2px solid #444;transition:.6s;opacity:0}
+.link-node.show{opacity:1}
+.link-line{position:absolute;height:1px;background:#333;transform-origin:left center;opacity:0;transition:.5s}
+.link-line.show{opacity:1}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.stat-box{background:#16161a;border-radius:10px;padding:16px;text-align:center}
+.stat-box .num{font-size:28px;font-weight:800}
+.stat-box .lbl{font-size:11px;color:var(--muted);margin-top:4px}
+.pos-list{display:flex;flex-direction:column;gap:8px}
+.pos-item{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:6px 0;border-bottom:1px solid #1a1a1e}
+.pos-bar{width:80px;height:6px;background:#1a1a1e;border-radius:3px;overflow:hidden}
+.pos-bar-fill{height:100%;background:var(--green);width:0;transition:width .8s ease}
+
+.section{padding:90px 24px}.section-inner{max-width:1200px;margin:0 auto}
+.section-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.section-label::after{content:'';width:32px;height:2px;background:var(--accent)}
+.section h2{font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.8px;margin-bottom:12px}
+.section h2 .blue{color:var(--blue)}
+.section-desc{color:var(--muted);max-width:520px;margin-bottom:40px}
+.includes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.include-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:24px;transition:.3s}
+.include-card:hover{transform:translateY(-4px);border-color:#3a3a42}
+.include-icon{width:40px;height:40px;border-radius:10px;background:#1e1e24;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:14px;color:var(--blue)}
+.include-card h3{font-size:14px;font-weight:700;margin-bottom:12px}
+.include-card ul{list-style:none}
+.include-card li{font-size:13px;color:var(--muted);padding:3px 0;padding-left:16px;position:relative}
+.include-card li::before{content:'✓';position:absolute;left:0;color:var(--green);font-size:11px}
+
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.price-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px;position:relative;transition:.3s}
+.price-card:hover{transform:translateY(-4px);border-color:#3a3a42}
+.price-card.popular{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.price-card .pop{position:absolute;top:-10px;right:20px;background:var(--accent);color:#fff;font-size:11px;padding:3px 12px;border-radius:12px;font-weight:600}
+.price-card h3{font-size:14px;font-weight:700;margin-bottom:4px;color:var(--muted)}
+.price-card .price{font-size:32px;font-weight:900;margin:12px 0}
+.price-card .price span{font-size:14px;font-weight:500;color:var(--muted)}
+.price-card ul{list-style:none;margin:16px 0 24px}
+.price-card li{font-size:13px;color:var(--muted);padding:5px 0;padding-left:16px;position:relative}
+.price-card li::before{content:'✓';position:absolute;left:0;color:var(--green)}
+.price-card 
+
+
+
+
+
+
+
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+.form-group input,.form-group textare
+.form-group input:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textare
+
+
+
+
+
+@media(max-width:900px){
+  .page-hero-inner,.path-grid{grid-template-columns:1fr}
+  .includes-grid,.pricing-grid{grid-template-columns:1fr}
+  
+  .path-wrapper{height:auto}
+  .path-inner{position:relative;height:auto;padding:60px 24px}
+  .path-steps{flex-direction:row;overflow-x:auto;gap:8px}
+  .path-steps::before{display:none}
+  .path-step p{display:none}
+}
+
+/* === from support === */
+
+
+
+
+
+
+
+.logo span{color:var(--accent)}
+
+.nav-links a:hover,.nav-item:hover>
+.nav-item{position:relative}
+.nav-item>
+.dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(8px);background:#16161a;border:1px solid var(--border);border-radius:12px;padding:8px;min-width:220px;opacity:0;visibility:hidden;transition:.2s;box-shadow:0 20px 50px rgba(0,0,0,.5);z-index:50}
+.nav-item:hover .dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(4px)}
+.dropdown 
+.dropdown a:hover{background:#1e1e24;color:var(--text)}
+
+
+
+
+
+
+.page-hero{padding:100px 24px 80px;position:relative;overflow:hidden}
+.page-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:50px 50px;mask-image:radial-gradient(ellipse 70% 50% at 30% 40%,black,transparent)}
+.page-hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;position:relative;z-index:2}
+.breadcrumb{font-size:13px;color:var(--muted);margin-bottom:18px}
+.page-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.page-label::after{content:'';width:36px;height:2px;background:var(--accent)}
+.page-hero h1{font-size:clamp(34px,4.5vw,52px);font-weight:900;line-height:1.05;letter-spacing:-1.2px;margin-bottom:20px}
+.page-hero h1 .blue{color:var(--blue)}
+.page-hero p{font-size:16px;color:var(--muted);max-width:440px;margin-bottom:32px}
+.page-hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+
+.monitor{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.4);position:relative}
+.monitor-bar{background:#16161a;padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);font-size:12px;color:var(--muted)}
+.monitor-
+.monitor-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.mon-card{background:#16161a;border-radius:10px;padding:14px 10px;text-align:center;border:1px solid var(--border);transition:.4s;position:relative}
+.mon-card.ok{border-color:var(--green)}
+.mon-card.err{border-color:var(--red);background:#1a1010;animation:pulseRed 1s ease infinite}
+@keyframes pulseRed{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.3)}50%{box-shadow:0 0 0 6px rgba(239,68,68,0)}}
+.mon-card .icon{font-size:20px;margin-bottom:6px}
+.mon-card .name{font-size:11px;color:var(--muted)}
+.mon-card .check{position:absolute;top:6px;right:6px;width:16px;height:16px;border-radius:50%;background:var(--green);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;opacity:0;transition:.3s}
+.mon-card.ok .check{opacity:1}
+.cat{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);font-size:48px;transition:left 1.2s cubic-bezier(.22,1,.36,1),bottom .4s;z-index:5}
+.cat.fixing{left:calc(25% + 10px)}
+.cat-phrase{position:absolute;bottom:80px;left:50%;transform:translateX(-50%);background:#1a1a1e;border:1px solid var(--border);border-radius:10px;padding:8px 14px;font-size:12px;opacity:0;transition:.4s;white-space:nowrap}
+.cat-phrase.show{opacity:1}
+.monitor-
+.monitor-footer .green{color:var(--green)}
+
+.section{padding:90px 24px}.section-inner{max-width:1200px;margin:0 auto}
+.section-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.section-label::after{content:'';width:32px;height:2px;background:var(--accent)}
+.section h2{font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.8px;margin-bottom:12px}
+.section h2 .blue{color:var(--blue)}
+.section-desc{color:var(--muted);max-width:520px;margin-bottom:40px}
+.includes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.include-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:24px;transition:.3s}
+.include-card:hover{transform:translateY(-4px);border-color:#3a3a42}
+.include-icon{width:40px;height:40px;border-radius:10px;background:#1e1e24;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:14px;color:var(--blue)}
+.include-card h3{font-size:14px;font-weight:700;margin-bottom:12px}
+.include-card ul{list-style:none}
+.include-card li{font-size:13px;color:var(--muted);padding:3px 0;padding-left:16px;position:relative}
+.include-card li::before{content:'✓';position:absolute;left:0;color:var(--green);font-size:11px}
+
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:32px}
+.step-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:22px;transition:.3s}
+.step-card:hover{transform:translateY(-4px);border-color:#3a3a42}
+.step-card .num{font-size:12px;color:var(--muted);margin-bottom:10px}
+.step-card .icon{width:36px;height:36px;border-radius:9px;background:#1e1e24;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:16px}
+.step-card h4{font-size:14px;font-weight:700;margin-bottom:8px}
+.step-card p{font-size:13px;color:var(--muted)}
+
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.price-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px;position:relative;transition:.3s}
+.price-card:hover{transform:translateY(-4px);border-color:#3a3a42}
+.price-card.popular{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.price-card .pop{position:absolute;top:-10px;right:20px;background:var(--accent);color:#fff;font-size:11px;padding:3px 12px;border-radius:12px;font-weight:600}
+.price-card h3{font-size:14px;font-weight:700;margin-bottom:4px;color:var(--muted)}
+.price-card .price{font-size:28px;font-weight:900;margin:12px 0}
+.price-card .price span{font-size:13px;font-weight:500;color:var(--muted)}
+.price-card ul{list-style:none;margin:16px 0 24px}
+.price-card li{font-size:13px;color:var(--muted);padding:5px 0;padding-left:16px;position:relative}
+.price-card li::before{content:'✓';position:absolute;left:0;color:var(--green)}
+.price-card 
+
+
+
+
+
+
+
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+.form-group input,.form-group textare
+.form-group input:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textare
+
+
+
+
+
+@media(max-width:900px){
+  .page-hero-inner{grid-template-columns:1fr}
+  .includes-grid,.steps-grid,.pricing-grid{grid-template-columns:1fr}
+  
+  .monitor-cards{grid-template-columns:repeat(2,1fr)}
+}
+
+/* === from ads === */
+
+
+
+
+
+
+
+.logo span{color:var(--accent)}
+
+.nav-links a:hover,.nav-item:hover>
+.nav-item{position:relative}
+.nav-item>
+.dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(8px);background:#16161a;border:1px solid var(--border);border-radius:12px;padding:8px;min-width:220px;opacity:0;visibility:hidden;transition:.2s;box-shadow:0 20px 50px rgba(0,0,0,.5);z-index:50}
+.nav-item:hover .dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(4px)}
+.dropdown 
+.dropdown a:hover{background:#1e1e24;color:var(--text)}
+
+
+
+
+
+.page-hero{padding:100px 24px 80px;position:relative;overflow:hidden}
+.page-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:50px 50px;mask-image:radial-gradient(ellipse 70% 50% at 30% 40%,black,transparent)}
+.page-hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:center;position:relative;z-index:2}
+.breadcrumb{font-size:13px;color:var(--muted);margin-bottom:18px}
+.page-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.page-label::after{content:'';width:36px;height:2px;background:var(--accent)}
+.page-hero h1{font-size:clamp(34px,4.5vw,52px);font-weight:900;line-height:1.05;letter-spacing:-1.2px;margin-bottom:20px}
+.page-hero p{font-size:16px;color:var(--muted);max-width:440px;margin-bottom:32px}
+.page-hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.ads-mock{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.ads-mock-bar{background:#16161a;padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);font-size:12px;color:var(--muted)}
+.ads-mock-
+.ads-
+.ads-header .title{font-size:14px;font-weight:600}
+.ads-header .badge{font-size:11px;padding:3px 10px;border-radius:12px;background:#1e3a5f;color:var(--blue)}
+.ads-big{font-size:42px;font-weight:900;margin-bottom:4px}
+.ads-big .up{font-size:14px;color:var(--green);font-weight:600}
+.ads-table{width:100%;font-size:12px;margin-top:16px}
+.ads-table th{text-align:left;color:var(--muted);font-weight:500;padding:6px 0;border-bottom:1px solid var(--border)}
+.ads-table td{padding:8px 0;border-bottom:1px solid #1a1a1e}
+.ads-table .dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px}
+.path-wrapper{position:relative;height:600vh;border-top:1px solid var(--border)}
+.path-inner{position:sticky;top:0;height:100vh;display:flex;align-items:center;padding:40px 24px;overflow:hidden}
+.path-content{max-width:1200px;margin:0 auto;width:100%}
+.path-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.path-title{font-size:clamp(26px,4vw,40px);font-weight:800;margin-bottom:32px}
+.path-grid{display:grid;grid-template-columns:260px 1fr;gap:36px;align-items:center}
+.path-steps{display:flex;flex-direction:column;gap:0;position:relative}
+.path-steps::before{content:'';position:absolute;left:15px;top:18px;bottom:18px;width:2px;background:var(--border)}
+.path-step{display:flex;gap:14px;padding:11px 0;opacity:.4;transition:.4s}
+.path-step.active{opacity:1}
+.path-step .num{width:32px;height:32px;border-radius:50%;background:#1e1e24;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;z-index:1;transition:.3s}
+.path-step.active .num{background:var(--accent);border-color:var(--accent);color:#fff}
+.path-step h4{font-size:13px;font-weight:700;margin-bottom:2px}
+.path-step p{font-size:11px;color:var(--muted)}
+.path-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:22px;min-height:320px}
+.path-card-title{font-size:14px;font-weight:600;margin-bottom:16px;display:flex;justify-content:space-between}
+.path-card-title .badge{font-size:11px;padding:3px 10px;border-radius:12px;background:#1e1e24;color:var(--muted)}
+.auction-list{display:flex;flex-direction:column;gap:8px}
+.auction-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#16161a;border-radius:8px;font-size:13px}
+.auction-item .rank{width:24px;height:24px;border-radius:6px;background:#1e1e24;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+.auction-item.you{border:1px solid var(--accent);background:#1a1410}
+.auction-item .bar{flex:1;height:6px;background:#1a1a1e;border-radius:3px;overflow:hidden}
+.auction-item .bar-fill{height:100%;background:var(--blue);width:0;transition:width .8s ease}
+.funnel{display:flex;flex-direction:column;gap:12px}
+.funnel-row{display:flex;align-items:center;gap:12px}
+.funnel-bar{height:28px;border-radius:6px;transition:width 1s ease;display:flex;align-items:center;padding:0 12px;font-size:12px;font-weight:600;color:#fff;width:0}
+.bars-chart{display:flex;align-items:flex-end;gap:12px;height:180px;padding-top:20px}
+.bars-chart .col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.bars-chart .col-bar{width:100%;background:var(--blue);border-radius:6px 6px 0 0;height:0;transition:height 1s ease}
+.bars-chart .col-bar.green{background:var(--green)}
+.bars-chart .col-lbl{font-size:11px;color:var(--muted)}
+.roi-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.roi-box{background:#16161a;border-radius:10px;padding:16px;text-align:center}
+.roi-box .num{font-size:26px;font-weight:800}
+.roi-box .lbl{font-size:11px;color:var(--muted);margin-top:4px}
+.roi-list{display:flex;flex-direction:column;gap:8px}
+.roi-item{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:6px 0}
+.roi-item .bar{width:60px;height:6px;background:#1a1a1e;border-radius:3px;overflow:hidden}
+.roi-item .bar-fill{height:100%;background:var(--accent);width:0;transition:width .8s}
+.section{padding:90px 24px}.section-inner{max-width:1200px;margin:0 auto}
+.section-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.section-label::after{content:'';width:32px;height:2px;background:var(--accent)}
+.section h2{font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.8px;margin-bottom:12px}
+.section h2 .blue{color:var(--blue)}
+.section-desc{color:var(--muted);max-width:520px;margin-bottom:40px}
+.includes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.include-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:24px;transition:.3s}
+.include-card:hover{transform:translateY(-4px);border-color:#3a3a42}
+.include-icon{width:40px;height:40px;border-radius:10px;background:#1e1e24;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:14px;color:var(--blue)}
+.include-card h3{font-size:14px;font-weight:700;margin-bottom:12px}
+.include-card ul{list-style:none}
+.include-card li{font-size:13px;color:var(--muted);padding:3px 0;padding-left:16px;position:relative}
+.include-card li::before{content:'✓';position:absolute;left:0;color:var(--green);font-size:11px}
+.platforms{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}
+.plat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:24px}
+.plat-card h3{font-size:16px;font-weight:700;margin-bottom:4px}
+.plat-card .sub{font-size:12px;color:var(--green);margin-bottom:12px}
+.plat-card p{font-size:13px;color:var(--muted);margin-bottom:14px}
+.plat-card ul{list-style:none}
+.plat-card li{font-size:13px;color:var(--muted);padding:4px 0;padding-left:16px;position:relative}
+.plat-card li::before{content:'✓';position:absolute;left:0;color:var(--green)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.price-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px;position:relative;transition:.3s}
+.price-card:hover{transform:translateY(-4px);border-color:#3a3a42}
+.price-card.popular{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.price-card .pop{position:absolute;top:-10px;right:20px;background:var(--accent);color:#fff;font-size:11px;padding:3px 12px;border-radius:12px;font-weight:600}
+.price-card h3{font-size:14px;font-weight:700;margin-bottom:4px;color:var(--muted)}
+.price-card .price{font-size:28px;font-weight:900;margin:12px 0}
+.price-card ul{list-style:none;margin:16px 0 24px}
+.price-card li{font-size:13px;color:var(--muted);padding:4px 0;padding-left:16px;position:relative}
+.price-card li::before{content:'✓';position:absolute;left:0;color:var(--green)}
+.price-card 
+
+
+
+
+
+
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+.form-group input,.form-group textare
+.form-group input:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textare
+
+
+
+
+@media(max-width:900px){
+.page-hero-inner,.path-grid{grid-template-columns:1fr}
+.includes-grid,.platforms,.pricing-grid{grid-template-columns:1fr}
+
+.path-wrapper{height:auto}
+.path-inner{position:relative;height:auto;padding:60px 24px}
+.path-steps{flex-direction:row;overflow-x:auto}
+.path-steps::before{display:none}
+.path-step p{display:none}
+}
+
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="left"><span>📍</span> Работаем по всему Казахстану</div>
+  <div class="right">
+    <a href="tel:+77000000000">+7 700 000 00 00</a>
+    <a href="#">WhatsApp</a>
+    <div class="lang"><span class="active">RU</span><span>KZ</span><span>EN</span></div>
+  </div>
+</div>
+<header>
+  <div class="nav">
+    <a href="#" class="logo" onclick="showView('home');return false">GROWTH<span>.</span></a>
+    <nav class="nav-links">
+      <div class="nav-item">
+        <a href="#" onclick="showView('sites');return false">Создание сайта ▾</a>
+        <div class="dropdown">
+          <a href="#" onclick="showView('sites');return false">Лендинг</a>
+          <a href="#" onclick="showView('sites');return false">Корпоративный сайт</a>
+          <a href="#" onclick="showView('sites');return false">Интернет-магазин</a>
+        </div>
+      </div>
+      <a href="#" onclick="showView('seo');return false">Продвижение</a>
+      <a href="#" onclick="showView('ads');return false">Реклама</a>
+      <a href="#" onclick="openModal();return false">Битрикс24</a>
+      <a href="#" onclick="showView('support');return false">Сопровождение</a>
+      <a href="#" onclick="showView('home');setTimeout(()=>document.getElementById('portfolio')?.scrollIntoView({behavior:'smooth'}),50);return false">Портфолио</a>
+    </nav>
+    <button class="btn btn-primary" onclick="openModal()">⚡ Получить аудит</button>
+  </div>
+</header>
+<div id="view-home" class="page-view active">
+
+<style>.nav-item:hover .dropdown{opacity:1!important;visibility:visible!important;transform:translateX(-50%) translateY(4px)!important}.dropdown a:hover{background:#1e1e24;color:var(--text)}</style>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-label">ВЕБ-АГЕНТСТВО</div>
+      <h1>СОЗДАНИЕ<br>САЙТОВ<br>И <span class="accent">ПРОДВИЖЕНИЕ</span><br>В КАЗАХСТАНЕ</h1>
+      <p>Разработка, SEO и реклама как единая система. 15 лет строим интернет-продажи для бизнеса в Казахстане — от лендинга до магазина с интеграцией в CRM.</p>
+      <div class="hero-btns">
+        <a href="#audit" class="btn btn-primary">⚡ Бесплатный аудит сайта</a>
+        <a href="#how" class="btn btn-outline">Как мы работаем ↓</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <canvas id="heroParticles" width="520" height="420"></canvas>
+    </div>
+  </div>
+</section>
+
+<div class="marquees">
+  <div class="marquee-row marquee-top"><div class="marquee-track" id="marqueeTopTrack"></div></div>
+  <div class="marquee-row marquee-bottom"><div class="marquee-track" id="marqueeBottomTrack"></div></div>
+</div>
+
+<div class="particles-wrapper" id="particlesSticky">
+  <div class="particles-inner">
+    <canvas id="particlesCanvas" width="900" height="340"></canvas>
+    <div class="particles-caption" id="particlesCaption">
+      <h3>СОЗДАЁМ САЙТЫ ПОД КЛЮЧ</h3>
+      <p>От хаоса точек — к цельному результату</p>
+    </div>
+  </div>
+</div>
+
+<section class="section" id="services">
+  <div class="section-inner">
+    <div class="section-label">услуги</div>
+    <h2>ОДНА КОМАНДА — <span class="light">ВЕСЬ МАРКЕТИНГ</span></h2>
+    <p class="section-desc">Разработка, трафик и аналитика в одних руках и в одной смете.</p>
+    <div class="services-grid">
+      <div class="service-card" id="cardDev">
+        <div class="code-preview" id="codePreview"><span style="color:#555">// наведите курсор</span></div>
+        <div class="service-title">РАЗРАБОТКА САЙТОВ</div>
+        <div class="service-desc">Лендинги, корпоративные сайты и интернет-магазины на WordPress или Django — с интеграцией в CRM.</div>
+        <div class="service-footer">
+          <div class="service-price">СТАРТ<br><strong>от 250 000 ₸</strong></div>
+          <a href="#audit" class="service-btn">→</a>
+        </div>
+      </div>
+      <div class="service-card" id="cardSeo">
+        <div class="stats-row">
+          <div class="stat-box"><div class="num" data-target="96.9" data-suffix=" тыс.">96,9 тыс.</div><div class="delta">↑ было 4,8 тыс.</div><div class="label">ПОКАЗЫ</div></div>
+          <div class="stat-box"><div class="num" data-target="1080">1 080</div><div class="delta">↑ было 733</div><div class="label">КЛИКИ</div></div>
+          <div class="stat-box"><div class="num" data-target="14.6">14,6</div><div class="delta">↑ с 27,8</div><div class="label">СР. ПОЗИЦИЯ</div></div>
+        </div>
+        <div class="service-title">SEO-ПРОДВИЖЕНИЕ</div>
+        <div class="service-desc">Технический аудит, семантика, контент и ссылки. Google, Яндекс и AI-поиск.</div>
+        <div class="service-footer">
+          <div class="service-price">В МЕСЯЦ<br><strong>от 100 000 ₸</strong></div>
+          <a href="#audit" class="service-btn">→</a>
+        </div>
+      </div>
+      <div class="service-card" id="cardAds">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-weight:700;display:flex;align-items:center;gap:8px;font-size:14px"><span style="color:#4285f4;font-weight:800">G</span> Google Ads</div>
+          <span style="font-size:10px;background:#1a3a1a;color:#22c55e;padding:3px 8px;border-radius:6px;font-weight:600">ПРЕМЬЕР-ПАРТНЁР</span>
+        </div>
+        <div class="ads-metrics">
+          <div class="metric"><div class="v" data-target="184" style="color:#22c55e">184</div><div class="l">Заявки / мес</div></div>
+          <div class="metric"><div class="v" data-target="3420">3 420</div><div class="l">Клики</div></div>
+          <div class="metric"><div class="v" data-target="58.2" data-suffix="K">58,2K</div><div class="l">Показы</div></div>
+          <div class="metric"><div class="v" data-target="1850" data-suffix=" ₸">1 850 ₸</div><div class="l">Цена заявки</div></div>
+        </div>
+        <div class="chart-wrap">
+          <svg class="chart-svg" viewBox="0 0 300 70" preserveAspectRatio="none">
+            <defs><linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3b82f6" stop-opacity="0.35"/><stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/></linearGradient></defs>
+            <path class="area" d="M0,55 Q50,48 80,42 T160,30 T240,18 T300,8 L300,70 L0,70 Z"/>
+            <path id="chartLine" d="M0,55 Q50,48 80,42 T160,30 T240,18 T300,8"/>
+          </svg>
+        </div>
+        <div class="service-title">КОНТЕКСТНАЯ РЕКЛАМА</div>
+        <div class="service-desc">Google Ads, Яндекс Директ, товарные кампании и ремаркетинг.</div>
+        <div class="service-footer">
+          <div class="service-price">В МЕСЯЦ<br><strong>от 100 000 ₸</strong></div>
+          <a href="#audit" class="service-btn">→</a>
+        </div>
+      </div>
+      <div class="service-card">
+        <div style="font-weight:700;color:#2fc6f6;font-size:14px">Битрикс24®</div>
+        <div style="background:#0f0f12;border-radius:10px;padding:14px;display:flex;gap:8px">
+          <div style="flex:1;background:#16161a;border-radius:6px;padding:8px;font-size:11px;color:#888"><div style="color:#22c55e;margin-bottom:6px">● ЗАЯВКА</div><div style="height:7px;background:#222;border-radius:2px;margin-bottom:4px"></div><div style="height:7px;background:#222;border-radius:2px;width:70%"></div></div>
+          <div style="flex:1;background:#16161a;border-radius:6px;padding:8px;font-size:11px;color:#888"><div style="color:#f59e0b;margin-bottom:6px">● В РАБОТЕ</div><div style="height:7px;background:#222;border-radius:2px;margin-bottom:4px"></div><div style="height:7px;background:#222;border-radius:2px;width:50%"></div></div>
+          <div style="flex:1;background:#16161a;border-radius:6px;padding:8px;font-size:11px;color:#888"><div style="color:#22c55e;margin-bottom:6px">● СДЕЛКА</div><div style="height:7px;background:#22c55e;border-radius:2px;margin-bottom:4px;width:80%"></div><div style="height:7px;background:#222;border-radius:2px;width:40%"></div></div>
+        </div>
+        <div class="service-title">БИТРИКС24</div>
+        <div class="service-desc">Внедрение CRM, воронки продаж, интеграция с сайтом и телефония.</div>
+        <div class="service-footer">
+          <div class="service-price">ВНЕДРЕНИЕ<br><strong>от 50 000 ₸</strong></div>
+          <a href="#audit" class="service-btn">→</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="how-wrapper" id="how">
+  <div class="how-inner">
+    <div class="how-content">
+      <div class="section-label">КАК ЭТО РАБОТАЕТ</div>
+      <h2>ОТ КЛИКА — ДО <span class="light">ЗАЯВКИ</span></h2>
+      <div class="how-grid">
+        <div class="steps-list">
+          <div class="step-item" data-step="0"><div class="step-icon">🔍</div><div class="step-text"><h4>Находят вас в поиске</h4><p>SEO и реклама приводят целевой трафик из Google и Яндекс</p></div></div>
+          <div class="step-item" data-step="1"><div class="step-icon">&lt;/&gt;</div><div class="step-text"><h4>Заходят на быстрый сайт</h4><p>Скорость, удобство и понятная структура — под конверсию</p></div></div>
+          <div class="step-item" data-step="2"><div class="step-icon">✈</div><div class="step-text"><h4>Оставляют заявку</h4><p>Формы, WhatsApp и звонки — сразу в Битрикс24, без потерь</p></div></div>
+          <div class="step-item" data-step="3"><div class="step-icon">📈</div><div class="step-text"><h4>Растёт прибыль</h4><p>Отчёты по заявкам и цене клиента, а не по показам</p></div></div>
+        </div>
+        <div class="demo-screen" id="demoScreen">
+          <div class="demo-inner" id="demoInner">
+            <div class="demo-url">
+              <span class="dot" style="background:#ff5f57"></span>
+              <span class="dot" style="background:#febc2e"></span>
+              <span class="dot" style="background:#28c840"></span>
+              <span class="name">zhara.kz</span>
+            </div>
+            <div class="search-bar" id="searchBar">🔍 <span id="searchText"></span><span class="cursor-blink" id="searchCursor"></span></div>
+            <div class="demo-bars" id="demoBars">
+              <div class="demo-bar"><div class="fill" id="bar0"></div></div>
+              <div class="demo-bar"><div class="fill" id="bar1"></div></div>
+              <div class="demo-bar"><div class="fill" id="bar2"></div></div>
+            </div>
+            <div class="cta-wrap"><button class="cta-btn-demo" id="ctaDemo">Оставить заявку</button></div>
+            <div class="fake-cursor" id="fakeCursor"><svg viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-6.5 1.5L9 21z"/></svg></div>
+            <div class="notif" id="notif">✈ Новая заявка <span class="badge">+1 в CRM</span></div>
+          </div>
+          <div class="leads-counter" id="leadsCounter"><span id="leadsNum">0</span> <span>ЗАЯВОК / МЕС</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section" id="portfolio">
+  <div class="section-inner">
+    <div class="section-label">ПОРТФОЛИО</div>
+    <h2>НАШИ <span style="color:var(--accent)">ПРОЕКТЫ</span></h2>
+    <p class="section-desc">Реальные сайты, которые приносят заявки.</p>
+    <div class="portfolio-grid">
+      <a class="project-card" href="https://dlyakk458-lab.github.io/bebento/" target="_blank" rel="noopener">
+        <div class="project-img"><span class="project-badge flag">Флагман · Шаблон</span><img src="img/miette.png" alt="Miette"></div>
+        <div class="project-body"><h4>Miette</h4><p>Бенто-торты · шаблон</p><span class="project-tag">Шаблон</span></div>
+      </a>
+      <a class="project-card" href="https://dlyakk458-lab.github.io/lad/" target="_blank" rel="noopener">
+        <div class="project-img"><span class="project-badge flag">Флагман · Кейс</span><img src="img/lad.png" alt="ЛАД"></div>
+        <div class="project-body"><h4>ЛАД</h4><p>Сайт починки гитар · кейс</p><span class="project-tag">Кейс</span></div>
+      </a>
+      <a class="project-card" href="https://limoch.github.io/flower_shop_template/" target="_blank" rel="noopener">
+        <div class="project-img"><span class="project-badge">Шаблон</span><img src="img/limoch.png" alt="LIMOCH"></div>
+        <div class="project-body"><h4>LIMOCH</h4><p>Сайт для цветов · шаблон</p><span class="project-tag">Шаблон</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="process">
+  <div class="section-inner">
+    <div class="section-label">ЭТАПЫ РАБОТЫ</div>
+    <h2>КАК ИДЁТ <span class="light">ПРОЕКТ</span></h2>
+    <p class="section-desc">Прозрачный процесс без сюрпризов.</p>
+    <div class="process-grid">
+      <div class="process-card"><div class="process-num"><span>01</span><div class="process-icon">🔍</div></div><h4>АУДИТ И СМЕТА</h4><p>Бесплатно проверяем текущий сайт и нишу, считаем точную смету и сроки.</p></div>
+      <div class="process-card"><div class="process-num"><span>02</span><div class="process-icon">✎</div></div><h4>ПРОТОТИП И ДИЗАЙН</h4><p>Сначала структура и продающие смыслы, потом дизайн.</p></div>
+      <div class="process-card"><div class="process-num"><span>03</span><div class="process-icon">&lt;/&gt;</div></div><h4>РАЗРАБОТКА</h4><p>Собираем сайт, подключаем CRM, аналитику и формы.</p></div>
+      <div class="process-card"><div class="process-num"><span>04</span><div class="process-icon">🚀</div></div><h4>ТРАФИК И РОСТ</h4><p>Запускаем SEO и рекламу, ведём отчётность по заявкам.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="code-sticky-wrapper" id="codeSticky">
+  <div class="code-sticky-inner">
+    <div class="code-content">
+      <div class="code-text">
+        <div class="section-label">ЗА КАДРОМ</div>
+        <h2 id="codeTitle">КАЖДЫЙ САЙТ — <span class="orange">С НУЛЯ</span></h2>
+        <p id="codeDesc">Проектируем структуру и дизайн под ваши задачи.</p>
+      </div>
+      <div class="code-window">
+        <div class="code-window-header">
+          <span class="dot" style="background:#ff5f57"></span>
+          <span class="dot" style="background:#febc2e"></span>
+          <span class="dot" style="background:#28c840"></span>
+          <span class="fname">growth-hero.php</span>
+        </div>
+        <div class="code-body"><span id="typedCode"></span><span class="code-cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section" id="faq">
+  <div class="section-inner">
+    <div class="faq-grid">
+      <div>
+        <div class="section-label">ВОПРОСЫ И ОТВЕТЫ</div>
+        <h2>ЧТО ОБЫЧНО<br><span class="light">СПРАШИВАЮТ</span></h2>
+        <p class="section-desc">Не нашли свой вопрос — напишите в WhatsApp.</p>
+        <a href="#" class="btn btn-outline" style="margin-top:8px">💬 Задать вопрос</a>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item"><button class="faq-q">Сколько стоит сайт и от чего зависит цена? <span class="icon">+</span></button><div class="faq-a">Лендинг — от 250 000 ₸, корпоративный — от 400 000 ₸. Точную смету даём после бесплатного аудита.</div></div>
+        <div class="faq-item"><button class="faq-q">Какие сроки разработки? <span class="icon">+</span></button><div class="faq-a">Лендинг — 2–3 недели, корпоративный — 4–6 недель, магазин — 6–10 недель.</div></div>
+        <div class="faq-item"><button class="faq-q">На чём вы делаете сайты? <span class="icon">+</span></button><div class="faq-a">WordPress + WooCommerce, Django, Битрикс24, чистый HTML/JS.</div></div>
+        <div class="faq-item"><button class="faq-q">Когда SEO даст результат? <span class="icon">+</span></button><div class="faq-a">Первые изменения — через 2–3 месяца. Стабильный рост — через 4–6 месяцев.</div></div>
+        <div class="faq-item"><button class="faq-q">Что входит в сопровождение? <span class="icon">+</span></button><div class="faq-a">Обновления, бэкапы, мониторинг, мелкие правки, поддержка 24/7 и отчёты.</div></div>
+        <div class="faq-item"><button class="faq-q">Как проходит оплата? <span class="icon">+</span></button><div class="faq-a">Обычно 50% предоплата + 50% после сдачи. Работаем по договору.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="audit" id="audit">
+  <div class="audit-inner">
+    <div class="section-label" style="justify-content:center">БЕСПЛАТНЫЙ АУДИТ</div>
+    <h2>ПОКАЖЕМ, ГДЕ ВАШ САЙТ<br><span class="orange">ТЕРЯЕТ КЛИЕНТОВ</span></h2>
+    <p>Проверим SEO, скорость, удобство и конверсию. Пришлём отчёт с конкретными шагами.</p>
+    <form class="audit-form" onsubmit="event.preventDefault();alert('Спасибо! Свяжемся в течение рабочего дня.');">
+      <input type="text" placeholder="Ваше имя" required/>
+      <input type="tel" placeholder="+7 ___ ___ __ __" required/>
+      <button type="submit">✈ Получить аудит</button>
+    </form>
+    <div class="audit-note">⏱ Отвечаем в течение рабочего дня</div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><div class="logo">GROWTH<span>.</span></div><p>Веб-агентство полного цикла. Создаём сайты, приводим трафик и строим продажи в Казахстане.</p></div>
+    <div class="footer-links">
+      <div class="footer-col"><h5>Услуги</h5><a href="#services">Разработка сайтов</a><a href="#services">SEO-продвижение</a><a href="#services">Контекстная реклама</a><a href="#services">Битрикс24</a></div>
+      <div class="footer-col"><h5>Компания</h5><a href="#portfolio">Портфолио</a><a href="#process">Как мы работаем</a><a href="#faq">FAQ</a><a href="#audit">Контакты</a></div>
+      <div class="footer-col"><h5>Связь</h5><a href="tel:+77000000000">+7 700 000 00 00</a><a href="mailto:hello@growth.kz">hello@growth.kz</a><a href="#">WhatsApp</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 GROWTH. Все права защищены.</span><span>Работаем по всему Казахстану</span></div>
+</footer>
+
+<a href="#" class="wa-float" title="WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+
+
+</div><!-- end view-home -->
+<div id="view-sites" class="page-view">
+<section class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-inner">
+    <div>
+      <div class="breadcrumb"><a href="../index.html">Главная</a> › Разработка сайтов</div>
+      <div class="page-label" id="heroLabel">РАЗРАБОТКА САЙТОВ</div>
+      <h1 id="heroTitle">СОЗДАНИЕ САЙТА<br><span class="blue">ЛЮБОЙ</span><br>СЛОЖНОСТИ</h1>
+      <p id="heroDesc">Проектируем структуру под задачи бизнеса, пишем чистый код — быстро и с SEO-основой. От лендинга до интернет-магазина с интеграциями в CRM и 1С. Наполняем, запускаем и ведём проект дальше.</p>
+      <div class="page-hero-btns" id="heroBtns">
+        <button class="btn btn-primary" onclick="openModal()">⚡ Обсудить проект</button>
+        <button class="btn btn-outline">Цены и тарифы ↓</button>
+      </div>
+    </div>
+    <div class="hero-side-card" id="heroCard">
+      <div class="side-item"><div class="side-icon">⚡</div><div><h4>Лендинг</h4><p>одна страница под конкретную задачу</p></div><span class="arrow">→</span></div>
+      <div class="side-item"><div class="side-icon">🏢</div><div><h4>Корпоративный сайт</h4><p>услуги, портфолио, блог и заявки</p></div><span class="arrow">→</span></div>
+      <div class="side-item"><div class="side-icon">🛒</div><div><h4>Интернет-магазин</h4><p>каталог, корзина, оплата и доставка</p></div><span class="arrow">→</span></div>
+      <div class="side-item"><div class="side-icon">🔧</div><div><h4>Индивидуальный проект</h4><p>портал, личный кабинет, веб-сервис</p></div><span class="arrow">→</span></div>
+      <div class="side-footer">🔌 Интеграции: 1С, Kaspi, CRM, платёжные системы</div>
+    </div>
+  </div>
+</section>
+
+<!-- Sticky birth animation -->
+<div class="birth-wrapper" id="birthWrapper">
+  <div class="birth-inner">
+    <div class="birth-content">
+      <div class="birth-label">КАК МЫ РАБОТАЕМ</div>
+      <h2 class="birth-title">САЙТ РОЖДАЕТСЯ<br>НА ВАШИХ ГЛАЗАХ</h2>
+      <div class="birth-grid">
+        <div class="birth-steps">
+          <div class="birth-step" data-step="0"><div class="num">01</div><div><h4>СТРУКТУРА</h4><p>Проектируем разделы, экраны и логику страниц под ваши задачи.</p></div></div>
+          <div class="birth-step" data-step="1"><div class="num">02</div><div><h4>ДИЗАЙН</h4><p>Фирменный стиль: цвета, шрифты и акценты — чисто и узнаваемо.</p></div></div>
+          <div class="birth-step" data-step="2"><div class="num">03</div><div><h4>КОНТЕНТ</h4><p>Продающие тексты, фото и наполнение каждой секции.</p></div></div>
+          <div class="birth-step" data-step="3"><div class="num">04</div><div><h4>АДАПТИВ</h4><p>Идеально выглядит на телефоне, планшете и десктопе.</p></div></div>
+          <div class="birth-step" data-step="4"><div class="num">05</div><div><h4>ЗАПУСК</h4><p>Публикуем, подключаем формы и аналитику — заявки пошли.</p></div></div>
+        </div>
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dot" style="background:#ff5f57"></div>
+            <div class="browser-dot" style="background:#febc2e"></div>
+            <div class="browser-dot" style="background:#28c840"></div>
+            <div class="browser-url">teplaya.kz</div>
+            <div class="browser-tag" id="browserTag">КАРКАС</div>
+          </div>
+          <div class="browser-body">
+            <!-- Stage 0: Structure -->
+            <div class="browser-stage active" data-stage="0">
+              <div class="wire">
+                <div class="wire-block lg"></div>
+                <div class="wire-block sm"></div>
+                <div class="wire-row"><div class="wire-block"></div><div class="wire-block"></div><div class="wire-block"></div></div>
+                <div class="wire-block" style="height:40px;width:40%"></div>
+              </div>
+            </div>
+            <!-- Stage 1: Design -->
+            <div class="browser-stage" data-stage="1">
+              <div class="design-bar"><div style="width:40px;height:20px;background:#3b82f6;border-radius:4px"></div><div style="flex:1"></div><div class="design-btn"></div></div>
+              <div class="design-content"><div style="height:16px;background:#2a2a30;border-radius:4px;width:70%;margin:0 auto 8px"></div><div style="height:10px;background:#222;border-radius:3px;width:50%;margin:0 auto 16px"></div><div class="design-cta" style="opacity:.5">Заказать</div></div>
+              <div class="design-cards"><div class="design-card"></div><div class="design-card"></div><div class="design-card"></div></div>
+            </div>
+            <!-- Stage 2: Content -->
+            <div class="browser-stage" data-stage="2">
+              <div class="design-bar"><div style="width:40px;height:20px;background:#3b82f6;border-radius:4px"></div><div style="flex:1"></div><div class="design-btn"></div></div>
+              <div class="design-content">
+                <h3>Свежий кофе<br>каждый день</h3>
+                <p>Свежая обжарка · доставка за 40 минут</p>
+                <div class="design-cta">Заказать</div>
+              </div>
+              <div class="design-cards">
+                <div class="design-card" style="display:flex;align-items:center;justify-content:center;font-size:22px">☕</div>
+                <div class="design-card" style="display:flex;align-items:center;justify-content:center;font-size:22px">🫘</div>
+                <div class="design-card" style="display:flex;align-items:center;justify-content:center;font-size:22px">📦</div>
+              </div>
+            </div>
+            <!-- Stage 3: Adaptive -->
+            <div class="browser-stage" data-stage="3">
+              <div class="design-bar"><div style="width:40px;height:20px;background:#3b82f6;border-radius:4px"></div><div style="flex:1"></div><div class="design-btn"></div></div>
+              <div class="design-content">
+                <h3>Свежий кофе<br>каждый день</h3>
+                <p>Свежая обжарка · доставка за 40 минут</p>
+                <div class="design-cta">Заказать</div>
+              </div>
+              <div class="design-cards">
+                <div class="design-card" style="display:flex;align-items:center;justify-content:center;font-size:22px">☕</div>
+                <div class="design-card" style="display:flex;align-items:center;justify-content:center;font-size:22px">🫘</div>
+                <div class="design-card" style="display:flex;align-items:center;justify-content:center;font-size:22px">📦</div>
+              </div>
+              <div class="phone-mock" id="phoneMock">
+                <div class="phone-screen">
+                  <div class="phone-line" style="width:40%;margin:0 auto 10px"></div>
+                  <div class="phone-line orange"></div>
+                  <div class="phone-line"></div>
+                  <div class="phone-line" style="width:80%"></div>
+                  <div class="phone-line" style="height:30px;margin-top:12px"></div>
+                </div>
+              </div>
+            </div>
+            <!-- Stage 4: Launch -->
+            <div class="browser-stage" data-stage="4">
+              <div class="design-bar"><div style="width:40px;height:20px;background:#3b82f6;border-radius:4px"></div><div style="flex:1"></div><div class="design-btn"></div></div>
+              <div class="status-online" id="statusOnline">● ОНЛАЙН</div>
+              <div class="design-content">
+                <h3>Свежий кофе<br>каждый день</h3>
+                <p>Свежая обжарка · доставка за 40 минут</p>
+                <div class="design-cta">Заказать</div>
+              </div>
+              <div class="design-cards">
+                <div class="design-card" style="display:flex;align-items:center;justify-content:center;font-size:22px">☕</div>
+                <div class="design-card" style="display:flex;align-items:center;justify-content:center;font-size:22px">🫘</div>
+                <div class="design-card" style="display:flex;align-items:center;justify-content:center;font-size:22px">📦</div>
+              </div>
+              <div class="phone-mock show">
+                <div class="phone-screen">
+                  <div class="phone-line" style="width:40%;margin:0 auto 10px"></div>
+                  <div class="phone-line orange"></div>
+                  <div class="phone-line"></div>
+                  <div class="phone-line" style="width:80%"></div>
+                </div>
+              </div>
+              <div class="notif-bar" id="notifBar">🔔 Новая заявка с сайта</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label">СОСТАВ УСЛУГИ</div>
+    <h2>ЧТО ВХОДИТ В <span class="blue">РАЗРАБОТКУ</span></h2>
+    <p class="section-desc">Полный цикл создания веб-проекта: от концепции и сбора информации до программирования, тестирования и запуска.</p>
+    <div class="includes-grid">
+      <div class="include-card"><div class="include-icon">🔍</div><h3>СБОР И АНАЛИЗ ИНФОРМАЦИИ</h3><ul><li>Выявление потребностей: анкетирование заказчика</li><li>Анализ сайтов конкурентов в нише</li><li>Формирование общего ТЗ на проект</li><li>Отдельные ТЗ программисту и дизайнеру</li><li>Контроль сбора и приём информации для сайта</li></ul></div>
+      <div class="include-card"><div class="include-icon">📐</div><h3>ПРОЕКТИРОВАНИЕ ЮЗАБИЛИТИ</h3><ul><li>Главная, о компании, каталог, карточка, контакты</li><li>Формы связи и формы заказа</li><li>Страница ошибки 404 и поиск по сайту</li><li>Мобильная адаптивность всех страниц</li><li>Кроссбраузерная вёрстка</li></ul></div>
+      <div class="include-card"><div class="include-icon">🗂</div><h3>СТРУКТУРА И НАВИГАЦИЯ</h3><ul><li>Структура коммерческих разделов и рубрикация</li><li>Структура информационных разделов</li><li>Меню сайта и хлебные крошки</li><li>Дефолтная перелинковка страниц и разделов</li><li>Навигационные виджеты и баннеры</li></ul></div>
+      <div class="include-card"><div class="include-icon">&lt;/&gt;</div><h3>ДИЗАЙН И РАЗРАБОТКА</h3><ul><li>Выбор, настройка и посадка дизайна</li><li>WordPress с WooCommerce или своя админка на Django</li><li>Наполнение контентом страниц и каталога</li><li>Подключение CTA-кнопок и всплывающих форм</li><li>Раздел блога и статьи</li></ul></div>
+      <div class="include-card"><div class="include-icon">🚀</div><h3>SEO-ОСНОВА И АНАЛИТИКА</h3><ul><li>Базовая SEO-оптимизация под поиск</li><li>Настройка систем аналитики</li><li>Настройка форм обратной связи</li><li>Готовность к продвижению с первого дня</li><li>Корректные мета-теги и микроразметка</li></ul></div>
+      <div class="include-card"><div class="include-icon">🛡</div><h3>ЗАПУСК И ЗАЩИТА</h3><ul><li>Подключение домена</li><li>Выпуск и настройка SSL</li><li>Установка на хостинг</li><li>Настройка кэширования и ускорение сайта</li><li>Антивирусная защита проекта</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="section-inner">
+    <div class="section-label">ПОРТФОЛИО</div>
+    <h2>НАШИ <span class="blue">ПРОЕКТЫ</span></h2>
+    <div class="portfolio-grid" style="margin-top:32px">
+      <div class="project-card"><div class="project-img">Проект 1</div><div class="project-body"><h4>Бабалар ізі</h4><p>Культурный проект</p></div></div>
+      <div class="project-card"><div class="project-img">Проект 2</div><div class="project-body"><h4>Экономия ресурсов</h4><p>Промышленность</p></div></div>
+      <div class="project-card"><div class="project-img">Проект 3</div><div class="project-body"><h4>Инновационный инжиниринг</h4><p>Нефтегаз и энергетика</p></div></div>
+    </div>
+  </div>
+</section>
+
+
+
+
+</div>
+</div>
+
+<div id="view-seo" class="page-view">
+<section class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-inner">
+    <div>
+      <div class="breadcrumb"><a href="../index.html">Главная</a> › SEO-продвижение</div>
+      <div class="page-label">SEO-ПРОДВИЖЕНИЕ</div>
+      <h1>ПРОДВИЖЕНИЕ<br>САЙТОВ<br>В <span class="blue">КАЗАХСТАНЕ</span></h1>
+      <p>Выводим сайты в топ Google и Яндекса по всему Казахстану белыми методами — без накруток и рисков. Аудит, семантическое ядро, контент и ссылки, а в отчётах — позиции и заявки, а не сухие показы.</p>
+      <div class="page-hero-btns">
+        <button class="btn btn-primary" onclick="openModal()">🔍 Получить аудит</button>
+        <button class="btn btn-outline">Цены и тарифы ↓</button>
+      </div>
+    </div>
+    <div class="seo-mock" style="position:relative">
+      <div class="seo-mock-bar">
+        <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57;display:inline-block"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#febc2e;display:inline-block"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#28c840;display:inline-block"></span>
+        <span style="margin-left:8px">ваш-сайт.kz /remont-kvartir</span>
+        <span style="margin-left:auto;color:var(--accent)">SEO-АУДИТ</span>
+      </div>
+      <div class="seo-mock-body" id="seoTyping">
+        <div class="seo-line" data-i="0"><span class="tag">&lt;title&gt;</span> Ремонт квартир в Астане — под ключ <span class="tag">&lt;/title&gt;</span> <span class="ok">✓</span></div>
+        <div class="seo-line" data-i="1"><span class="tag">&lt;meta description&gt;</span> Ремонт квартир под ключ: смета за день... <span class="ok">✓</span></div>
+        <div class="seo-line" data-i="2"><span class="tag">H1</span> <span class="val">Ремонт квартир в Астане</span> <span class="ok">✓</span></div>
+        <div class="seo-line" data-i="3" style="margin-top:12px"><span class="tag">alt=</span>"ремонт" <span class="ok">✓</span></div>
+        <div class="seo-line" data-i="4"><span class="tag">schema</span> LocalBusiness <span class="ok">✓</span></div>
+      </div>
+      <div class="seo-score"><div>84</div><span>SEO-SCORE</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="path-wrapper" id="pathWrapper">
+  <div class="path-inner">
+    <div class="path-content">
+      <div class="path-label">КАК МЫ ПРОДВИГАЕМ</div>
+      <h2 class="path-title">ВЕСЬ ПУТЬ САЙТА ДО<br><span style="color:var(--blue)">ТОПА</span></h2>
+      <div class="path-grid">
+        <div class="path-steps">
+          <div class="path-step" data-s="0"><div class="num">01</div><div><h4>СЕМАНТИКА</h4><p>Собираем и кластеризуем ядро запросов.</p></div></div>
+          <div class="path-step" data-s="1"><div class="num">02</div><div><h4>ТЕХНИКА</h4><p>Чиним ошибки, ускоряем, размечаем.</p></div></div>
+          <div class="path-step" data-s="2"><div class="num">03</div><div><h4>КОНТЕНТ</h4><p>Пишем продающие тексты под ключи.</p></div></div>
+          <div class="path-step" data-s="3"><div class="num">04</div><div><h4>ССЫЛКИ</h4><p>Наращиваем траст белыми методами.</p></div></div>
+          <div class="path-step" data-s="4"><div class="num">05</div><div><h4>РЕЗУЛЬТАТ</h4><p>Запросы в топе, трафик и заявки.</p></div></div>
+        </div>
+        <div class="path-card" id="pathCard">
+          <!-- Stage 0: Semantics -->
+          <div class="path-stage" data-stage="0">
+            <div class="path-card-title">Семантическое ядро <span class="badge">587 запросов</span></div>
+            <div class="tags-cloud" id="tagsCloud">
+              <span class="tag-pill">ремонт квартир астана</span>
+              <span class="tag-pill hot">дизайн интерьера</span>
+              <span class="tag-pill">отделка под ключ</span>
+              <span class="tag-pill">ремонт ванной</span>
+              <span class="tag-pill">натяжные потолки</span>
+              <span class="tag-pill">перепланировка</span>
+              <span class="tag-pill hot">укладка плитки</span>
+              <span class="tag-pill">ремонт офиса</span>
+              <span class="tag-pill">евроремонт цена</span>
+              <span class="tag-pill">прораб астана</span>
+              <span class="tag-pill">черновая отделка</span>
+            </div>
+          </div>
+          <!-- Stage 1: Tech -->
+          <div class="path-stage" data-stage="1" style="display:none">
+            <div class="path-card-title">Технический аудит <span class="badge">5/6</span></div>
+            <div class="audit-list" id="auditList">
+              <div class="audit-item"><div class="check"></div>Скорость загрузки</div>
+              <div class="audit-item"><div class="check"></div>Мета-теги Title / Desc</div>
+              <div class="audit-item"><div class="check"></div>robots.txt и sitemap</div>
+              <div class="audit-item"><div class="check"></div>Микроразметка Schema</div>
+              <div class="audit-item"><div class="check"></div>Мобильная версия</div>
+              <div class="audit-item"><div class="check"></div>Перелинковка страниц</div>
+            </div>
+            <div class="circle-progress">
+              <svg width="90" height="90"><circle class="bg" cx="45" cy="45" r="40"/><circle class="fg" id="circFg" cx="45" cy="45" r="40"/></svg>
+              <div class="val"><span id="circVal">0</span><span>PAGESPEED</span></div>
+            </div>
+          </div>
+          <!-- Stage 2: Content -->
+          <div class="path-stage" data-stage="2" style="display:none">
+            <div class="path-card-title">Контент под запросы <span class="badge">18 страниц</span></div>
+            <div class="bars-list" id="barsList">
+              <div class="bar-row"><div class="bar-track"><div class="bar-fill" data-w="95"></div></div></div>
+              <div class="bar-row"><div class="bar-track"><div class="bar-fill" data-w="82"></div></div></div>
+              <div class="bar-row"><div class="bar-track"><div class="bar-fill" data-w="70"></div></div></div>
+              <div class="bar-row"><div class="bar-track"><div class="bar-fill" data-w="58"></div></div></div>
+              <div class="bar-row"><div class="bar-track"><div class="bar-fill" data-w="45"></div></div></div>
+              <div class="bar-row"><div class="bar-track"><div class="bar-fill" data-w="38"></div></div></div>
+            </div>
+          </div>
+          <!-- Stage 3: Links -->
+          <div class="path-stage" data-stage="3" style="display:none">
+            <div class="path-card-title">Ссылочная масса <span class="badge">221 ссылок · DR 53</span></div>
+            <div class="link-net" id="linkNet">
+              <div class="link-center">ВАШ<br>САЙТ</div>
+            </div>
+          </div>
+          <!-- Stage 4: Result -->
+          <div class="path-stage" data-stage="4" style="display:none">
+            <div class="path-card-title">Позиции в поиске <span class="badge" style="background:#16331f;color:var(--green)">топ</span></div>
+            <div class="stats-row">
+              <div class="stat-box"><div class="num" data-count="44">0</div><div class="lbl">в ТОП-10</div></div>
+              <div class="stat-box"><div class="num" data-count="142">0</div><div class="lbl">ссылок</div></div>
+              <div class="stat-box"><div class="num" data-count="5.4">0</div><div class="lbl">трафик/мес (K)</div></div>
+            </div>
+            <div class="pos-list">
+              <div class="pos-item"><span>ремонт квартир астана</span><div style="display:flex;align-items:center;gap:8px"><div class="pos-bar"><div class="pos-bar-fill" data-w="80"></div></div><strong>8</strong></div></div>
+              <div class="pos-item"><span>дизайн интерьера</span><div style="display:flex;align-items:center;gap:8px"><div class="pos-bar"><div class="pos-bar-fill" data-w="50"></div></div><strong>5</strong></div></div>
+              <div class="pos-item"><span>отделка под ключ</span><div style="display:flex;align-items:center;gap:8px"><div class="pos-bar"><div class="pos-bar-fill" data-w="90"></div></div><strong>11</strong></div></div>
+              <div class="pos-item"><span>перепланировка квартиры</span><div style="display:flex;align-items:center;gap:8px"><div class="pos-bar"><div class="pos-bar-fill" data-w="60"></div></div><strong>6</strong></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label">СОСТАВ УСЛУГИ</div>
+    <h2>ЧТО ВХОДИТ В <span class="blue">ПРОДВИЖЕНИЕ</span></h2>
+    <p class="section-desc">Комплексная работа над сайтом: техника, семантика, контент, ссылки и поведенческие факторы — всё, что влияет на позиции в Google и Яндекс.</p>
+    <div class="includes-grid">
+      <div class="include-card"><div class="include-icon">🔍</div><h3>SEO-АУДИТ САЙТА</h3><ul><li>Технический аудит и поиск ошибок индексации</li><li>Анализ сайта и конкурентов в нише</li><li>Оценка текущих позиций и видимости</li><li>Проверка скорости и мобильной версии</li><li>План работ на основе результатов аудита</li></ul></div>
+      <div class="include-card"><div class="include-icon">📋</div><h3>СЕМАНТИЧЕСКОЕ ЯДРО</h3><ul><li>Сбор и кластеризация семантического ядра</li><li>Определение регионов продвижения</li><li>Группировка запросов по страницам</li><li>Приоритизация по спросу и конкуренции</li><li>Карта релевантности под структуру сайта</li></ul></div>
+      <div class="include-card"><div class="include-icon">⚙</div><h3>ТЕХНИЧЕСКАЯ ОПТИМИЗАЦИЯ</h3><ul><li>Правка мета-тегов Title и Description</li><li>Микроразметка Schema.org и заголовки</li><li>Настройка robots.txt, sitemap и ЧПУ</li><li>Ускорение загрузки и Core Web Vitals</li><li>Внутренняя перелинковка страниц</li></ul></div>
+      <div class="include-card"><div class="include-icon">✏</div><h3>КОНТЕНТ И ТЕКСТЫ</h3><ul><li>Добавление уникального контента под запросы</li><li>SEO-тексты для разделов и карточек</li><li>Статьи в блог под информационные ключи</li><li>Оптимизация под AI-поиск и быстрые ответы</li><li>Улучшение usability и поведенческих факторов</li></ul></div>
+      <div class="include-card"><div class="include-icon">🔗</div><h3>ССЫЛОЧНАЯ МАССА</h3><ul><li>Закупка качественных ссылок белыми методами</li><li>Регистрация в онлайн-каталогах и картах</li><li>Крауд-маркетинг и упоминания бренда</li><li>Контроль динамики и качества доноров</li><li>Наращивание траста и авторитетности домена</li></ul></div>
+      <div class="include-card"><div class="include-icon">📊</div><h3>ОТЧЁТНОСТЬ И АНАЛИТИКА</h3><ul><li>Настройка Google Analytics и Яндекс Метрики</li><li>Отслеживание позиций по ядру запросов</li><li>Ежемесячная отчётность по работам</li><li>Анализ результатов и корректировка плана</li><li>Прозрачные итоги: трафик, позиции, заявки</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="section-inner">
+    <div class="section-label">ТАРИФЫ И ЦЕНЫ</div>
+    <h2>СТОИМОСТЬ <span class="blue">ПРОДВИЖЕНИЯ</span></h2>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <h3>КУРС 3 МЕСЯЦА</h3>
+        <div class="price">348 450 ₸ <span>/ 3 мес</span></div>
+        <ul><li>SEO-аудит и стратегия продвижения</li><li>Семантическое ядро, один-два региона</li><li>Техническая оптимизация сайта</li><li>Базовый контент и мета-теги</li><li>Ежемесячный отчёт по позициям</li></ul>
+        <button class="btn btn-outline" onclick="openModal()">Заказать SEO</button>
+      </div>
+      <div class="price-card popular">
+        <div class="pop">популярный</div>
+        <h3>КУРС 6 МЕСЯЦЕВ</h3>
+        <div class="price">638 200 ₸ <span>/ 6 мес</span></div>
+        <ul><li>Всё из курса на 3 месяца</li><li>Расширенное ядро и больше регионов</li><li>Контент: план и статьи в блог</li><li>Наращивание ссылочной массы</li><li>Отчётность по позициям и трафику</li></ul>
+        <button class="btn btn-primary" onclick="openModal()">Заказать SEO</button>
+      </div>
+      <div class="price-card">
+        <h3>КУРС НА 1 ГОД</h3>
+        <div class="price">1 148 000 ₸ <span>/ год</span></div>
+        <ul><li>Всё из курса на 6 месяцев</li><li>Максимальное ядро и категории каталога</li><li>Усиленный контент и линкбилдинг</li><li>Приоритетное сопровождение и стратегия</li><li>Бонус: работы по AI-поиску (GEO/AEO)</li></ul>
+        <button class="btn btn-outline" onclick="openModal()">Заказать SEO</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+</div>
+</div>
+
+<div id="view-support" class="page-view">
+<section class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-inner">
+    <div>
+      <div class="breadcrumb"><a href="../index.html">Главная</a> › Сопровождение сайтов</div>
+      <div class="page-label">СОПРОВОЖДЕНИЕ САЙТОВ</div>
+      <h1>ВАШ САЙТ<br>ВСЕГДА ПОД<br><span class="blue">ПРИСМОТРОМ</span></h1>
+      <p>Берём заботы о сайте на себя: мониторинг 24/7, обновления, бэкапы, защита от вирусов, наполнение контентом и быстрое исправление ошибок. Вы занимаетесь бизнесом — мы держим сайт в форме.</p>
+      <div class="page-hero-btns">
+        <button class="btn btn-primary" onclick="openModal()">⚡ Получить аудит</button>
+        <button class="btn btn-outline">Тарифы поддержки ↓</button>
+      </div>
+    </div>
+    <div class="monitor" id="monitor">
+      <div class="monitor-bar">
+        <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57;display:inline-block"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#febc2e;display:inline-block"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#28c840;display:inline-block"></span>
+        <span style="margin-left:8px">ваш-сайт.kz</span>
+        <span style="margin-left:auto;color:var(--green)">● Под присмотром</span>
+      </div>
+      <div class="monitor-body">
+        <div class="monitor-cards">
+          <div class="mon-card ok" data-card="0"><div class="check">✓</div><div class="icon">📄</div><div class="name">Шапка</div></div>
+          <div class="mon-card ok" data-card="1"><div class="check">✓</div><div class="icon">🔄</div><div class="name">Обновления</div></div>
+          <div class="mon-card" data-card="2" id="errCard"><div class="check">✓</div><div class="icon">⚡</div><div class="name">Скорость</div></div>
+          <div class="mon-card ok" data-card="3"><div class="check">✓</div><div class="icon">🛡</div><div class="name">Защита</div></div>
+        </div>
+        <div class="cat" id="cat">🐱</div>
+        <div class="cat-phrase" id="catPhrase">Сейчас починю скорость!</div>
+        <div class="monitor-footer">
+          <span>Исправлено сегодня: <strong id="fixedCount">0</strong></span>
+          <span class="green">Аптайм 99.9%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label">СОСТАВ УСЛУГИ</div>
+    <h2>ЧТО ВХОДИТ В <span class="blue">СОПРОВОЖДЕНИЕ</span></h2>
+    <p class="section-desc">Полный спектр поддержки: постоянный мониторинг, обновления, оптимизация, наполнение контентом и защита от вирусов и атак.</p>
+    <div class="includes-grid">
+      <div class="include-card"><div class="include-icon">✏</div><h3>ДОПОЛНЕНИЕ КОНТЕНТА</h3><ul><li>Публикация новых страниц и статей в блог</li><li>Обновление текстов, цен и контактов</li><li>Замена и оптимизация изображений</li><li>Добавление акций, баннеров и разделов</li><li>Правки по вашему запросу в течение дня</li></ul></div>
+      <div class="include-card"><div class="include-icon">🛒</div><h3>ДОБАВЛЕНИЕ ТОВАРОВ</h3><ul><li>Расширение ассортимента интернет-магазина</li><li>Заполнение карточек: фото, цена, описание</li><li>Категории, фильтры и характеристики</li><li>Загрузка прайсов и обновление остатков</li><li>Импорт каталога из 1С или Excel</li></ul></div>
+      <div class="include-card"><div class="include-icon">⚡</div><h3>ОПТИМИЗАЦИЯ САЙТА</h3><ul><li>Ускорение загрузки и настройка кэша</li><li>Сжатие изображений и чистка базы</li><li>Проверка скорости и Core Web Vitals</li><li>Поддержка корректной мобильной версии</li><li>Максимизация эффективности веб-ресурса</li></ul></div>
+      <div class="include-card"><div class="include-icon">🛡</div><h3>БЕЗОПАСНОСТЬ САЙТА</h3><ul><li>Мониторинг доступности и аптайма 24/7</li><li>Защита от вирусов и вредоносных атак</li><li>Регулярные резервные копии (бэкапы)</li><li>Своевременные обновления ядра и плагинов</li><li>Продление SSL и контроль хостинга</li></ul></div>
+      <div class="include-card"><div class="include-icon">📝</div><h3>НАПОЛНЕНИЕ САЙТА</h3><ul><li>Создание уникального и качественного контента</li><li>Тексты под услуги, разделы и категории</li><li>Базовая SEO-подготовка материалов</li><li>Подбор и обработка фотографий</li><li>Структурирование информации по разделам</li></ul></div>
+      <div class="include-card"><div class="include-icon">🔧</div><h3>ИСПРАВЛЕНИЕ ОШИБОК</h3><ul><li>Обнаружение и устранение сбоев</li><li>Починка форм, кнопок и вёрстки</li><li>Восстановление сайта после сбоя</li><li>Исправление ошибок после обновлений</li><li>Бесперебойная работа сайта</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="section-inner">
+    <div class="section-label">КАК МЫ РАБОТАЕМ</div>
+    <h2>СОПРОВОЖДЕНИЕ <span class="blue">ПО ШАГАМ</span></h2>
+    <p class="section-desc">Прозрачный процесс без сюрпризов: вы всегда знаете, что происходит с сайтом и сколько часов израсходовано.</p>
+    <div class="steps-grid">
+      <div class="step-card"><div class="num">01</div><div class="icon">🔍</div><h4>АУДИТ И ПОДКЛЮЧЕНИЕ</h4><p>Проверяем сайт, делаем первый бэкап, подключаем мониторинг и согласуем регламент задач.</p></div>
+      <div class="step-card"><div class="num">02</div><div class="icon">📋</div><h4>ЗАЯВКА И ОЦЕНКА</h4><p>Вы ставите задачу в WhatsApp или CRM, мы оцениваем срок и время — вы видите статус каждой правки.</p></div>
+      <div class="step-card"><div class="num">03</div><div class="icon">⚙</div><h4>РАБОТА И ПРОВЕРКА</h4><p>Вносим правки, обновляем и тестируем на копии, чтобы изменения не сломали рабочий сайт.</p></div>
+      <div class="step-card"><div class="num">04</div><div class="icon">📊</div><h4>ОТЧЁТ ЗА МЕСЯЦ</h4><p>В конце месяца присылаем отчёт: что сделано, сколько часов потрачено и что улучшили на сайте.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="section-inner">
+    <div class="section-label">ТАРИФЫ И ЦЕНЫ</div>
+    <h2>СТОИМОСТЬ <span class="blue">ПОДДЕРЖКИ</span></h2>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <h3>БАЗОВЫЙ</h3>
+        <div class="price">35 000 ₸ <span>/ мес</span></div>
+        <ul><li>Мониторинг доступности 24/7</li><li>Обновления ядра и плагинов</li><li>Еженедельные бэкапы</li><li>Контроль SSL и хостинга</li><li>До 3 часов правок в месяц</li></ul>
+        <button class="btn btn-outline" onclick="openModal()">Выбрать тариф</button>
+      </div>
+      <div class="price-card popular">
+        <div class="pop">популярный</div>
+        <h3>БИЗНЕС</h3>
+        <div class="price">75 000 ₸ <span>/ мес</span></div>
+        <ul><li>Всё из тарифа «Базовый»</li><li>Защита от вирусов и атак</li><li>Наполнение контентом и товарами</li><li>Оптимизация скорости сайта</li><li>До 8 часов работ + отчёт за месяц</li></ul>
+        <button class="btn btn-primary" onclick="openModal()">Выбрать тариф</button>
+      </div>
+      <div class="price-card">
+        <h3>ПРЕМИУМ</h3>
+        <div class="price">140 000 ₸ <span>/ мес</span></div>
+        <ul><li>Всё из тарифа «Бизнес»</li><li>Приоритетные правки в течение дня</li><li>Доработки функционала и интеграции</li><li>Персональный менеджер проекта</li><li>До 20 часов работ + SEO-поддержка</li></ul>
+        <button class="btn btn-outline" onclick="openModal()">Выбрать тариф</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+</div>
+</div>
+
+<div id="view-ads" class="page-view">
+<section class="page-hero">
+<div class="page-hero-grid"></div>
+<div class="page-hero-inner">
+<div>
+<div class="breadcrumb"><a href="../index.html">Главная</a> › Контекстная реклама</div>
+<div class="page-label">КОНТЕКСТНАЯ РЕКЛАМА</div>
+<h1>РЕКЛАМА,<br>КОТОРАЯ<br>ОКУПАЕТСЯ</h1>
+<p>Настраиваем и ведём Google Ads и Яндекс.Директ под ключ: анализируем нишу, прорабатываем семантику и объявления, внедряем аналитику и оптимизируем кампании по заявкам, а не по показам.</p>
+<div class="page-hero-btns">
+<button class="btn btn-primary" onclick="openModal()">✈ Оставить заявку</button>
+<button class="btn btn-outline">Цены и пакеты ↓</button>
+</div>
+</div>
+<div class="ads-mock">
+<div class="ads-mock-bar">
+<span style="width:10px;height:10px;border-radius:50%;background:#ff5f57;display:inline-block"></span>
+<span style="width:10px;height:10px;border-radius:50%;background:#febc2e;display:inline-block"></span>
+<span style="width:10px;height:10px;border-radius:50%;background:#28c840;display:inline-block"></span>
+<span style="margin-left:8px">ads.google.com</span>
+</div>
+<div class="ads-mock-body">
+<div class="ads-header"><div class="title">Аккаунт клиента GROWTH</div><div class="badge">Премиум-партнёр</div></div>
+<div style="font-size:12px;color:var(--muted);margin-bottom:4px">Конверсии (заявки) · За 30 дней · Казахстан</div>
+<div class="ads-big">184 <span class="up">↑ +37% за месяц</span></div>
+<table class="ads-table">
+<thead><tr><th>КАМПАНИЯ</th><th>КЛИКИ</th><th>КОНВ.</th><th>РАСХОД</th></tr></thead>
+<tbody>
+<tr><td><span class="dot" style="background:var(--green)"></span>Поиск — Услуги</td><td>1 240</td><td>84</td><td>312 000 ₸</td></tr>
+<tr><td><span class="dot" style="background:var(--blue)"></span>КМС — Ремаркетинг</td><td>1 980</td><td>61</td><td>148 000 ₸</td></tr>
+<tr><td><span class="dot" style="background:var(--accent)"></span>Товарные — Магазин</td><td>1 200</td><td>39</td><td>96 000 ₸</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+
+<div class="path-wrapper" id="pathWrapper">
+<div class="path-inner">
+<div class="path-content">
+<div class="path-label">КАК ЭТО РАБОТАЕТ</div>
+<h2 class="path-title">ПУТЬ ОТ ЗАПРОСА ДО<br><span style="color:var(--blue)">ЗАЯВКИ</span></h2>
+<div class="path-grid">
+<div class="path-steps">
+<div class="path-step" data-s="0"><div class="num">01</div><div><h4>АУКЦИОН</h4><p>Выигрываем показ по горячему запросу.</p></div></div>
+<div class="path-step" data-s="1"><div class="num">02</div><div><h4>ВОРОНКА</h4><p>Из показов — клики, из кликов — заявки.</p></div></div>
+<div class="path-step" data-s="2"><div class="num">03</div><div><h4>ОПТИМИЗАЦИЯ</h4><p>Снижаем стоимость заявки неделю за неделей.</p></div></div>
+<div class="path-step" data-s="3"><div class="num">04</div><div><h4>ОКУПАЕМОСТЬ</h4><p>Масштабируем то, что приносит заявки.</p></div></div>
+</div>
+<div class="path-card">
+<div class="path-stage" data-stage="0">
+<div class="path-card-title">Аукцион объявлений <span class="badge">позиция 1</span></div>
+<div style="font-size:13px;color:var(--muted);margin-bottom:12px">🔍 купить кондиционер в астане</div>
+<div class="auction-list">
+<div class="auction-item you"><div class="rank">1</div><span style="flex:1">Ваше объявление</span><div class="bar"><div class="bar-fill" data-w="95"></div></div><span style="color:var(--accent);font-size:11px;font-weight:600">ПОКАЗ</span></div>
+<div class="auction-item"><div class="rank">2</div><span style="flex:1">Конкурент A</span><div class="bar"><div class="bar-fill" data-w="60"></div></div></div>
+<div class="auction-item"><div class="rank">3</div><span style="flex:1">Конкурент Б</span><div class="bar"><div class="bar-fill" data-w="40"></div></div></div>
+<div class="auction-item"><div class="rank">4</div><span style="flex:1">Конкурент В</span><div class="bar"><div class="bar-fill" data-w="25"></div></div></div>
+</div>
+</div>
+<div class="path-stage" data-stage="1" style="display:none">
+<div class="path-card-title">Воронка заявок <span class="badge">42 заявки</span></div>
+<div class="funnel">
+<div class="funnel-row"><div class="funnel-bar" data-w="100" style="background:var(--blue)">Показы 4 347</div></div>
+<div class="funnel-row"><div class="funnel-bar" data-w="55" style="background:#3b82f6">Клики 352 · CTR 8.1%</div></div>
+<div class="funnel-row"><div class="funnel-bar" data-w="22" style="background:var(--accent)">Заявки 42 · CR 12%</div></div>
+</div>
+<p style="font-size:12px;color:var(--muted);margin-top:16px;text-align:center">Платим за клики — оптимизируем по заявкам, а не показам.</p>
+</div>
+<div class="path-stage" data-stage="2" style="display:none">
+<div class="path-card-title">Стоимость заявки по неделям <span class="badge">5 326 ₸</span></div>
+<div class="bars-chart" id="costBars">
+<div class="col"><div class="col-bar" data-h="100"></div><div class="col-lbl">1 нед</div></div>
+<div class="col"><div class="col-bar" data-h="75"></div><div class="col-lbl">2</div></div>
+<div class="col"><div class="col-bar" data-h="55"></div><div class="col-lbl">3</div></div>
+<div class="col"><div class="col-bar" data-h="40"></div><div class="col-lbl">4</div></div>
+<div class="col"><div class="col-bar" data-h="28"></div><div class="col-lbl">5</div></div>
+<div class="col"><div class="col-bar green" data-h="15"></div><div class="col-lbl">6 нед</div></div>
+</div>
+</div>
+<div class="path-stage" data-stage="3" style="display:none">
+<div class="path-card-title">Окупаемость рекламы <span class="badge" style="background:#16331f;color:var(--green)">РОСТ</span></div>
+<div class="roi-stats">
+<div class="roi-box"><div class="num" data-c="83">0</div><div class="lbl">заявок / мес</div></div>
+<div class="roi-box"><div class="num" data-c="5908">0</div><div class="lbl">₸ на заявку</div></div>
+<div class="roi-box"><div class="num" data-c="2.8">0</div><div class="lbl">× ROAS</div></div>
+</div>
+<div class="roi-list">
+<div class="roi-item"><span>Поиск — Услуги</span><div style="display:flex;align-items:center;gap:8px"><div class="bar"><div class="bar-fill" data-w="90"></div></div><strong>38</strong></div></div>
+<div class="roi-item"><span>КМС — Ремаркетинг</span><div style="display:flex;align-items:center;gap:8px"><div class="bar"><div class="bar-fill" data-w="70"></div></div><strong>28</strong></div></div>
+<div class="roi-item"><span>Товарные — Магазин</span><div style="display:flex;align-items:center;gap:8px"><div class="bar"><div class="bar-fill" data-w="45"></div></div><strong>18</strong></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<section class="section">
+<div class="section-inner">
+<div class="section-label">ПЛАТФОРМЫ</div>
+<h2>ГДЕ ЗАПУСКАЕМ <span class="blue">РЕКЛАМУ</span></h2>
+<p class="section-desc">Подбираем площадку под вашу аудиторию в Казахстане.</p>
+<div class="platforms">
+<div class="plat-card"><h3>GOOGLE ADS</h3><div class="sub">ВЕДУЩИЙ ПАРТНЁР GOOGLE</div><p>Поисковая и товарная реклама в Google и на YouTube.</p><ul><li>Поисковые кампании по горячему спросу</li><li>Google Shopping для интернет-магазинов</li><li>YouTube и медийная реклама</li><li>Ремаркетинг</li></ul></div>
+<div class="plat-card"><h3>ЯНДЕКС ДИРЕКТ</h3><div class="sub">ПОИСК И РСЯ</div><p>Реклама на поиске Яндекса и в Рекламной сети.</p><ul><li>Поисковые кампании на горячие запросы</li><li>РСЯ: охват и догоняющая реклама</li><li>Смарт-баннеры</li><li>Ретаргетинг</li></ul></div>
+</div>
+</div>
+</section>
+
+<section class="section" style="padding-top:0">
+<div class="section-inner">
+<div class="section-label">СОСТАВ УСЛУГИ</div>
+<h2>ЧТО ВХОДИТ В <span class="blue">ВЕДЕНИЕ</span></h2>
+<div class="includes-grid">
+<div class="include-card"><div class="include-icon">🔍</div><h3>АНАЛИЗ НИШИ</h3><ul><li>Изучение спроса и сезонности</li><li>Анализ конкурентов</li><li>Определение ЦА и гео</li><li>Аудит посадочных</li><li>Прогноз бюджета</li></ul></div>
+<div class="include-card"><div class="include-icon">📋</div><h3>СЕМАНТИКА И ОБЪЯВЛЕНИЯ</h3><ul><li>Сбор и кластеризация запросов</li><li>Минус-слова</li><li>Продающие объявления</li><li>Расширения</li><li>A/B-тесты</li></ul></div>
+<div class="include-card"><div class="include-icon">⚙</div><h3>НАСТРОЙКА КАМПАНИЙ</h3><ul><li>Стратегии ставок</li><li>Бюджетирование</li><li>Геотаргетинг</li><li>UTM-метки</li><li>Поиск, РСЯ, Shopping</li></ul></div>
+<div class="include-card"><div class="include-icon">📊</div><h3>АНАЛИТИКА</h3><ul><li>Google Analytics и цели</li><li>Отслеживание конверсий</li><li>Связка с CRM</li><li>Дашборды</li><li>Прозрачная отчётность</li></ul></div>
+<div class="include-card"><div class="include-icon">📈</div><h3>ОПТИМИЗАЦИЯ</h3><ul><li>Снижение стоимости заявки</li><li>Перераспределение бюджета</li><li>Отключение неэффективного</li><li>Корректировки ставок</li><li>Масштабирование</li></ul></div>
+<div class="include-card"><div class="include-icon">📝</div><h3>ОТЧЁТНОСТЬ</h3><ul><li>Отчёты по заявкам</li><li>Личный менеджер</li><li>Рекомендации</li><li>Контроль бюджета</li><li>Постоянное ведение</li></ul></div>
+</div>
+</div>
+</section>
+
+<section class="section" style="padding-top:0">
+<div class="section-inner">
+<div class="section-label">ТАРИФЫ И ЦЕНЫ</div>
+<h2>СТОИМОСТЬ <span class="blue">ВЕДЕНИЯ</span></h2>
+<div class="pricing-grid">
+<div class="price-card"><h3>SILVER</h3><div class="price">139 200 ₸</div><ul><li>UTM-метки</li><li>До 50 фраз</li><li>1 кампания</li><li>Подбор запросов</li><li>Google Analytics</li><li>Отчётность</li></ul><button class="btn btn-outline" onclick="openModal()">Выбрать Silver</button></div>
+<div class="price-card popular"><div class="pop">популярный</div><h3>GOLD</h3><div class="price">197 200 ₸</div><ul><li>До 100 фраз</li><li>До 3 кампаний</li><li>Рекомендации по конверсии</li><li>Аудит посадочных</li><li>Call Tracking</li></ul><button class="btn btn-primary" onclick="openModal()">Выбрать Gold</button></div>
+<div class="price-card"><h3>PLATINUM</h3><div class="price">255 200 ₸</div><ul><li>До 200 фраз</li><li>До 7 кампаний</li><li>Всё из Gold</li><li>Приоритетная поддержка</li><li>Максимальный охват</li></ul><button class="btn btn-outline" onclick="openModal()">Выбрать Platinum</button></div>
+</div>
+</div>
+</section>
+
+
+
+
+</div>
+</div>
+
+
+<script>
+(function(){
+  window._isMobileLanding=window.matchMedia("(max-width:900px)").matches;
+  // Marquee fill 4x
+  const topItems=['SEO-ПРОДВИЖЕНИЕ','КОНТЕКСТНАЯ РЕКЛАМА','БИТРИКС24','ИНТЕРНЕТ-МАГАЗИНЫ','РАЗРАБОТКА САЙТОВ'];
+  const botItems=['★ GOOGLE PREMIER PARTNER','СОПРОВОЖДЕНИЕ 24/7','СКОРОСТЬ И SEO В ОСНОВЕ','ОТЧЁТЫ ПО ЗАЯВКАМ','15 ЛЕТ ОПЫТА'];
+  function fillM(el,items,n){let h='';for(let t=0;t<n;t++)items.forEach(s=>h+=`<span>${s}</span>`);el.innerHTML=h;}
+  fillM(document.getElementById('marqueeTopTrack'),topItems,4);
+  fillM(document.getElementById('marqueeBottomTrack'),botItems,4);
+
+  // Sample text to points
+  function sampleText(text,w,h,size){
+    const off=document.createElement('canvas');off.width=w;off.height=h;
+    const o=off.getContext('2d');o.fillStyle='#fff';o.font=`900 ${size}px Inter,system-ui,sans-serif`;
+    o.textAlign='center';o.textBaseline='middle';o.fillText(text,w/2,h/2);
+    const img=o.getImageData(0,0,w,h);const pts=[];const step=5;
+    for(let y=0;y<h;y+=step)for(let x=0;x<w;x+=step)if(img.data[(y*w+x)*4+3]>120)pts.push({x,y});
+    return pts;
+  }
+
+  // HERO auto particles (no captions)
+  const heroCanvas=document.getElementById('heroParticles');
+  const heroWords=['САЙТЫ','SEO','ЛИДЫ','РОСТ'];
+  let heroIdx=0,heroP=[],heroT=[];
+  function initHero(){
+    if(!heroCanvas)return;
+    const W=heroCanvas.width,H=heroCanvas.height;
+    heroT=sampleText(heroWords[0],W,H,90);
+    const n=Math.max(heroT.length,220);heroP=[];
+    for(let i=0;i<n;i++){const t=heroT[i%heroT.length];
+      heroP.push({x:Math.random()*W,y:Math.random()*H,tx:t.x+(Math.random()-.5)*4,ty:t.y+(Math.random()-.5)*4,vx:0,vy:0,size:1.6+Math.random()*2.4,color:Math.random()>.82?'#ff5c1a':(Math.random()>.45?'#5b9cff':'#e4e4ec')});}
+  }
+  function setHero(i){
+    if(!heroCanvas)return;const W=heroCanvas.width,H=heroCanvas.height;
+    heroT=sampleText(heroWords[i],W,H,i===1?100:90);
+    heroP.forEach((p,j)=>{const t=heroT[j%heroT.length];p.tx=t.x+(Math.random()-.5)*4;p.ty=t.y+(Math.random()-.5)*4;});
+  }
+  function scatterHero(){const W=heroCanvas.width,H=heroCanvas.height;heroP.forEach(p=>{p.tx=Math.random()*W;p.ty=Math.random()*H;p.vx+=(Math.random()-.5)*6;p.vy+=(Math.random()-.5)*6;});}
+  function animHero(){
+    if(!heroCanvas)return;const ctx=heroCanvas.getContext('2d');const W=heroCanvas.width,H=heroCanvas.height;
+    ctx.clearRect(0,0,W,H);
+    heroP.forEach(p=>{p.vx+=(p.tx-p.x)*.05;p.vy+=(p.ty-p.y)*.05;p.vx*=.8;p.vy*=.8;p.x+=p.vx;p.y+=p.vy;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fillStyle=p.color;ctx.globalAlpha=.9;ctx.fill();});
+    requestAnimationFrame(animHero);
+  }
+  if(heroCanvas){initHero();animHero();setInterval(()=>{scatterHero();setTimeout(()=>{heroIdx=(heroIdx+1)%heroWords.length;setHero(heroIdx);},500);},4500);}
+
+  // MAIN particles sticky long
+  const pCanvas=document.getElementById('particlesCanvas');
+  const pWords=['САЙТЫ','РЕКЛАМА','ЛИДЫ','РОСТ','БРЕНД'];
+  const pCaps=[
+    {h:'СОЗДАЁМ САЙТЫ ПОД КЛЮЧ',p:'От хаоса точек — к цельному результату'},
+    {h:'ЗАПУСКАЕМ РЕКЛАМУ',p:'Google Ads и Яндекс Директ под ключ'},
+    {h:'ПРИВОДИМ ЛИДЫ',p:'Заявки сразу в CRM, без потерь'},
+    {h:'РАСТИМ ПРИБЫЛЬ',p:'Отчёты по заявкам и цене клиента'},
+    {h:'СТРОИМ БРЕНД',p:'Узнаваемость и доверие'}
+  ];
+  let pP=[],pCur=0;
+  function initMain(){
+    if(!pCanvas)return;const targets=sampleText(pWords[0],900,340,100);const n=Math.max(targets.length,300);pP=[];
+    for(let i=0;i<n;i++){const t=targets[i%targets.length];
+      pP.push({x:Math.random()*900,y:Math.random()*340,tx:t.x+(Math.random()-.5)*3,ty:t.y+(Math.random()-.5)*3,vx:0,vy:0,size:1.8+Math.random()*2.2,color:Math.random()>.85?'#ff5c1a':(Math.random()>.45?'#5b9cff':'#e8e8f0')});}
+  }
+  function setMain(i){
+    const targets=sampleText(pWords[i],900,340,i===1?85:100);
+    pP.forEach((p,j)=>{const t=targets[j%targets.length];p.tx=t.x+(Math.random()-.5)*3;p.ty=t.y+(Math.random()-.5)*3;});
+    const cap=document.getElementById('particlesCaption');
+    if(cap){cap.querySelector('h3').textContent=pCaps[i].h;cap.querySelector('p').textContent=pCaps[i].p;}
+  }
+  function scatterMain(){pP.forEach(p=>{p.tx=Math.random()*900;p.ty=Math.random()*340;p.vx+=(Math.random()-.5)*7;p.vy+=(Math.random()-.5)*7;});}
+  function animMain(){
+    if(!pCanvas)return;const ctx=pCanvas.getContext('2d');ctx.clearRect(0,0,900,340);
+    pP.forEach(p=>{p.vx+=(p.tx-p.x)*.048;p.vy+=(p.ty-p.y)*.048;p.vx*=.8;p.vy*=.8;p.x+=p.vx;p.y+=p.vy;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fillStyle=p.color;ctx.globalAlpha=.9;ctx.fill();});
+    if(!window._isMobileLanding){
+      const wrap=document.getElementById('particlesSticky');
+      if(wrap){const rect=wrap.getBoundingClientRect();const total=wrap.offsetHeight-window.innerHeight;
+        const scrolled=Math.max(0,-rect.top);const progress=total>0?Math.min(.999,scrolled/total):0;
+        const tw=Math.min(pWords.length-1,Math.floor(progress*pWords.length));
+        if(tw!==pCur){scatterMain();setTimeout(()=>{pCur=tw;setMain(tw);},400);}}
+    }
+    requestAnimationFrame(animMain);
+  }
+  if(pCanvas){initMain();animMain();
+    if(window._isMobileLanding){
+      let i=0;setInterval(()=>{scatterMain();setTimeout(()=>{i=(i+1)%pWords.length;pCur=i;setMain(i);},500);},3800);
+    }
+  }
+
+  // HOW sticky progressive
+  const steps=document.querySelectorAll('.step-item');
+  let howStage=-1,searchTyped=false,leadsShown=false;
+  function setHow(stage){
+    if(stage===howStage)return;howStage=stage;
+    steps.forEach((s,i)=>s.classList.toggle('active',i===stage));
+    const searchBar=document.getElementById('searchBar'),searchText=document.getElementById('searchText'),searchCursor=document.getElementById('searchCursor');
+    const demoBars=document.getElementById('demoBars'),ctaDemo=document.getElementById('ctaDemo'),fakeCursor=document.getElementById('fakeCursor');
+    const notif=document.getElementById('notif'),leadsCounter=document.getElementById('leadsCounter'),leadsNum=document.getElementById('leadsNum'),demoInner=document.getElementById('demoInner');
+    if(stage===0){
+      searchBar.classList.remove('fade');searchBar.classList.add('visible');
+      demoBars.style.display='none';ctaDemo.classList.remove('visible');notif.classList.remove('visible');
+      leadsCounter.classList.remove('visible');fakeCursor.style.opacity='0';
+      if(!searchTyped){searchTyped=true;const q='печи для бани костанай';let i=0;searchText.textContent='';searchCursor.style.display='inline-block';
+        const iv=setInterval(()=>{if(howStage!==0){clearInterval(iv);return;}searchText.textContent=q.slice(0,i);i++;if(i>q.length){clearInterval(iv);searchCursor.style.display='none';}},35);}
+    }
+    if(stage===1){
+      searchBar.classList.add('fade');demoBars.style.display='flex';ctaDemo.classList.remove('visible');
+      notif.classList.remove('visible');leadsCounter.classList.remove('visible');fakeCursor.style.opacity='0';
+      setTimeout(()=>{if(howStage!==1)return;document.getElementById('bar0').style.width='85%';document.getElementById('bar1').style.width='65%';document.getElementById('bar2').style.width='45%';},100);
+    }
+    if(stage===2){
+      searchBar.classList.add('fade');demoBars.style.display='flex';
+      document.getElementById('bar0').style.width='85%';document.getElementById('bar1').style.width='65%';document.getElementById('bar2').style.width='45%';
+      ctaDemo.classList.add('visible');leadsCounter.classList.remove('visible');
+      requestAnimationFrame(()=>{
+        const btn=ctaDemo,inner=demoInner;const btnRect=btn.getBoundingClientRect(),innerRect=inner.getBoundingClientRect();
+        fakeCursor.style.left='70%';fakeCursor.style.top='75%';fakeCursor.style.opacity='1';
+        setTimeout(()=>{if(howStage!==2)return;
+          const left=btnRect.left-innerRect.left+btnRect.width/2-6;const top=btnRect.top-innerRect.top+btnRect.height/2-4;
+          fakeCursor.style.left=left+'px';fakeCursor.style.top=top+'px';
+          setTimeout(()=>{if(howStage!==2)return;btn.style.transform='scale(0.93)';setTimeout(()=>btn.style.transform='scale(1)',120);notif.classList.add('visible');},750);
+        },80);
+      });
+    }
+    if(stage===3){
+      searchBar.classList.add('fade');demoBars.style.display='flex';ctaDemo.classList.add('visible');
+      notif.classList.add('visible');fakeCursor.style.opacity='.3';leadsCounter.classList.add('visible');
+      if(!leadsShown){leadsShown=true;let n=0;const iv=setInterval(()=>{n+=5;leadsNum.textContent=n;if(n>=130)clearInterval(iv);},25);}
+    }
+  }
+  function updateHow(){
+    const wrap=document.getElementById('how');if(!wrap)return;
+    const rect=wrap.getBoundingClientRect();const total=wrap.offsetHeight-window.innerHeight;if(total<=0)return;
+    const scrolled=Math.max(0,-rect.top);const progress=Math.min(1,scrolled/total);
+    setHow(Math.min(3,Math.floor(progress*4)));
+  }
+
+  // Services hover
+  const codeFull=`<span class="c-tag">&lt;section</span> <span class="c-attr">class</span>=<span class="c-str">"hero"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;h1&gt;</span><span class="c-php">&lt;?php the_title(); ?&gt;</span><span class="c-tag">&lt;/h1&gt;</span>
+  <span class="c-tag">&lt;a</span> <span class="c-attr">class</span>=<span class="c-str">"btn"</span> <span class="c-attr">href</span>=<span class="c-str">"#cta"</span><span class="c-tag">&gt;</span>
+    <span class="c-plain">Создать свой сайт</span>
+  <span class="c-tag">&lt;/a&gt;</span>
+<span class="c-tag">&lt;/section&gt;</span>`;
+  const cardDev=document.getElementById('cardDev'),codePreview=document.getElementById('codePreview');
+  let codeTyping=false;
+  if(cardDev&&codePreview){cardDev.addEventListener('mouseenter',()=>{if(codeTyping)return;codeTyping=true;let pos=0;
+    function type(){if(pos>codeFull.length){codePreview.innerHTML=codeFull;codeTyping=false;return;}codePreview.innerHTML=codeFull.slice(0,pos);pos+=4;setTimeout(type,10);}type();});}
+
+  function animateValue(el,target,suffix,duration){
+    const startTime=performance.now();const isFloat=target%1!==0;
+    function frame(now){const t=Math.min(1,(now-startTime)/duration);const eased=1-Math.pow(1-t,3);let val=target*eased;
+      if(isFloat)el.textContent=val.toFixed(1).replace('.',',')+(suffix||'');
+      else el.textContent=Math.round(val).toLocaleString('ru-RU')+(suffix||'');
+      if(t<1)requestAnimationFrame(frame);}requestAnimationFrame(frame);
+  }
+  const cardSeo=document.getElementById('cardSeo');
+  if(cardSeo){cardSeo.addEventListener('mouseenter',()=>{
+    cardSeo.querySelectorAll('.num').forEach(el=>animateValue(el,parseFloat(el.dataset.target),el.dataset.suffix||'',900));
+    cardSeo.querySelectorAll('.delta').forEach(d=>d.classList.add('show'));});}
+
+  const cardAds=document.getElementById('cardAds'),chartLine=document.getElementById('chartLine');
+  if(cardAds){cardAds.addEventListener('mouseenter',()=>{
+    cardAds.querySelectorAll('.metric .v').forEach(el=>animateValue(el,parseFloat(el.dataset.target),el.dataset.suffix||'',1000));
+    if(chartLine){chartLine.classList.remove('drawn');void chartLine.offsetWidth;chartLine.classList.add('drawn');}
+    const area=cardAds.querySelector('.area');if(area){area.classList.remove('show');void area.offsetWidth;area.classList.add('show');}});}
+
+  // Code sticky
+  const codeSnippets=[
+    {title:'КАЖДЫЙ САЙТ — <span class="orange">С НУЛЯ</span>',desc:'Проектируем структуру и дизайн под ваши задачи.',code:`<?php\n// growth · сайт под ключ\n\nfunction growth_hero($data) {\n  $title = esc_html($data['title']);\n  $link  = esc_url($data['cta']);\n  return sprintf(\n    '<section class="hero">\\n      <h1>%s</h1>\\n      <a class="btn" href="%s">Оставить заявку</a>\\n    </section>',\n    $title, $link\n  );\n}`},
+    {title:'СКОРОСТЬ И SEO — <span class="orange">В ОСНОВЕ</span>',desc:'Оптимизация заложена с первой строки кода.',code:`<?php\n// growth · сайт под ключ\n\nfunction growth_hero($data) {\n  $title = esc_html($data['title']);\n  $link  = esc_url($data['cta']);\n  return sprintf(\n    '<section class="hero">\\n      <h1>%s</h1>\\n      <a class="btn" href="%s">Оставить заявку</a>\\n    </section>',\n    $title, $link\n  );\n}\nadd_shortcode('hero', 'growth_hero');`},
+    {title:'ИДЕАЛЬНО НА <span class="orange">ЛЮБОМ ЭКРАНЕ</span>',desc:'Телефон, планшет, десктоп — выверенный адаптив.',code:`<?php\n// growth · сайт под ключ\n\nfunction growth_hero($data) {\n  $title = esc_html($data['title']);\n  $link  = esc_url($data['cta']);\n  return sprintf(\n    '<section class="hero">\\n      <h1>%s</h1>\\n      <a class="btn" href="%s">Оставить заявку</a>\\n    </section>',\n    $title, $link\n  );\n}\nadd_shortcode('hero', 'growth_hero');`},
+    {title:'ИНТЕГРАЦИИ ПОД <span class="orange">БИЗНЕС</span>',desc:'CRM, оплата, аналитика и заявки — всё связано.',code:`<?php\n// growth · сайт под ключ\n\nfunction growth_hero($data) {\n  $title = esc_html($data['title']);\n  $link  = esc_url($data['cta']);\n  return sprintf(\n    '<section class="hero">\\n      <h1>%s</h1>\\n      <a class="btn" href="%s">Оставить заявку</a>\\n    </section>',\n    $title, $link\n  );\n}\nadd_shortcode('hero', 'growth_hero');`},
+    {title:'ГОТОВ К <span class="orange">НАГРУЗКЕ И РОСТУ</span>',desc:'Архитектура, которая выдержит трафик и рост.',code:`<?php\n// growth · сайт под ключ\n\nfunction growth_hero($data) {\n  $title = esc_html($data['title']);\n  $link  = esc_url($data['cta']);\n  return sprintf(\n    '<section class="hero">\\n      <h1>%s</h1>\\n      <a class="btn" href="%s">Оставить заявку</a>\\n    </section>',\n    $title, $link\n  );\n}\nadd_shortcode('hero', 'growth_hero');`},
+    {title:'ЗАПУСКАЕМ И ВЕДЁМ <span class="orange">ПОД КЛЮЧ</span>',desc:'От первой строки до поддержки после запуска.',code:`<?php\n// growth · сайт под ключ\n\nfunction growth_hero($data) {\n  $title = esc_html($data['title']);\n  $link  = esc_url($data['cta']);\n  return sprintf(\n    '<section class="hero">\\n      <h1>%s</h1>\\n      <a class="btn" href="%s">Оставить заявку</a>\\n    </section>',\n    $title, $link\n  );\n}\nadd_shortcode('hero', 'growth_hero');`}
+  ];
+  let lastCodeIdx=-1;
+  function updateCode(){
+    const wrap=document.getElementById('codeSticky');if(!wrap)return;
+    const rect=wrap.getBoundingClientRect();const total=wrap.offsetHeight-window.innerHeight;if(total<=0)return;
+    const scrolled=Math.max(0,-rect.top);const progress=Math.min(1,scrolled/total);
+    const idx=Math.min(codeSnippets.length-1,Math.floor(progress*codeSnippets.length));
+    if(idx!==lastCodeIdx){lastCodeIdx=idx;const s=codeSnippets[idx];
+      document.getElementById('codeTitle').innerHTML=s.title;document.getElementById('codeDesc').textContent=s.desc;
+      const el=document.getElementById('typedCode');el.textContent='';let i=0;
+      function tick(){if(i<=s.code.length){el.textContent=s.code.slice(0,i);i+=2;setTimeout(tick,5);}}tick();}
+  }
+
+  document.querySelectorAll('.faq-q').forEach(btn=>{
+    btn.addEventListener('click',()=>{const item=btn.parentElement;const open=item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));if(!open)item.classList.add('open');});
+  });
+
+  function triggerServices(){
+    const cardDev=document.getElementById('cardDev');
+    const cardSeo=document.getElementById('cardSeo');
+    const cardAds=document.getElementById('cardAds');
+    if(cardDev) cardDev.dispatchEvent(new Event('mouseenter'));
+    if(cardSeo) cardSeo.dispatchEvent(new Event('mouseenter'));
+    if(cardAds) cardAds.dispatchEvent(new Event('mouseenter'));
+  }
+  if(window._isMobileLanding){
+    let hs=0; setHow(0);
+    setInterval(()=>{hs=(hs+1)%4; searchTyped=false; leadsShown=false; setHow(hs);}, 3200);
+    let ci=0; updateCode();
+    setInterval(()=>{ci=(ci+1)%codeSnippets.length; lastCodeIdx=-1;
+      const wrap=document.getElementById('codeSticky');
+      if(wrap){ /* force idx */ 
+        const s=codeSnippets[ci]; lastCodeIdx=ci;
+        const title=document.getElementById('codeTitle'); const desc=document.getElementById('codeDesc'); const el=document.getElementById('typedCode');
+        if(title) title.innerHTML=s.title; if(desc) desc.textContent=s.desc;
+        if(el){el.textContent=''; let k=0; (function tick(){if(k<=s.code.length){el.textContent=s.code.slice(0,k);k+=3;setTimeout(tick,6);}})();}
+      }
+    }, 4000);
+    triggerServices();
+    setInterval(triggerServices, 5000);
+  } else {
+    function onScroll(){updateHow();updateCode();}
+    window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  }
+})();
+</script>
+
+<script>
+function showView(name){
+  document.querySelectorAll('.page-view').forEach(v=>v.classList.remove('active'));
+  const el=document.getElementById('view-'+name);
+  if(el){el.classList.add('active');window.scrollTo(0,0);}
+  // re-trigger animations for sticky on service pages when shown
+  if(name==='sites') initBirth();
+  if(name==='seo') initSeoPath();
+  if(name==='ads') initAdsPath();
+  if(name==='support') initSupportCat();
+}
+function openModal(){const m=document.getElementById('modal');if(m)m.classList.add('open');else{
+  // create modal if missing
+  const div=document.createElement('div');div.id='modal';div.className='modal-overlay open';
+  div.innerHTML=`<div class="modal"><button class="modal-close" onclick="closeModal()">×</button><h3>Оставьте заявку</h3><p>Перезвоним в течение рабочего дня, ответим на вопросы и подберём решение под вашу задачу.</p><div class="form-group"><label>Ваше имя</label><input type="text" placeholder="Как к вам обращаться"></div><div class="form-group"><label>Телефон</label><input type="tel" placeholder="+7 700 000 00 00"></div><div class="form-group"><label>Комментарий</label><textarea placeholder="Коротко о задаче"></textarea></div><button class="btn btn-primary">✈ Отправить заявку</button><div class="modal-secure">🔒 Не передаём данные третьим лицам</div><div class="modal-or">или напишите прямо сейчас</div><div class="modal-messengers"><a href="#">WhatsApp</a><a href="#">Telegram</a></div></div>`;
+  document.body.appendChild(div);
+  div.addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+}}
+function closeModal(){const m=document.getElementById('modal');if(m)m.classList.remove('open')}
+
+// Birth (sites)
+function initBirth(){
+  const tags=['КАРКАС','ДИЗАЙН','КОНТЕНТ','АДАПТИВ','ОНЛАЙН'];
+  const steps=document.querySelectorAll('#view-sites .birth-step');
+  const stages=document.querySelectorAll('#view-sites .browser-stage');
+  if(!steps.length)return;
+  const isMobile=window.matchMedia('(max-width:900px)').matches;
+  function setStep(n){
+    n=Math.max(0,Math.min(4,n));
+    steps.forEach((s,i)=>s.classList.toggle('active',i<=n));
+    stages.forEach((s,i)=>s.classList.toggle('active',i===n));
+    const tag=document.getElementById('browserTag');if(tag)tag.textContent=tags[n];
+    const phone=document.getElementById('phoneMock');
+    const notif=document.getElementById('notifBar');
+    const status=document.getElementById('statusOnline');
+    if(phone)phone.classList.toggle('show',n>=3);
+    if(notif)notif.classList.toggle('show',n>=4);
+    if(status)status.classList.toggle('show',n>=4);
+  }
+  if(isMobile){
+    let a=0;if(window._birthTimer)clearInterval(window._birthTimer);
+    window._birthTimer=setInterval(()=>{a=(a+1)%5;setStep(a)},2200);setStep(0);
+  }else{
+    const wrapper=document.getElementById('birthWrapper');
+    if(!wrapper)return;
+    function onScroll(){
+      const rect=wrapper.getBoundingClientRect();
+      const total=wrapper.offsetHeight-window.innerHeight;
+      const scrolled=-rect.top;
+      const progress=Math.max(0,Math.min(1,scrolled/total));
+      setStep(Math.floor(progress*4.99));
+    }
+    window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  }
+}
+
+// SEO path
+function initSeoPath(){
+  const pathSteps=document.querySelectorAll('#view-seo .path-step');
+  const pathStages=document.querySelectorAll('#view-seo .path-stage');
+  if(!pathSteps.length)return;
+  const isMobile=window.matchMedia('(max-width:900px)').matches;
+  let cur=-1;
+  function setPath(n){
+    n=Math.max(0,Math.min(4,n));
+    if(n===cur)return;cur=n;
+    pathSteps.forEach((s,i)=>s.classList.toggle('active',i<=n));
+    pathStages.forEach((s,i)=>{s.style.display=i===n?'block':'none'});
+    if(n===0){document.querySelectorAll('#view-seo .tag-pill').forEach((t,i)=>setTimeout(()=>t.classList.add('show'),i*80));}
+    if(n===1){
+      document.querySelectorAll('#view-seo .audit-item').forEach((it,i)=>setTimeout(()=>{it.classList.add('done');const c=it.querySelector('.check');if(c)c.textContent='✓'},i*300));
+      const circ=document.getElementById('circFg');const val=document.getElementById('circVal');
+      if(circ&&val){let p=0;const t=setInterval(()=>{p+=2;if(p>83){clearInterval(t);p=83}circ.style.strokeDashoffset=251-(251*p/100);val.textContent=p},20);}
+    }
+    if(n===2){document.querySelectorAll('#view-seo .bar-fill').forEach((b,i)=>setTimeout(()=>{b.style.width=(b.dataset.w||50)+'%'},i*150));}
+    if(n===3){
+      const net=document.getElementById('linkNet');
+      if(net&&!net.dataset.done){net.dataset.done=1;
+        for(let i=0;i<12;i++){const ang=(i/12)*Math.PI*2;const r=90+Math.random()*40;
+          const node=document.createElement('div');node.className='link-node';
+          node.style.left=`calc(50% + ${Math.cos(ang)*r}px - 7px)`;node.style.top=`calc(50% + ${Math.sin(ang)*r}px - 7px)`;
+          net.appendChild(node);setTimeout(()=>node.classList.add('show'),i*80);}}
+    }
+    if(n===4){
+      document.querySelectorAll('#view-seo .stat-box .num').forEach(el=>{
+        const target=parseFloat(el.dataset.count||el.dataset.c||0);let v=0;const step=target/40||1;
+        const t=setInterval(()=>{v+=step;if(v>=target){v=target;clearInterval(t)}el.textContent=target%1?v.toFixed(1):Math.round(v)},30);
+      });
+      document.querySelectorAll('#view-seo .pos-bar-fill').forEach((b,i)=>setTimeout(()=>{b.style.width=(b.dataset.w||50)+'%'},i*100));
+    }
+  }
+  if(isMobile){let a=0;if(window._seoTimer)clearInterval(window._seoTimer);window._seoTimer=setInterval(()=>{a=(a+1)%5;setPath(a)},2800);setPath(0);}
+  else{
+    const wrap=document.getElementById('pathWrapper');
+    if(!wrap)return;
+    function onScroll(){const rect=wrap.getBoundingClientRect();const total=wrap.offsetHeight-window.innerHeight;const scrolled=-rect.top;const progress=Math.max(0,Math.min(1,scrolled/total));setPath(Math.floor(progress*4.99));}
+    window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  }
+  // typing
+  document.querySelectorAll('#view-seo .seo-line').forEach((l,i)=>setTimeout(()=>l.classList.add('show'),300+i*400));
+}
+
+// Ads path
+function initAdsPath(){
+  const pathSteps=document.querySelectorAll('#view-ads .path-step');
+  const pathStages=document.querySelectorAll('#view-ads .path-stage');
+  if(!pathSteps.length)return;
+  const isMobile=window.matchMedia('(max-width:900px)').matches;
+  let cur=-1;
+  function setPath(n){
+    n=Math.max(0,Math.min(3,n));if(n===cur)return;cur=n;
+    pathSteps.forEach((s,i)=>s.classList.toggle('active',i<=n));
+    pathStages.forEach((s,i)=>s.style.display=i===n?'block':'none');
+    if(n===0)document.querySelectorAll('#view-ads .auction-item .bar-fill').forEach((b,i)=>setTimeout(()=>{b.style.width=(b.dataset.w||50)+'%'},i*150));
+    if(n===1)document.querySelectorAll('#view-ads .funnel-bar').forEach((b,i)=>setTimeout(()=>{b.style.width=(b.dataset.w||50)+'%'},i*200));
+    if(n===2)document.querySelectorAll('#view-ads .col-bar').forEach((b,i)=>setTimeout(()=>{b.style.height=(b.dataset.h||50)+'%'},i*120));
+    if(n===3){
+      document.querySelectorAll('#view-ads .roi-box .num').forEach(el=>{
+        const t=parseFloat(el.dataset.c||0);let v=0;const step=t/40||1;
+        const iv=setInterval(()=>{v+=step;if(v>=t){v=t;clearInterval(iv)}el.textContent=t%1?v.toFixed(1):Math.round(v)},30);
+      });
+      document.querySelectorAll('#view-ads .roi-item .bar-fill').forEach((b,i)=>setTimeout(()=>{b.style.width=(b.dataset.w||50)+'%'},i*100));
+    }
+  }
+  if(isMobile){let a=0;if(window._adsTimer)clearInterval(window._adsTimer);window._adsTimer=setInterval(()=>{a=(a+1)%4;setPath(a)},2800);setPath(0);}
+  else{
+    const wrap=document.querySelector('#view-ads #pathWrapper')||document.querySelector('#view-ads .path-wrapper');
+    if(!wrap)return;
+    function onScroll(){const rect=wrap.getBoundingClientRect();const total=wrap.offsetHeight-window.innerHeight;const scrolled=-rect.top;const progress=Math.max(0,Math.min(1,scrolled/total));setPath(Math.floor(progress*3.99));}
+    window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  }
+}
+
+// Support cat
+function initSupportCat(){
+  const errCard=document.getElementById('errCard');
+  const cat=document.getElementById('cat');
+  const phrase=document.getElementById('catPhrase');
+  const fixed=document.getElementById('fixedCount');
+  if(!errCard||!cat)return;
+  let fixedN=0;
+  function run(){
+    errCard.classList.remove('ok','err');cat.classList.remove('fixing');phrase.classList.remove('show');
+    setTimeout(()=>{
+      errCard.classList.add('err');phrase.textContent='Сейчас починю скорость!';phrase.classList.add('show');
+      setTimeout(()=>{
+        cat.classList.add('fixing');
+        setTimeout(()=>{
+          errCard.classList.remove('err');errCard.classList.add('ok');phrase.textContent='Готово! ⚡';
+          fixedN++;if(fixed)fixed.textContent=fixedN;
+          setTimeout(()=>{cat.classList.remove('fixing');phrase.classList.remove('show')},1500);
+        },1200);
+      },800);
+    },600);
+  }
+  if(window._catTimer)clearInterval(window._catTimer);
+  run();window._catTimer=setInterval(run,6000);
+}
+
+// ensure modal exists
+if(!document.getElementById('modal')){
+  const div=document.createElement('div');div.id='modal';div.className='modal-overlay';
+  div.innerHTML=`<div class="modal"><button class="modal-close" onclick="closeModal()">×</button><h3>Оставьте заявку</h3><p>Перезвоним в течение рабочего дня.</p><div class="form-group"><label>Ваше имя</label><input type="text" placeholder="Как к вам обращаться"></div><div class="form-group"><label>Телефон</label><input type="tel" placeholder="+7 700 000 00 00"></div><div class="form-group"><label>Комментарий</label><textarea placeholder="Коротко о задаче"></textarea></div><button class="btn btn-primary" onclick="closeModal()">✈ Отправить заявку</button><div class="modal-secure">🔒 Не передаём данные третьим лицам</div><div class="modal-or">или напишите прямо сейчас</div><div class="modal-messengers"><a href="#">WhatsApp</a><a href="#">Telegram</a></div></div>`;
+  document.body.appendChild(div);
+  div.addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+}
+</script>
+
+</body>
+</html>
