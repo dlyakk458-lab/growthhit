@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Контекстная реклама — GROWTH</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0a0a0b;--bg-card:#121214;--text:#f5f5f7;--muted:#a1a1aa;--accent:#ff5c1a;--accent-h:#ff7a3d;--border:#2a2a2e;--green:#22c55e;--blue:#5b9cff}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:auto}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;overflow-x:hidden}
+a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:none}
+header{position:sticky;top:0;z-index:100;background:rgba(10,10,11,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav{max-width:1280px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{font-weight:900;font-size:22px;letter-spacing:-.5px}.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:22px;font-size:14px;font-weight:500;color:var(--muted);align-items:center}
+.nav-links a:hover,.nav-item:hover>a{color:var(--text)}
+.nav-item{position:relative}
+.nav-item>a{display:flex;align-items:center;gap:4px;padding:6px 0}
+.dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(8px);background:#16161a;border:1px solid var(--border);border-radius:12px;padding:8px;min-width:220px;opacity:0;visibility:hidden;transition:.2s;box-shadow:0 20px 50px rgba(0,0,0,.5);z-index:50}
+.nav-item:hover .dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(4px)}
+.dropdown a{display:block;padding:10px 14px;border-radius:8px;font-size:13px;color:var(--muted)}
+.dropdown a:hover{background:#1e1e24;color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:10px;font-weight:600;font-size:14px;transition:.25s}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-h);transform:translateY(-2px);box-shadow:0 10px 28px rgba(255,92,26,.35)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-outline:hover{border-color:#555;background:rgba(255,255,255,.04)}
+.page-hero{padding:100px 24px 80px;position:relative;overflow:hidden}
+.page-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:50px 50px;mask-image:radial-gradient(ellipse 70% 50% at 30% 40%,black,transparent)}
+.page-hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:center;position:relative;z-index:2}
+.breadcrumb{font-size:13px;color:var(--muted);margin-bottom:18px}
+.page-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.page-label::after{content:'';width:36px;height:2px;background:var(--accent)}
+.page-hero h1{font-size:clamp(34px,4.5vw,52px);font-weight:900;line-height:1.05;letter-spacing:-1.2px;margin-bottom:20px}
+.page-hero p{font-size:16px;color:var(--muted);max-width:440px;margin-bottom:32px}
+.page-hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.ads-mock{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.ads-mock-bar{background:#16161a;padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);font-size:12px;color:var(--muted)}
+.ads-mock-body{padding:20px}
+.ads-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.ads-header .title{font-size:14px;font-weight:600}
+.ads-header .badge{font-size:11px;padding:3px 10px;border-radius:12px;background:#1e3a5f;color:var(--blue)}
+.ads-big{font-size:42px;font-weight:900;margin-bottom:4px}
+.ads-big .up{font-size:14px;color:var(--green);font-weight:600}
+.ads-table{width:100%;font-size:12px;margin-top:16px}
+.ads-table th{text-align:left;color:var(--muted);font-weight:500;padding:6px 0;border-bottom:1px solid var(--border)}
+.ads-table td{padding:8px 0;border-bottom:1px solid #1a1a1e}
+.ads-table .dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px}
+.path-wrapper{position:relative;height:600vh;border-top:1px solid var(--border)}
+.path-inner{position:sticky;top:0;height:100vh;display:flex;align-items:center;padding:40px 24px;overflow:hidden}
+.path-content{max-width:1200px;margin:0 auto;width:100%}
+.path-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.path-title{font-size:clamp(26px,4vw,40px);font-weight:800;margin-bottom:32px}
+.path-grid{display:grid;grid-template-columns:260px 1fr;gap:36px;align-items:center}
+.path-steps{display:flex;flex-direction:column;gap:0;position:relative}
+.path-steps::before{content:'';position:absolute;left:15px;top:18px;bottom:18px;width:2px;background:var(--border)}
+.path-step{display:flex;gap:14px;padding:11px 0;opacity:.4;transition:.4s}
+.path-step.active{opacity:1}
+.path-step .num{width:32px;height:32px;border-radius:50%;background:#1e1e24;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;z-index:1;transition:.3s}
+.path-step.active .num{background:var(--accent);border-color:var(--accent);color:#fff}
+.path-step h4{font-size:13px;font-weight:700;margin-bottom:2px}
+.path-step p{font-size:11px;color:var(--muted)}
+.path-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:22px;min-height:320px}
+.path-card-title{font-size:14px;font-weight:600;margin-bottom:16px;display:flex;justify-content:space-between}
+.path-card-title .badge{font-size:11px;padding:3px 10px;border-radius:12px;background:#1e1e24;color:var(--muted)}
+.auction-list{display:flex;flex-direction:column;gap:8px}
+.auction-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#16161a;border-radius:8px;font-size:13px}
+.auction-item .rank{width:24px;height:24px;border-radius:6px;background:#1e1e24;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+.auction-item.you{border:1px solid var(--accent);background:#1a1410}
+.auction-item .bar{flex:1;height:6px;background:#1a1a1e;border-radius:3px;overflow:hidden}
+.auction-item .bar-fill{height:100%;background:var(--blue);width:0;transition:width .12s linear}
+.funnel{display:flex;flex-direction:column;gap:12px}
+.funnel-row{display:flex;align-items:center;gap:12px}
+.funnel-bar{height:28px;border-radius:6px;transition:width .12s linear;display:flex;align-items:center;padding:0 12px;font-size:12px;font-weight:600;color:#fff;width:0;min-width:0;overflow:hidden;white-space:nowrap}
+.bars-chart{display:flex;align-items:flex-end;gap:12px;height:180px;padding-top:10px}
+.bars-chart .col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px;height:100%}
+.bars-chart .col-bar{width:100%;background:var(--blue);border-radius:6px 6px 0 0;height:0;min-height:0;transition:height .12s linear}
+.bars-chart .col-bar.green{background:var(--green)}
+.bars-chart .col-lbl{font-size:11px;color:var(--muted);flex-shrink:0}
+.roi-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.roi-box{background:#16161a;border-radius:10px;padding:16px;text-align:center}
+.roi-box .num{font-size:26px;font-weight:800}
+.roi-box .lbl{font-size:11px;color:var(--muted);margin-top:4px}
+.roi-list{display:flex;flex-direction:column;gap:8px}
+.roi-item{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:6px 0}
+.roi-item .bar{width:60px;height:6px;background:#1a1a1e;border-radius:3px;overflow:hidden}
+.roi-item .bar-fill{height:100%;background:var(--accent);width:0;transition:width .12s linear}
+.section{padding:90px 24px}.section-inner{max-width:1200px;margin:0 auto}
+.section-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.section-label::after{content:'';width:32px;height:2px;background:var(--accent)}
+.section h2{font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.8px;margin-bottom:12px}
+.section h2 .blue{color:var(--blue)}
+.section-desc{color:var(--muted);max-width:520px;margin-bottom:40px}
+.includes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.include-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:24px;transition:.3s}
+.include-card:hover{transform:translateY(-4px);border-color:#3a3a42}
+.include-icon{width:40px;height:40px;border-radius:10px;background:#1e1e24;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:14px;color:var(--blue)}
+.include-card h3{font-size:14px;font-weight:700;margin-bottom:12px}
+.include-card ul{list-style:none}
+.include-card li{font-size:13px;color:var(--muted);padding:3px 0;padding-left:16px;position:relative}
+.include-card li::before{content:'✓';position:absolute;left:0;color:var(--green);font-size:11px}
+.platforms{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}
+.plat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:24px}
+.plat-card h3{font-size:16px;font-weight:700;margin-bottom:4px}
+.plat-card .sub{font-size:12px;color:var(--green);margin-bottom:12px}
+.plat-card p{font-size:13px;color:var(--muted);margin-bottom:14px}
+.plat-card ul{list-style:none}
+.plat-card li{font-size:13px;color:var(--muted);padding:4px 0;padding-left:16px;position:relative}
+.plat-card li::before{content:'✓';position:absolute;left:0;color:var(--green)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.price-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px;position:relative;transition:.3s}
+.price-card:hover{transform:translateY(-4px);border-color:#3a3a42}
+.price-card.popular{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.price-card .pop{position:absolute;top:-10px;right:20px;background:var(--accent);color:#fff;font-size:11px;padding:3px 12px;border-radius:12px;font-weight:600}
+.price-card h3{font-size:14px;font-weight:700;margin-bottom:4px;color:var(--muted)}
+.price-card .price{font-size:28px;font-weight:900;margin:12px 0}
+.price-card ul{list-style:none;margin:16px 0 24px}
+.price-card li{font-size:13px;color:var(--muted);padding:4px 0;padding-left:16px;position:relative}
+.price-card li::before{content:'✓';position:absolute;left:0;color:var(--green)}
+.price-card .btn{width:100%;justify-content:center}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);z-index:200;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:.3s}
+.modal-overlay.open{opacity:1;visibility:visible}
+.modal{background:#16161a;border:1px solid var(--border);border-radius:18px;padding:32px;width:90%;max-width:420px;position:relative}
+.modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;background:#1e1e24;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--muted)}
+.modal h3{font-size:22px;font-weight:800;margin-bottom:6px}
+.modal p{font-size:14px;color:var(--muted);margin-bottom:24px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+.form-group input,.form-group textarea{width:100%;background:#0f0f12;border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-size:14px;outline:none}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textarea{min-height:80px;resize:vertical}
+.modal .btn{width:100%;justify-content:center;margin-top:8px}
+.modal-secure{text-align:center;font-size:12px;color:var(--muted);margin-top:14px}
+.modal-or{text-align:center;font-size:12px;color:var(--muted);margin:16px 0}
+.modal-messengers{display:flex;gap:10px}
+.modal-messengers a{flex:1;text-align:center;padding:10px;border:1px solid var(--border);border-radius:10px;font-size:13px}
+footer{border-top:1px solid var(--border);padding:40px 24px;text-align:center;color:var(--muted);font-size:13px}
+@media(max-width:900px){
+.page-hero-inner,.path-grid{grid-template-columns:1fr}
+.includes-grid,.platforms,.pricing-grid{grid-template-columns:1fr}
+.nav-links{display:none}
+.path-wrapper{height:auto}
+.path-inner{position:relative;height:auto;padding:60px 24px}
+.path-steps{flex-direction:row;overflow-x:auto}
+.path-steps::before{display:none}
+.path-step p{display:none}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a href="../index.html" class="logo">GROWTH<span>.</span></a>
+    <div class="nav-links">
+      <div class="nav-item">
+        <a href="sites.html">Создание сайта ▾</a>
+        <div class="dropdown">
+          <a href="sites.html">Лендинг</a>
+          <a href="sites.html">Корпоративный сайт</a>
+          <a href="sites.html">Интернет-магазин</a>
+        </div>
+      </div>
+      <a href="seo.html">Продвижение</a>
+      <a href="ads.html">Реклама</a>
+      <a href="#" onclick="openModal();return false">Битрикс24</a>
+      <a href="support.html">Сопровождение</a>
+      <a href="../index.html#portfolio">Портфолио</a>
+    </div>
+    <button class="btn btn-primary" onclick="openModal()">⚡ Получить аудит</button>
+  </div>
+</header>
+
+<section class="page-hero">
+<div class="page-hero-grid"></div>
+<div class="page-hero-inner">
+<div>
+<div class="breadcrumb"><a href="../index.html">Главная</a> › Контекстная реклама</div>
+<div class="page-label">КОНТЕКСТНАЯ РЕКЛАМА</div>
+<h1>РЕКЛАМА,<br>КОТОРАЯ<br>ОКУПАЕТСЯ</h1>
+<p>Настраиваем и ведём Google Ads и Яндекс.Директ под ключ: анализируем нишу, прорабатываем семантику и объявления, внедряем аналитику и оптимизируем кампании по заявкам, а не по показам.</p>
+<div class="page-hero-btns">
+<button class="btn btn-primary" onclick="openModal()">✈ Оставить заявку</button>
+<button class="btn btn-outline">Цены и пакеты ↓</button>
+</div>
+</div>
+<div class="ads-mock">
+<div class="ads-mock-bar">
+<span style="width:10px;height:10px;border-radius:50%;background:#ff5f57;display:inline-block"></span>
+<span style="width:10px;height:10px;border-radius:50%;background:#febc2e;display:inline-block"></span>
+<span style="width:10px;height:10px;border-radius:50%;background:#28c840;display:inline-block"></span>
+<span style="margin-left:8px">ads.google.com</span>
+</div>
+<div class="ads-mock-body">
+<div class="ads-header"><div class="title">Аккаунт клиента GROWTH</div><div class="badge">Премиум-партнёр</div></div>
+<div style="font-size:12px;color:var(--muted);margin-bottom:4px">Конверсии (заявки) · За 30 дней · Казахстан</div>
+<div class="ads-big">184 <span class="up">↑ +37% за месяц</span></div>
+<table class="ads-table">
+<thead><tr><th>КАМПАНИЯ</th><th>КЛИКИ</th><th>КОНВ.</th><th>РАСХОД</th></tr></thead>
+<tbody>
+<tr><td><span class="dot" style="background:var(--green)"></span>Поиск — Услуги</td><td>1 240</td><td>84</td><td>312 000 ₸</td></tr>
+<tr><td><span class="dot" style="background:var(--blue)"></span>КМС — Ремаркетинг</td><td>1 980</td><td>61</td><td>148 000 ₸</td></tr>
+<tr><td><span class="dot" style="background:var(--accent)"></span>Товарные — Магазин</td><td>1 200</td><td>39</td><td>96 000 ₸</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+
+<div class="path-wrapper" id="pathWrapper">
+<div class="path-inner">
+<div class="path-content">
+<div class="path-label">КАК ЭТО РАБОТАЕТ</div>
+<h2 class="path-title">ПУТЬ ОТ ЗАПРОСА ДО<br><span style="color:var(--blue)">ЗАЯВКИ</span></h2>
+<div class="path-grid">
+<div class="path-steps">
+<div class="path-step" data-s="0"><div class="num">01</div><div><h4>АУКЦИОН</h4><p>Выигрываем показ по горячему запросу.</p></div></div>
+<div class="path-step" data-s="1"><div class="num">02</div><div><h4>ВОРОНКА</h4><p>Из показов — клики, из кликов — заявки.</p></div></div>
+<div class="path-step" data-s="2"><div class="num">03</div><div><h4>ОПТИМИЗАЦИЯ</h4><p>Снижаем стоимость заявки неделю за неделей.</p></div></div>
+<div class="path-step" data-s="3"><div class="num">04</div><div><h4>ОКУПАЕМОСТЬ</h4><p>Масштабируем то, что приносит заявки.</p></div></div>
+</div>
+<div class="path-card">
+<div class="path-stage" data-stage="0">
+<div class="path-card-title">Аукцион объявлений <span class="badge">позиция 1</span></div>
+<div style="font-size:13px;color:var(--muted);margin-bottom:12px">🔍 купить кондиционер в астане</div>
+<div class="auction-list">
+<div class="auction-item you"><div class="rank">1</div><span style="flex:1">Ваше объявление</span><div class="bar"><div class="bar-fill" data-w="95"></div></div><span style="color:var(--accent);font-size:11px;font-weight:600">ПОКАЗ</span></div>
+<div class="auction-item"><div class="rank">2</div><span style="flex:1">Конкурент A</span><div class="bar"><div class="bar-fill" data-w="60"></div></div></div>
+<div class="auction-item"><div class="rank">3</div><span style="flex:1">Конкурент Б</span><div class="bar"><div class="bar-fill" data-w="40"></div></div></div>
+<div class="auction-item"><div class="rank">4</div><span style="flex:1">Конкурент В</span><div class="bar"><div class="bar-fill" data-w="25"></div></div></div>
+</div>
+</div>
+<div class="path-stage" data-stage="1" style="display:none">
+<div class="path-card-title">Воронка заявок <span class="badge">42 заявки</span></div>
+<div class="funnel">
+<div class="funnel-row"><div class="funnel-bar" data-w="100" style="background:var(--blue)">Показы 4 347</div></div>
+<div class="funnel-row"><div class="funnel-bar" data-w="55" style="background:#3b82f6">Клики 352 · CTR 8.1%</div></div>
+<div class="funnel-row"><div class="funnel-bar" data-w="22" style="background:var(--accent)">Заявки 42 · CR 12%</div></div>
+</div>
+<p style="font-size:12px;color:var(--muted);margin-top:16px;text-align:center">Платим за клики — оптимизируем по заявкам, а не показам.</p>
+</div>
+<div class="path-stage" data-stage="2" style="display:none">
+<div class="path-card-title">Стоимость заявки по неделям <span class="badge">5 326 ₸</span></div>
+<div class="bars-chart" id="costBars">
+<div class="col"><div class="col-bar" data-h="100"></div><div class="col-lbl">1 нед</div></div>
+<div class="col"><div class="col-bar" data-h="75"></div><div class="col-lbl">2</div></div>
+<div class="col"><div class="col-bar" data-h="55"></div><div class="col-lbl">3</div></div>
+<div class="col"><div class="col-bar" data-h="40"></div><div class="col-lbl">4</div></div>
+<div class="col"><div class="col-bar" data-h="28"></div><div class="col-lbl">5</div></div>
+<div class="col"><div class="col-bar green" data-h="15"></div><div class="col-lbl">6 нед</div></div>
+</div>
+</div>
+<div class="path-stage" data-stage="3" style="display:none">
+<div class="path-card-title">Окупаемость рекламы <span class="badge" style="background:#16331f;color:var(--green)">РОСТ</span></div>
+<div class="roi-stats">
+<div class="roi-box"><div class="num" data-c="83">0</div><div class="lbl">заявок / мес</div></div>
+<div class="roi-box"><div class="num" data-c="5908">0</div><div class="lbl">₸ на заявку</div></div>
+<div class="roi-box"><div class="num" data-c="2.8">0</div><div class="lbl">× ROAS</div></div>
+</div>
+<div class="roi-list">
+<div class="roi-item"><span>Поиск — Услуги</span><div style="display:flex;align-items:center;gap:8px"><div class="bar"><div class="bar-fill" data-w="90"></div></div><strong>38</strong></div></div>
+<div class="roi-item"><span>КМС — Ремаркетинг</span><div style="display:flex;align-items:center;gap:8px"><div class="bar"><div class="bar-fill" data-w="70"></div></div><strong>28</strong></div></div>
+<div class="roi-item"><span>Товарные — Магазин</span><div style="display:flex;align-items:center;gap:8px"><div class="bar"><div class="bar-fill" data-w="45"></div></div><strong>18</strong></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<section class="section">
+<div class="section-inner">
+<div class="section-label">ПЛАТФОРМЫ</div>
+<h2>ГДЕ ЗАПУСКАЕМ <span class="blue">РЕКЛАМУ</span></h2>
+<p class="section-desc">Подбираем площадку под вашу аудиторию в Казахстане.</p>
+<div class="platforms">
+<div class="plat-card"><h3>GOOGLE ADS</h3><div class="sub">ВЕДУЩИЙ ПАРТНЁР GOOGLE</div><p>Поисковая и товарная реклама в Google и на YouTube.</p><ul><li>Поисковые кампании по горячему спросу</li><li>Google Shopping для интернет-магазинов</li><li>YouTube и медийная реклама</li><li>Ремаркетинг</li></ul></div>
+<div class="plat-card"><h3>ЯНДЕКС ДИРЕКТ</h3><div class="sub">ПОИСК И РСЯ</div><p>Реклама на поиске Яндекса и в Рекламной сети.</p><ul><li>Поисковые кампании на горячие запросы</li><li>РСЯ: охват и догоняющая реклама</li><li>Смарт-баннеры</li><li>Ретаргетинг</li></ul></div>
+</div>
+</div>
+</section>
+
+<section class="section" style="padding-top:0">
+<div class="section-inner">
+<div class="section-label">СОСТАВ УСЛУГИ</div>
+<h2>ЧТО ВХОДИТ В <span class="blue">ВЕДЕНИЕ</span></h2>
+<div class="includes-grid">
+<div class="include-card"><div class="include-icon">🔍</div><h3>АНАЛИЗ НИШИ</h3><ul><li>Изучение спроса и сезонности</li><li>Анализ конкурентов</li><li>Определение ЦА и гео</li><li>Аудит посадочных</li><li>Прогноз бюджета</li></ul></div>
+<div class="include-card"><div class="include-icon">📋</div><h3>СЕМАНТИКА И ОБЪЯВЛЕНИЯ</h3><ul><li>Сбор и кластеризация запросов</li><li>Минус-слова</li><li>Продающие объявления</li><li>Расширения</li><li>A/B-тесты</li></ul></div>
+<div class="include-card"><div class="include-icon">⚙</div><h3>НАСТРОЙКА КАМПАНИЙ</h3><ul><li>Стратегии ставок</li><li>Бюджетирование</li><li>Геотаргетинг</li><li>UTM-метки</li><li>Поиск, РСЯ, Shopping</li></ul></div>
+<div class="include-card"><div class="include-icon">📊</div><h3>АНАЛИТИКА</h3><ul><li>Google Analytics и цели</li><li>Отслеживание конверсий</li><li>Связка с CRM</li><li>Дашборды</li><li>Прозрачная отчётность</li></ul></div>
+<div class="include-card"><div class="include-icon">📈</div><h3>ОПТИМИЗАЦИЯ</h3><ul><li>Снижение стоимости заявки</li><li>Перераспределение бюджета</li><li>Отключение неэффективного</li><li>Корректировки ставок</li><li>Масштабирование</li></ul></div>
+<div class="include-card"><div class="include-icon">📝</div><h3>ОТЧЁТНОСТЬ</h3><ul><li>Отчёты по заявкам</li><li>Личный менеджер</li><li>Рекомендации</li><li>Контроль бюджета</li><li>Постоянное ведение</li></ul></div>
+</div>
+</div>
+</section>
+
+<section class="section" style="padding-top:0">
+<div class="section-inner">
+<div class="section-label">ТАРИФЫ И ЦЕНЫ</div>
+<h2>СТОИМОСТЬ <span class="blue">ВЕДЕНИЯ</span></h2>
+<div class="pricing-grid">
+<div class="price-card"><h3>SILVER</h3><div class="price">139 200 ₸</div><ul><li>UTM-метки</li><li>До 50 фраз</li><li>1 кампания</li><li>Подбор запросов</li><li>Google Analytics</li><li>Отчётность</li></ul><button class="btn btn-outline" onclick="openModal()">Выбрать Silver</button></div>
+<div class="price-card popular"><div class="pop">популярный</div><h3>GOLD</h3><div class="price">197 200 ₸</div><ul><li>До 100 фраз</li><li>До 3 кампаний</li><li>Рекомендации по конверсии</li><li>Аудит посадочных</li><li>Call Tracking</li></ul><button class="btn btn-primary" onclick="openModal()">Выбрать Gold</button></div>
+<div class="price-card"><h3>PLATINUM</h3><div class="price">255 200 ₸</div><ul><li>До 200 фраз</li><li>До 7 кампаний</li><li>Всё из Gold</li><li>Приоритетная поддержка</li><li>Максимальный охват</li></ul><button class="btn btn-outline" onclick="openModal()">Выбрать Platinum</button></div>
+</div>
+</div>
+</section>
+
+<footer>© 2026 GROWTH. Создание сайтов и продвижение в Казахстане</footer>
+
+<div class="modal-overlay" id="modal">
+<div class="modal">
+<button class="modal-close" onclick="closeModal()">×</button>
+<h3>Оставьте заявку</h3>
+<p>Перезвоним в течение рабочего дня.</p>
+<div class="form-group"><label>Ваше имя</label><input type="text" placeholder="Как к вам обращаться"></div>
+<div class="form-group"><label>Телефон</label><input type="tel" placeholder="+7 700 000 00 00"></div>
+<div class="form-group"><label>Комментарий</label><textarea placeholder="Коротко о задаче"></textarea></div>
+<button class="btn btn-primary">✈ Отправить заявку</button>
+<div class="modal-secure">🔒 Не передаём данные третьим лицам</div>
+<div class="modal-or">или напишите прямо сейчас</div>
+<div class="modal-messengers"><a href="https://wa.me/message/HFGTVXVRVIE6G1" target="_blank" rel="noopener">WhatsApp</a></div>
+</div>
+</div>
+
+<script>
+function openModal(){document.getElementById('modal').classList.add('open')}
+function closeModal(){document.getElementById('modal').classList.remove('open')}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+
+const pathSteps=document.querySelectorAll('.path-step');
+const pathStages=document.querySelectorAll('.path-stage');
+const auctionFills=document.querySelectorAll('.auction-item .bar-fill');
+const funnelBars=document.querySelectorAll('.funnel-bar');
+const colBars=document.querySelectorAll('.col-bar');
+const roiNums=document.querySelectorAll('.roi-box .num');
+const roiFills=document.querySelectorAll('.roi-item .bar-fill');
+const isMobile=window.matchMedia('(max-width:900px)').matches;
+
+function applyStage(stage, local){
+  // local 0..1 inside stage — works both directions
+  pathSteps.forEach((s,i)=>s.classList.toggle('active', i<=stage));
+  pathStages.forEach((s,i)=>{ s.style.display = (i===stage) ? 'block' : 'none'; });
+
+  if(stage===0){
+    auctionFills.forEach((b,i)=>{
+      const target=parseFloat(b.dataset.w)||0;
+      // stagger appear across local progress
+      const start=i/auctionFills.length*0.35;
+      const t=Math.max(0, Math.min(1, (local-start)/(1-start+0.01)));
+      b.style.width=(target*t)+'%';
+    });
+  }
+
+  if(stage===1){
+    funnelBars.forEach((b,i)=>{
+      const target=parseFloat(b.dataset.w)||0;
+      const start=i/funnelBars.length*0.25;
+      const t=Math.max(0, Math.min(1, (local-start)/(1-start+0.01)));
+      b.style.width=(target*t)+'%';
+    });
+  }
+
+  if(stage===2){
+    // cost bars grow from left to right by week
+    colBars.forEach((b,i)=>{
+      const target=parseFloat(b.dataset.h)||0;
+      const start=i/colBars.length*0.2;
+      const t=Math.max(0, Math.min(1, (local-start)/(1-start+0.01)));
+      b.style.height=(target*t)+'%';
+    });
+  }
+
+  if(stage===3){
+    roiNums.forEach(el=>{
+      const target=parseFloat(el.dataset.c)||0;
+      const v=target*local;
+      el.textContent = (target%1) ? v.toFixed(1) : Math.round(v).toLocaleString('ru-RU');
+    });
+    roiFills.forEach((b,i)=>{
+      const target=parseFloat(b.dataset.w)||0;
+      const start=i/roiFills.length*0.2;
+      const t=Math.max(0, Math.min(1, (local-start)/(1-start+0.01)));
+      b.style.width=(target*t)+'%';
+    });
+  }
+}
+
+function updateFromProgress(progress){
+  const stages=4;
+  const raw=progress*stages;
+  const stage=Math.min(stages-1, Math.floor(raw));
+  const local=Math.min(1, Math.max(0, raw-stage));
+  applyStage(stage, local);
+}
+
+if(isMobile){
+  // auto only on phone
+  let t=0;
+  setInterval(()=>{ t=(t+0.008)%1; updateFromProgress(t); }, 40);
+  updateFromProgress(0);
+}else{
+  const wrap=document.getElementById('pathWrapper');
+  function onScroll(){
+    const rect=wrap.getBoundingClientRect();
+    const total=wrap.offsetHeight-window.innerHeight;
+    if(total<=0) return;
+    const scrolled=-rect.top;
+    const progress=Math.max(0, Math.min(1, scrolled/total));
+    updateFromProgress(progress);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+}
+</script>
+<script>
+
+function openModal(){const m=document.getElementById('modal');if(m)m.classList.add('open')}
+function closeModal(){const m=document.getElementById('modal');if(m)m.classList.remove('open')}
+document.getElementById('modal')&&document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+
+async function sendToTelegram(name, phone, comment){
+  const text = `🆕 Заявка с сайта GROWTH\n\n👤 Имя: ${name||'—'}\n📞 Телефон: ${phone||'—'}\n💬 Комментарий: ${comment||'—'}\n🌐 Страница: ${location.pathname}`;
+  const url = `https://api.telegram.org/bot8945021082:AAFCv_daSsSsZQZ1vPqzvpbSkPehgg7ip9Y/sendMessage`;
+  const res = await fetch(url, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({chat_id:'8274492658', text, parse_mode:'HTML'})
+  });
+  return res.ok;
+}
+
+function bindForms(){
+  document.querySelectorAll('form[data-lead], .modal form, .lead-box form, .audit-form').forEach(f=>{
+    // skip if already bound
+  });
+  // modal button
+  document.querySelectorAll('#modal .btn-primary, .modal .btn-primary').forEach(btn=>{
+    if(btn.dataset.bound) return;
+    btn.dataset.bound='1';
+    btn.addEventListener('click', async (e)=>{
+      e.preventDefault();
+      const modal = btn.closest('.modal') || document.getElementById('modal');
+      if(!modal) return;
+      const inputs = modal.querySelectorAll('input, textarea');
+      let name='', phone='', comment='';
+      inputs.forEach(inp=>{
+        const ph=(inp.placeholder||'').toLowerCase();
+        const lab=((inp.previousElementSibling&&inp.previousElementSibling.textContent)||'').toLowerCase();
+        const v=inp.value.trim();
+        if(inp.type==='tel' || ph.includes('телефон') || ph.includes('+7') || lab.includes('телефон')) phone=v;
+        else if(inp.tagName==='TEXTAREA' || lab.includes('коммент') || ph.includes('задач')) comment=v;
+        else if(inp.type==='text' || lab.includes('имя') || ph.includes('обращ')) name=v;
+      });
+      if(!phone && !name){ alert('Укажите имя и телефон'); return; }
+      btn.disabled=true; const old=btn.textContent; btn.textContent='Отправляем…';
+      try{
+        const ok=await sendToTelegram(name,phone,comment);
+        if(ok){ btn.textContent='✓ Отправлено'; inputs.forEach(i=>i.value=''); setTimeout(()=>{btn.textContent=old;btn.disabled=false;closeModal();},1500); }
+        else { throw new Error('fail'); }
+      }catch(err){ btn.textContent='Ошибка, попробуйте ещё'; setTimeout(()=>{btn.textContent=old;btn.disabled=false;},2000); }
+    });
+  });
+  // lead-box buttons outside modal
+  document.querySelectorAll('.lead-box .btn-primary').forEach(btn=>{
+    if(btn.dataset.bound) return;
+    btn.dataset.bound='1';
+    btn.addEventListener('click', async (e)=>{
+      e.preventDefault();
+      const box=btn.closest('.lead-box');
+      if(!box) return;
+      const inputs=box.querySelectorAll('input, textarea');
+      let name='', phone='', comment='';
+      inputs.forEach(inp=>{
+        const ph=(inp.placeholder||'').toLowerCase();
+        const lab=((inp.previousElementSibling&&inp.previousElementSibling.textContent)||'').toLowerCase();
+        const v=inp.value.trim();
+        if(inp.type==='tel' || ph.includes('+7') || lab.includes('телефон')) phone=v;
+        else if(inp.tagName==='TEXTAREA') comment=v;
+        else name=v;
+      });
+      if(!phone && !name){ alert('Укажите имя и телефон'); return; }
+      btn.disabled=true; const old=btn.textContent; btn.textContent='Отправляем…';
+      try{
+        const ok=await sendToTelegram(name,phone,comment);
+        if(ok){ btn.textContent='✓ Отправлено'; inputs.forEach(i=>i.value=''); setTimeout(()=>{btn.textContent=old;btn.disabled=false;},1500); }
+        else throw new Error('fail');
+      }catch(err){ btn.textContent='Ошибка'; setTimeout(()=>{btn.textContent=old;btn.disabled=false;},2000); }
+    });
+  });
+  // audit form
+  document.querySelectorAll('.audit-form').forEach(form=>{
+    if(form.dataset.bound) return;
+    form.dataset.bound='1';
+    const btn=form.querySelector('button');
+    if(!btn) return;
+    btn.addEventListener('click', async (e)=>{
+      e.preventDefault();
+      const inputs=form.querySelectorAll('input');
+      let name='', phone='';
+      inputs.forEach((inp,i)=>{ if(inp.type==='tel'||(inp.placeholder||'').includes('+7')) phone=inp.value.trim(); else name=inp.value.trim(); });
+      if(!phone && !name){ alert('Укажите имя и телефон'); return; }
+      btn.disabled=true; const old=btn.textContent; btn.textContent='…';
+      try{
+        const ok=await sendToTelegram(name,phone,'Аудит с главной');
+        if(ok){ btn.textContent='✓'; inputs.forEach(i=>i.value=''); setTimeout(()=>{btn.textContent=old;btn.disabled=false;},1500); }
+        else throw new Error('fail');
+      }catch(err){ btn.textContent='Ошибка'; setTimeout(()=>{btn.textContent=old;btn.disabled=false;},2000); }
+    });
+  });
+}
+document.addEventListener('DOMContentLoaded', bindForms);
+if(document.readyState!=='loading') bindForms();
+
+</script>
+</body>
+</html>

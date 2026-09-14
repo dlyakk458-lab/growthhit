@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Создание сайтов — GROWTH</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0a0a0b;--bg-card:#121214;--text:#f5f5f7;--muted:#a1a1aa;--accent:#ff5c1a;--accent-h:#ff7a3d;--border:#2a2a2e;--green:#22c55e;--blue:#5b9cff}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:auto}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;overflow-x:hidden}
+a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:none}
+header{position:sticky;top:0;z-index:100;background:rgba(10,10,11,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav{max-width:1280px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{font-weight:900;font-size:22px;letter-spacing:-.5px}.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:22px;font-size:14px;font-weight:500;color:var(--muted);align-items:center}
+.nav-links a:hover,.nav-item:hover>a{color:var(--text)}
+.nav-item{position:relative}
+.nav-item>a{display:flex;align-items:center;gap:4px;padding:6px 0}
+.dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(8px);background:#16161a;border:1px solid var(--border);border-radius:12px;padding:8px;min-width:220px;opacity:0;visibility:hidden;transition:.2s;box-shadow:0 20px 50px rgba(0,0,0,.5);z-index:50}
+.nav-item:hover .dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(4px)}
+.dropdown a{display:block;padding:10px 14px;border-radius:8px;font-size:13px;color:var(--muted)}
+.dropdown a:hover{background:#1e1e24;color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:10px;font-weight:600;font-size:14px;transition:.25s}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-h);transform:translateY(-2px);box-shadow:0 10px 28px rgba(255,92,26,.35)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-outline:hover{border-color:#555;background:rgba(255,255,255,.04)}
+
+/* Hero */
+.page-hero{padding:100px 24px 80px;position:relative;overflow:hidden}
+.page-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:50px 50px;mask-image:radial-gradient(ellipse 70% 50% at 30% 40%,black,transparent)}
+.page-hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;position:relative;z-index:2}
+.breadcrumb{font-size:13px;color:var(--muted);margin-bottom:18px}
+.breadcrumb a:hover{color:var(--accent)}
+.page-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:16px;opacity:0;transform:translateY(12px);transition:.5s}
+.page-label.show{opacity:1;transform:translateY(0)}
+.page-label::after{content:'';width:36px;height:2px;background:var(--accent)}
+.page-hero h1{font-size:clamp(36px,5vw,56px);font-weight:900;line-height:1.05;letter-spacing:-1.2px;margin-bottom:20px;opacity:0;transform:translateY(18px);transition:.6s .1s}
+.page-hero h1.show{opacity:1;transform:translateY(0)}
+.page-hero h1 .blue{color:var(--blue)}
+.page-hero p{font-size:16px;color:var(--muted);max-width:440px;margin-bottom:32px;opacity:0;transform:translateY(14px);transition:.55s .2s}
+.page-hero p.show{opacity:1;transform:translateY(0)}
+.page-hero-btns{display:flex;gap:12px;flex-wrap:wrap;opacity:0;transform:translateY(12px);transition:.5s .3s}
+.page-hero-btns.show{opacity:1;transform:translateY(0)}
+.hero-side-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:8px;opacity:0;transform:translateY(20px);transition:.6s .25s}
+.hero-side-card.show{opacity:1;transform:translateY(0)}
+.side-item{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:12px;transition:.2s;cursor:pointer}
+.side-item:hover{background:#1a1a1e}
+.side-icon{width:36px;height:36px;border-radius:10px;background:#1e1e24;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.side-item h4{font-size:14px;font-weight:600;margin-bottom:2px}
+.side-item p{font-size:12px;color:var(--muted)}
+.side-item .arrow{margin-left:auto;color:var(--muted);font-size:16px}
+.side-footer{padding:12px 16px;font-size:12px;color:var(--muted);border-top:1px solid var(--border);margin-top:4px;display:flex;align-items:center;gap:6px}
+
+/* Sticky birth */
+.birth-wrapper{position:relative;height:600vh;border-top:1px solid var(--border)}
+.birth-inner{position:sticky;top:0;height:100vh;display:flex;align-items:center;padding:40px 24px;overflow:hidden}
+.birth-content{max-width:1200px;margin:0 auto;width:100%}
+.birth-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.birth-title{font-size:clamp(28px,4vw,42px);font-weight:800;margin-bottom:36px;letter-spacing:-.8px}
+.birth-grid{display:grid;grid-template-columns:280px 1fr;gap:40px;align-items:center}
+.birth-steps{display:flex;flex-direction:column;gap:0;position:relative}
+.birth-steps::before{content:'';position:absolute;left:15px;top:20px;bottom:20px;width:2px;background:var(--border)}
+.birth-step{display:flex;gap:14px;padding:12px 0;opacity:.4;transition:.4s;position:relative}
+.birth-step.active{opacity:1}
+.birth-step .num{width:32px;height:32px;border-radius:50%;background:#1e1e24;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;z-index:1;transition:.3s}
+.birth-step.active .num{background:var(--accent);border-color:var(--accent);color:#fff}
+.birth-step h4{font-size:14px;font-weight:700;margin-bottom:3px}
+.birth-step p{font-size:12px;color:var(--muted);line-height:1.4}
+.browser{background:#0f0f12;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5);position:relative;min-height:360px}
+.browser-bar{background:#16161a;padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.browser-dot{width:10px;height:10px;border-radius:50%}
+.browser-url{flex:1;background:#0a0a0b;border-radius:6px;padding:5px 12px;font-size:12px;color:var(--muted);margin:0 8px}
+.browser-tag{font-size:11px;padding:3px 10px;border-radius:12px;background:#1e1e24;color:var(--muted);font-weight:600}
+.browser-body{padding:24px;position:relative;min-height:300px;transition:.5s}
+.browser-stage{position:absolute;inset:24px;opacity:0;transform:translateY(12px);transition:.5s;pointer-events:none}
+.browser-stage.active{opacity:1;transform:translateY(0);pointer-events:auto}
+.wire{display:flex;flex-direction:column;gap:12px}
+.wire-block{background:#1a1a1e;border:1px dashed #333;border-radius:8px;height:28px}
+.wire-block.lg{height:48px}.wire-block.sm{height:18px;width:60%}
+.wire-row{display:flex;gap:10px}.wire-row .wire-block{flex:1;height:70px}
+.design-bar{height:48px;background:linear-gradient(90deg,#1e3a5f,#1a1a1e);border-radius:8px 8px 0 0;display:flex;align-items:center;padding:0 16px;gap:8px}
+.design-btn{width:60px;height:24px;background:var(--accent);border-radius:6px}
+.design-content{padding:20px;text-align:center}
+.design-content h3{font-size:20px;margin-bottom:6px}
+.design-content p{font-size:13px;color:var(--muted);margin-bottom:14px}
+.design-cta{display:inline-block;background:var(--accent);color:#fff;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600}
+.design-cards{display:flex;gap:10px;margin-top:20px}
+.design-card{flex:1;height:60px;background:#1a1a1e;border-radius:8px}
+.phone-mock{position:absolute;right:20px;bottom:20px;width:90px;height:160px;background:#111;border:3px solid #333;border-radius:14px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.4);transform:translateX(20px);opacity:0;transition:.6s}
+.phone-mock.show{transform:translateX(0);opacity:1}
+.phone-screen{padding:10px 8px;height:100%}
+.phone-line{height:8px;background:#2a2a30;border-radius:3px;margin-bottom:6px}
+.phone-line.orange{background:var(--accent);width:70%}
+.notif-bar{position:absolute;bottom:16px;left:16px;background:#1a1a1e;border:1px solid var(--border);border-radius:10px;padding:8px 12px;font-size:12px;display:flex;align-items:center;gap:8px;opacity:0;transform:translateY(10px);transition:.4s}
+.notif-bar.show{opacity:1;transform:translateY(0)}
+.status-online{position:absolute;top:12px;right:12px;background:#16331f;color:var(--green);font-size:11px;padding:3px 10px;border-radius:12px;font-weight:600;opacity:0;transition:.4s}
+.status-online.show{opacity:1}
+
+/* Includes */
+.section{padding:90px 24px}.section-inner{max-width:1200px;margin:0 auto}
+.section-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.section-label::after{content:'';width:32px;height:2px;background:var(--accent)}
+.section h2{font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.8px;margin-bottom:12px}
+.section h2 .blue{color:var(--blue)}
+.section-desc{color:var(--muted);max-width:480px;margin-bottom:40px}
+.includes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.include-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:24px;transition:.3s}
+.include-card:hover{transform:translateY(-4px);border-color:#3a3a42;box-shadow:0 16px 40px rgba(0,0,0,.3)}
+.include-icon{width:40px;height:40px;border-radius:10px;background:#1e1e24;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:14px;color:var(--blue)}
+.include-card h3{font-size:15px;font-weight:700;margin-bottom:12px}
+.include-card ul{list-style:none}
+.include-card li{font-size:13px;color:var(--muted);padding:4px 0;padding-left:18px;position:relative}
+.include-card li::before{content:'✓';position:absolute;left:0;color:var(--green);font-size:12px}
+
+/* Portfolio */
+.portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.project-card{background:var(--bg-card);border-radius:14px;overflow:hidden;border:1px solid var(--border);transition:.3s}
+.project-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 20px 50px rgba(0,0,0,.4);border-color:#3a3a42}
+.project-img{height:180px;background:linear-gradient(135deg,#1a1a22,#252530);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px}
+.project-body{padding:16px}
+.project-body h4{font-size:15px;font-weight:700;margin-bottom:4px}
+.project-body p{font-size:13px;color:var(--muted)}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);z-index:200;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:.3s}
+.modal-overlay.open{opacity:1;visibility:visible}
+.modal{background:#16161a;border:1px solid var(--border);border-radius:18px;padding:32px;width:90%;max-width:420px;position:relative;transform:translateY(16px);transition:.3s}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;background:#1e1e24;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--muted)}
+.modal h3{font-size:22px;font-weight:800;margin-bottom:6px}
+.modal p{font-size:14px;color:var(--muted);margin-bottom:24px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+.form-group input,.form-group textarea{width:100%;background:#0f0f12;border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-size:14px;outline:none;transition:.2s}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textarea{min-height:80px;resize:vertical}
+.modal .btn{width:100%;justify-content:center;margin-top:8px}
+.modal-secure{text-align:center;font-size:12px;color:var(--muted);margin-top:14px}
+.modal-or{text-align:center;font-size:12px;color:var(--muted);margin:16px 0;position:relative}
+.modal-or::before,.modal-or::after{content:'';position:absolute;top:50%;width:40%;height:1px;background:var(--border)}
+.modal-or::before{left:0}.modal-or::after{right:0}
+.modal-messengers{display:flex;gap:10px}
+.modal-messengers a{flex:1;text-align:center;padding:10px;border:1px solid var(--border);border-radius:10px;font-size:13px;font-weight:500;transition:.2s}
+.modal-messengers a:hover{border-color:var(--accent);color:var(--accent)}
+
+
+.project-img{height:200px;background:#16161a;position:relative;overflow:hidden}
+.project-img img{width:100%;height:100%;object-fit:cover;display:block;transition:.4s}
+.project-card:hover .project-img img{transform:scale(1.05)}
+.project-badge{position:absolute;top:12px;left:12px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;background:#1e1e24;color:var(--muted);z-index:2}
+.project-badge.flag{background:var(--accent);color:#fff}
+.project-body a{color:var(--muted);font-size:12px}
+.project-body a:hover{color:var(--accent)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.price-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px;position:relative;transition:.3s}
+.price-card:hover{transform:translateY(-4px);border-color:#3a3a42}
+.price-card.popular{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.price-card .pop{position:absolute;top:-10px;right:20px;background:var(--accent);color:#fff;font-size:11px;padding:3px 12px;border-radius:12px;font-weight:600}
+.price-card h3{font-size:14px;font-weight:700;margin-bottom:2px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.price-card .sub{font-size:12px;color:var(--muted);margin-bottom:8px}
+.price-card .price{font-size:32px;font-weight:900;margin:8px 0 4px}
+.price-card .term{font-size:12px;color:var(--muted);margin-bottom:16px}
+.price-card ul{list-style:none;margin:8px 0 24px}
+.price-card li{font-size:13px;color:var(--muted);padding:5px 0;padding-left:18px;position:relative}
+.price-card li::before{content:'✓';position:absolute;left:0;color:var(--green)}
+.price-card .btn{width:100%;justify-content:center}
+.lead-box{margin-top:48px;background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+.lead-box h3{font-size:26px;font-weight:800;margin-bottom:8px}
+.lead-box p{color:var(--muted);font-size:14px}
+footer{border-top:1px solid var(--border);padding:40px 24px;text-align:center;color:var(--muted);font-size:13px}
+@media(max-width:900px){
+  .pricing-grid,.lead-box{grid-template-columns:1fr}
+}
+
+
+@media(max-width:900px){
+  .page-hero-inner{grid-template-columns:1fr}
+  .birth-grid{grid-template-columns:1fr;gap:24px}
+  .birth-steps{flex-direction:row;overflow-x:auto;gap:12px;padding-bottom:8px}
+  .birth-steps::before{display:none}
+  .birth-step{flex-direction:column;align-items:center;text-align:center;min-width:100px;padding:8px}
+  .birth-step p{display:none}
+  .includes-grid,.portfolio-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .birth-wrapper{height:auto}
+  .birth-inner{position:relative;height:auto;padding:60px 24px}
+}
+</style>
+</head>
+<body>
+<header>
+    <div class="nav">
+    <a href="../index.html" class="logo">GROWTH<span>.</span></a>
+    <div class="nav-links">
+      <div class="nav-item">
+        <a href="sites.html">Создание сайта ▾</a>
+        <div class="dropdown">
+          <a href="sites.html">Лендинг</a>
+          <a href="sites.html">Корпоративный сайт</a>
+          <a href="sites.html">Интернет-магазин</a>
+        </div>
+      </div>
+      <a href="seo.html">Продвижение</a>
+      <a href="ads.html">Реклама</a>
+      <a href="#" onclick="openModal();return false">Битрикс24</a>
+      <a href="support.html">Сопровождение</a>
+      <a href="../index.html#portfolio">Портфолио</a>
+    </div>
+    <button class="btn btn-primary" onclick="openModal()">⚡ Получить аудит</button>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-inner">
+    <div>
+      <div class="breadcrumb"><a href="../index.html">Главная</a> › Разработка сайтов</div>
+      <div class="page-label" id="heroLabel">РАЗРАБОТКА САЙТОВ</div>
+      <h1 id="heroTitle">СОЗДАНИЕ САЙТА<br><span class="blue">ЛЮБОЙ</span><br>СЛОЖНОСТИ</h1>
+      <p id="heroDesc">Проектируем структуру под задачи бизнеса, пишем чистый код — быстро и с SEO-основой. От лендинга до интернет-магазина с интеграциями в CRM и 1С. Наполняем, запускаем и ведём проект дальше.</p>
+      <div class="page-hero-btns" id="heroBtns">
+        <button class="btn btn-primary" onclick="openModal()">⚡ Обсудить проект</button>
+        <a class="btn btn-outline" href="#pricing">Цены и тарифы ↓</a>
+      </div>
+    </div>
+    <div class="hero-side-card" id="heroCard">
+      <a class="side-item" href="#pricing"><div class="side-icon">⚡</div><div><h4>Лендинг</h4><p>одна страница под конкретную задачу</p></div><span class="arrow">→</span></a>
+      <a class="side-item" href="#pricing"><div class="side-icon">🏢</div><div><h4>Корпоративный сайт</h4><p>услуги, портфолио, блог и заявки</p></div><span class="arrow">→</span></a>
+      <a class="side-item" href="#pricing"><div class="side-icon">🛒</div><div><h4>Интернет-магазин</h4><p>каталог, корзина, оплата и доставка</p></div><span class="arrow">→</span></a>
+      <a class="side-item" href="#pricing"><div class="side-icon">🔧</div><div><h4>Индивидуальный проект</h4><p>портал, личный кабинет, веб-сервис</p></div><span class="arrow">→</span></a>
+      <div class="side-footer">🔌 Интеграции: 1С, Kaspi, CRM, платёжные системы</div>
+    </div>
+  </div>
+</section>
+
+<!-- Sticky birth animation -->
+<div class="birth-wrapper" id="birthWrapper">
+  <div class="birth-inner">
+    <div class="birth-content">
+      <div class="birth-label">КАК МЫ РАБОТАЕМ</div>
+      <h2 class="birth-title">САЙТ РОЖДАЕТСЯ<br>НА ВАШИХ ГЛАЗАХ</h2>
+      <div class="birth-grid">
+        <div class="birth-steps">
+          <div class="birth-step" data-step="0"><div class="num">01</div><div><h4>СТРУКТУРА</h4><p>Проектируем разделы, экраны и логику страниц под ваши задачи.</p></div></div>
+          <div class="birth-step" data-step="1"><div class="num">02</div><div><h4>ДИЗАЙН</h4><p>Фирменный стиль: цвета, шрифты и акценты — чисто и узнаваемо.</p></div></div>
+          <div class="birth-step" data-step="2"><div class="num">03</div><div><h4>КОНТЕНТ</h4><p>Продающие тексты, фото и наполнение каждой секции.</p></div></div>
+          <div class="birth-step" data-step="3"><div class="num">04</div><div><h4>АДАПТИВ</h4><p>Идеально выглядит на телефоне, планшете и десктопе.</p></div></div>
+          <div class="birth-step" data-step="4"><div class="num">05</div><div><h4>ЗАПУСК</h4><p>Публикуем, подключаем формы и аналитику — заявки пошли.</p></div></div>
+        </div>
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="browser-dot" style="background:#ff5f57"></div>
+            <div class="browser-dot" style="background:#febc2e"></div>
+            <div class="browser-dot" style="background:#28c840"></div>
+            <div class="browser-url">teplaya.kz</div>
+            <div class="browser-tag" id="browserTag">КАРКАС</div>
+          </div>
+          <div class="browser-body">
+            <!-- Stage 0: Structure -->
+            <div class="browser-stage active" data-stage="0">
+              <div class="wire">
+                <div class="wire-block lg"></div>
+                <div class="wire-block sm"></div>
+                <div class="wire-row"><div class="wire-block"></div><div class="wire-block"></div><div class="wire-block"></div></div>
+                <div class="wire-block" style="height:40px;width:40%"></div>
+              </div>
+            </div>
+            <!-- Stage 1: Design -->
+            <div class="browser-stage" data-stage="1">
+              <div class="design-bar"><div style="width:40px;height:20px;background:#3b82f6;border-radius:4px"></div><div style="flex:1"></div><div class="design-btn"></div></div>
+              <div class="design-content"><div style="height:16px;background:#2a2a30;border-radius:4px;width:70%;margin:0 auto 8px"></div><div style="height:10px;background:#222;border-radius:3px;width:50%;margin:0 auto 16px"></div><div class="design-cta" style="opacity:.5">Заказать</div></div>
+              <div class="design-cards"><div class="design-card"></div><div class="design-card"></div><div class="design-card"></div></div>
+            </div>
+            <!-- Stage 2: Content -->
+            <div class="browser-stage" data-stage="2">
+              <div class="design-bar"><div style="width:40px;height:20px;background:#3b82f6;border-radius:4px"></div><div style="flex:1"></div><div class="design-btn"></div></div>
+              <div class="design-content">
+                <h3>Свежий кофе<br>каждый день</h3>
+                <p>Свежая обжарка · доставка за 40 минут</p>
+                <div class="design-cta">Заказать</div>
+              </div>
+              <div class="design-cards">
+                <div class="design-card" style="display:flex;align-items:center;justify-content:center;font-size:22px">☕</div>
+                <div class="design-card" style="display:flex;align-items:center;justify-content:center;font-size:22px">🫘</div>
+                <div class="design-card" style="display:flex;align-items:center;justify-content:center;font-size:22px">📦</div>
+              </div>
+            </div>
+            <!-- Stage 3: Adaptive -->
+            <div class="browser-stage" data-stage="3">
+              <div class="design-bar"><div style="width:40px;height:20px;background:#3b82f6;border-radius:4px"></div><div style="flex:1"></div><div class="design-btn"></div></div>
+              <div class="design-content">
+                <h3>Свежий кофе<br>каждый день</h3>
+                <p>Свежая обжарка · доставка за 40 минут</p>
+                <div class="design-cta">Заказать</div>
+              </div>
+              <div class="design-cards">
+                <div class="design-card" style="display:flex;align-items:center;justify-content:center;font-size:22px">☕</div>
+                <div class="design-card" style="display:flex;align-items:center;justify-content:center;font-size:22px">🫘</div>
+                <div class="design-card" style="display:flex;align-items:center;justify-content:center;font-size:22px">📦</div>
+              </div>
+              <div class="phone-mock" id="phoneMock">
+                <div class="phone-screen">
+                  <div class="phone-line" style="width:40%;margin:0 auto 10px"></div>
+                  <div class="phone-line orange"></div>
+                  <div class="phone-line"></div>
+                  <div class="phone-line" style="width:80%"></div>
+                  <div class="phone-line" style="height:30px;margin-top:12px"></div>
+                </div>
+              </div>
+            </div>
+            <!-- Stage 4: Launch -->
+            <div class="browser-stage" data-stage="4">
+              <div class="design-bar"><div style="width:40px;height:20px;background:#3b82f6;border-radius:4px"></div><div style="flex:1"></div><div class="design-btn"></div></div>
+              <div class="status-online" id="statusOnline">● ОНЛАЙН</div>
+              <div class="design-content">
+                <h3>Свежий кофе<br>каждый день</h3>
+                <p>Свежая обжарка · доставка за 40 минут</p>
+                <div class="design-cta">Заказать</div>
+              </div>
+              <div class="design-cards">
+                <div class="design-card" style="display:flex;align-items:center;justify-content:center;font-size:22px">☕</div>
+                <div class="design-card" style="display:flex;align-items:center;justify-content:center;font-size:22px">🫘</div>
+                <div class="design-card" style="display:flex;align-items:center;justify-content:center;font-size:22px">📦</div>
+              </div>
+              <div class="phone-mock show">
+                <div class="phone-screen">
+                  <div class="phone-line" style="width:40%;margin:0 auto 10px"></div>
+                  <div class="phone-line orange"></div>
+                  <div class="phone-line"></div>
+                  <div class="phone-line" style="width:80%"></div>
+                </div>
+              </div>
+              <div class="notif-bar" id="notifBar">🔔 Новая заявка с сайта</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label">СОСТАВ УСЛУГИ</div>
+    <h2>ЧТО ВХОДИТ В <span class="blue">РАЗРАБОТКУ</span></h2>
+    <p class="section-desc">Полный цикл создания веб-проекта: от концепции и сбора информации до программирования, тестирования и запуска.</p>
+    <div class="includes-grid">
+      <div class="include-card"><div class="include-icon">🔍</div><h3>СБОР И АНАЛИЗ ИНФОРМАЦИИ</h3><ul><li>Выявление потребностей: анкетирование заказчика</li><li>Анализ сайтов конкурентов в нише</li><li>Формирование общего ТЗ на проект</li><li>Отдельные ТЗ программисту и дизайнеру</li><li>Контроль сбора и приём информации для сайта</li></ul></div>
+      <div class="include-card"><div class="include-icon">📐</div><h3>ПРОЕКТИРОВАНИЕ ЮЗАБИЛИТИ</h3><ul><li>Главная, о компании, каталог, карточка, контакты</li><li>Формы связи и формы заказа</li><li>Страница ошибки 404 и поиск по сайту</li><li>Мобильная адаптивность всех страниц</li><li>Кроссбраузерная вёрстка</li></ul></div>
+      <div class="include-card"><div class="include-icon">🗂</div><h3>СТРУКТУРА И НАВИГАЦИЯ</h3><ul><li>Структура коммерческих разделов и рубрикация</li><li>Структура информационных разделов</li><li>Меню сайта и хлебные крошки</li><li>Дефолтная перелинковка страниц и разделов</li><li>Навигационные виджеты и баннеры</li></ul></div>
+      <div class="include-card"><div class="include-icon">&lt;/&gt;</div><h3>ДИЗАЙН И РАЗРАБОТКА</h3><ul><li>Выбор, настройка и посадка дизайна</li><li>WordPress с WooCommerce или своя админка на Django</li><li>Наполнение контентом страниц и каталога</li><li>Подключение CTA-кнопок и всплывающих форм</li><li>Раздел блога и статьи</li></ul></div>
+      <div class="include-card"><div class="include-icon">🚀</div><h3>SEO-ОСНОВА И АНАЛИТИКА</h3><ul><li>Базовая SEO-оптимизация под поиск</li><li>Настройка систем аналитики</li><li>Настройка форм обратной связи</li><li>Готовность к продвижению с первого дня</li><li>Корректные мета-теги и микроразметка</li></ul></div>
+      <div class="include-card"><div class="include-icon">🛡</div><h3>ЗАПУСК И ЗАЩИТА</h3><ul><li>Подключение домена</li><li>Выпуск и настройка SSL</li><li>Установка на хостинг</li><li>Настройка кэширования и ускорение сайта</li><li>Антивирусная защита проекта</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="section-inner">
+    <div class="section-label">ПОРТФОЛИО</div>
+    <h2>НАШИ <span class="blue">ПРОЕКТЫ</span></h2>
+    <div class="portfolio-grid" style="margin-top:32px">
+      <a class="project-card" href="https://dlyakk458-lab.github.io/bebento/" target="_blank" rel="noopener">
+        <div class="project-img">
+          <span class="project-badge flag">Флагман · Шаблон</span>
+          <img src="img/miette.png" alt="Miette — бенто торты">
+        </div>
+        <div class="project-body">
+          <h4>Miette</h4>
+          <p>Бенто-торты · шаблон</p>
+        </div>
+      </a>
+      <a class="project-card" href="https://dlyakk458-lab.github.io/lad/" target="_blank" rel="noopener">
+        <div class="project-img">
+          <span class="project-badge flag">Флагман · Кейс</span>
+          <img src="img/lad.png" alt="ЛАД — мастерская гитар">
+        </div>
+        <div class="project-body">
+          <h4>ЛАД</h4>
+          <p>Сайт починки гитар · кейс</p>
+        </div>
+      </a>
+      <a class="project-card" href="https://limoch.github.io/flower_shop_template/" target="_blank" rel="noopener">
+        <div class="project-img">
+          <span class="project-badge">Шаблон</span>
+          <img src="img/limoch.png" alt="LIMOCH — цветочный магазин">
+        </div>
+        <div class="project-body">
+          <h4>LIMOCH</h4>
+          <p>Сайт для цветов · шаблон</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="pricing" style="padding-top:0">
+  <div class="section-inner">
+    <div class="section-label">ТАРИФЫ И ЦЕНЫ</div>
+    <h2>СТОИМОСТЬ <span class="blue">РАЗРАБОТКИ</span></h2>
+    <p class="section-desc">Фиксированные пакеты под задачу. Срок — 3–6 дней после согласования материалов.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <h3>Лендинг</h3>
+        <div class="sub">одностраничный сайт</div>
+        <div class="price">215 000 ₸</div>
+        <div class="term">срок: 3–6 дней</div>
+        <ul>
+          <li>Выбор, настройка и посадка дизайна</li>
+          <li>Мобильная версия сайта</li>
+          <li>Настройка форм обратной связи</li>
+          <li>Наполнение базовым контентом</li>
+          <li>Подключение CTA-кнопок (плавающие)</li>
+          <li>До 5 всплывающих форм</li>
+          <li>Базовая SEO-оптимизация</li>
+          <li>Настройка аналитики</li>
+          <li>Подключение домена</li>
+          <li>Установка на хостинг</li>
+          <li>Настройка кэширования</li>
+        </ul>
+        <button class="btn btn-outline" onclick="openModal()">Выбрать лендинг</button>
+      </div>
+      <div class="price-card popular">
+        <div class="pop">популярный</div>
+        <h3>Корпоративный сайт</h3>
+        <div class="sub">многостраничный</div>
+        <div class="price">320 000 ₸</div>
+        <div class="term">срок: 3–6 дней</div>
+        <ul>
+          <li>Выбор, настройка и посадка дизайна</li>
+          <li>Мобильная версия сайта</li>
+          <li>До 20 страниц</li>
+          <li>Настройка интернет-каталога</li>
+          <li>До 100 товаров</li>
+          <li>Обратная связь на карточках</li>
+          <li>Раздел блога (статьи)</li>
+          <li>Настройка форм обратной связи</li>
+          <li>Наполнение контентом страниц</li>
+          <li>Базовая SEO-оптимизация</li>
+          <li>Подключение домена</li>
+          <li>Установка на хостинг</li>
+          <li>Настройка кэширования</li>
+        </ul>
+        <button class="btn btn-primary" onclick="openModal()">Выбрать корпоративный</button>
+      </div>
+      <div class="price-card">
+        <h3>Интернет-магазин</h3>
+        <div class="sub">e-commerce</div>
+        <div class="price">525 000 ₸</div>
+        <div class="term">срок: 3–6 дней</div>
+        <ul>
+          <li>Выбор, настройка и посадка дизайна</li>
+          <li>Мобильная версия сайта</li>
+          <li>До 20 страниц</li>
+          <li>Наполнение контентом страниц</li>
+          <li>Настройка интернет-магазина</li>
+          <li>До 100 товаров</li>
+          <li>Настройка способов доставки</li>
+          <li>Интеграция службы доставки</li>
+          <li>Настройка форм обратной связи</li>
+          <li>Личный кабинет пользователя</li>
+          <li>Базовая SEO-оптимизация</li>
+          <li>Настройка аналитики</li>
+          <li>Подключение домена</li>
+          <li>Установка на хостинг</li>
+          <li>Телеграм-бот для заявок</li>
+        </ul>
+        <button class="btn btn-outline" onclick="openModal()">Выбрать магазин</button>
+      </div>
+    </div>
+
+    <div class="lead-box">
+      <div>
+        <div class="section-label">ЗАЯВКА</div>
+        <h3>Обсудим ваш сайт</h3>
+        <p>Напишите задачу — перезвоним в рабочий день, подскажем формат и сроки.</p>
+      </div>
+      <div>
+        <div class="form-group"><label>Ваше имя</label><input type="text" placeholder="Как к вам обращаться"></div>
+        <div class="form-group"><label>Телефон</label><input type="tel" placeholder="+7 700 000 00 00"></div>
+        <div class="form-group"><label>Комментарий</label><textarea placeholder="Коротко о задаче"></textarea></div>
+        <button class="btn btn-primary" onclick="openModal()">✈ Оставить заявку</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 GROWTH. Создание сайтов и продвижение в Казахстане</footer>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h3>Оставьте заявку</h3>
+    <p>Перезвоним в течение рабочего дня, ответим на вопросы и подберём решение под вашу задачу.</p>
+    <div class="form-group"><label>Ваше имя</label><input type="text" placeholder="Как к вам обращаться"></div>
+    <div class="form-group"><label>Телефон</label><input type="tel" placeholder="+7 700 000 00 00"></div>
+    <div class="form-group"><label>Комментарий — по желанию</label><textarea placeholder="Коротко о задаче"></textarea></div>
+    <button class="btn btn-primary">✈ Отправить заявку</button>
+    <div class="modal-secure">🔒 Не передаём данные третьим лицам</div>
+    <div class="modal-or">или напишите прямо сейчас</div>
+    <div class="modal-messengers">
+      <a href="https://wa.me/message/HFGTVXVRVIE6G1" target="_blank" rel="noopener">WhatsApp</a>
+      
+    </div>
+  </div>
+</div>
+
+<script>
+function openModal(){document.getElementById('modal').classList.add('open')}
+function closeModal(){document.getElementById('modal').classList.remove('open')}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+
+// Hero entrance
+setTimeout(()=>{
+  document.getElementById('heroLabel').classList.add('show');
+  document.getElementById('heroTitle').classList.add('show');
+  document.getElementById('heroDesc').classList.add('show');
+  document.getElementById('heroBtns').classList.add('show');
+  document.getElementById('heroCard').classList.add('show');
+},100);
+
+// Birth sticky / mobile auto
+const tags=['КАРКАС','ДИЗАЙН','КОНТЕНТ','АДАПТИВ','ОНЛАЙН'];
+const steps=document.querySelectorAll('.birth-step');
+const stages=document.querySelectorAll('.browser-stage');
+const isMobile=window.matchMedia('(max-width:900px)').matches;
+let currentStep=0;
+
+function setStep(n){
+  currentStep=Math.max(0,Math.min(4,n));
+  steps.forEach((s,i)=>s.classList.toggle('active',i<=currentStep));
+  stages.forEach((s,i)=>s.classList.toggle('active',i===currentStep));
+  document.getElementById('browserTag').textContent=tags[currentStep];
+  const phone=document.getElementById('phoneMock');
+  const notif=document.getElementById('notifBar');
+  const status=document.getElementById('statusOnline');
+  if(phone)phone.classList.toggle('show',currentStep>=3);
+  if(notif)notif.classList.toggle('show',currentStep>=4);
+  if(status)status.classList.toggle('show',currentStep>=4);
+}
+
+if(isMobile){
+  // Auto play on mobile
+  let auto=0;
+  setInterval(()=>{
+    auto=(auto+1)%5;
+    setStep(auto);
+  },2200);
+  setStep(0);
+}else{
+  const wrapper=document.getElementById('birthWrapper');
+  function onScroll(){
+    const rect=wrapper.getBoundingClientRect();
+    const total=wrapper.offsetHeight-window.innerHeight;
+    const scrolled=-rect.top;
+    const progress=Math.max(0,Math.min(1,scrolled/total));
+    const step=Math.floor(progress*4.99);
+    setStep(step);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+}
+</script>
+<script>
+
+function openModal(){const m=document.getElementById('modal');if(m)m.classList.add('open')}
+function closeModal(){const m=document.getElementById('modal');if(m)m.classList.remove('open')}
+document.getElementById('modal')&&document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+
+async function sendToTelegram(name, phone, comment){
+  const text = `🆕 Заявка с сайта GROWTH\n\n👤 Имя: ${name||'—'}\n📞 Телефон: ${phone||'—'}\n💬 Комментарий: ${comment||'—'}\n🌐 Страница: ${location.pathname}`;
+  const url = `https://api.telegram.org/bot8945021082:AAFCv_daSsSsZQZ1vPqzvpbSkPehgg7ip9Y/sendMessage`;
+  const res = await fetch(url, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({chat_id:'8274492658', text, parse_mode:'HTML'})
+  });
+  return res.ok;
+}
+
+function bindForms(){
+  document.querySelectorAll('form[data-lead], .modal form, .lead-box form, .audit-form').forEach(f=>{
+    // skip if already bound
+  });
+  // modal button
+  document.querySelectorAll('#modal .btn-primary, .modal .btn-primary').forEach(btn=>{
+    if(btn.dataset.bound) return;
+    btn.dataset.bound='1';
+    btn.addEventListener('click', async (e)=>{
+      e.preventDefault();
+      const modal = btn.closest('.modal') || document.getElementById('modal');
+      if(!modal) return;
+      const inputs = modal.querySelectorAll('input, textarea');
+      let name='', phone='', comment='';
+      inputs.forEach(inp=>{
+        const ph=(inp.placeholder||'').toLowerCase();
+        const lab=((inp.previousElementSibling&&inp.previousElementSibling.textContent)||'').toLowerCase();
+        const v=inp.value.trim();
+        if(inp.type==='tel' || ph.includes('телефон') || ph.includes('+7') || lab.includes('телефон')) phone=v;
+        else if(inp.tagName==='TEXTAREA' || lab.includes('коммент') || ph.includes('задач')) comment=v;
+        else if(inp.type==='text' || lab.includes('имя') || ph.includes('обращ')) name=v;
+      });
+      if(!phone && !name){ alert('Укажите имя и телефон'); return; }
+      btn.disabled=true; const old=btn.textContent; btn.textContent='Отправляем…';
+      try{
+        const ok=await sendToTelegram(name,phone,comment);
+        if(ok){ btn.textContent='✓ Отправлено'; inputs.forEach(i=>i.value=''); setTimeout(()=>{btn.textContent=old;btn.disabled=false;closeModal();},1500); }
+        else { throw new Error('fail'); }
+      }catch(err){ btn.textContent='Ошибка, попробуйте ещё'; setTimeout(()=>{btn.textContent=old;btn.disabled=false;},2000); }
+    });
+  });
+  // lead-box buttons outside modal
+  document.querySelectorAll('.lead-box .btn-primary').forEach(btn=>{
+    if(btn.dataset.bound) return;
+    btn.dataset.bound='1';
+    btn.addEventListener('click', async (e)=>{
+      e.preventDefault();
+      const box=btn.closest('.lead-box');
+      if(!box) return;
+      const inputs=box.querySelectorAll('input, textarea');
+      let name='', phone='', comment='';
+      inputs.forEach(inp=>{
+        const ph=(inp.placeholder||'').toLowerCase();
+        const lab=((inp.previousElementSibling&&inp.previousElementSibling.textContent)||'').toLowerCase();
+        const v=inp.value.trim();
+        if(inp.type==='tel' || ph.includes('+7') || lab.includes('телефон')) phone=v;
+        else if(inp.tagName==='TEXTAREA') comment=v;
+        else name=v;
+      });
+      if(!phone && !name){ alert('Укажите имя и телефон'); return; }
+      btn.disabled=true; const old=btn.textContent; btn.textContent='Отправляем…';
+      try{
+        const ok=await sendToTelegram(name,phone,comment);
+        if(ok){ btn.textContent='✓ Отправлено'; inputs.forEach(i=>i.value=''); setTimeout(()=>{btn.textContent=old;btn.disabled=false;},1500); }
+        else throw new Error('fail');
+      }catch(err){ btn.textContent='Ошибка'; setTimeout(()=>{btn.textContent=old;btn.disabled=false;},2000); }
+    });
+  });
+  // audit form
+  document.querySelectorAll('.audit-form').forEach(form=>{
+    if(form.dataset.bound) return;
+    form.dataset.bound='1';
+    const btn=form.querySelector('button');
+    if(!btn) return;
+    btn.addEventListener('click', async (e)=>{
+      e.preventDefault();
+      const inputs=form.querySelectorAll('input');
+      let name='', phone='';
+      inputs.forEach((inp,i)=>{ if(inp.type==='tel'||(inp.placeholder||'').includes('+7')) phone=inp.value.trim(); else name=inp.value.trim(); });
+      if(!phone && !name){ alert('Укажите имя и телефон'); return; }
+      btn.disabled=true; const old=btn.textContent; btn.textContent='…';
+      try{
+        const ok=await sendToTelegram(name,phone,'Аудит с главной');
+        if(ok){ btn.textContent='✓'; inputs.forEach(i=>i.value=''); setTimeout(()=>{btn.textContent=old;btn.disabled=false;},1500); }
+        else throw new Error('fail');
+      }catch(err){ btn.textContent='Ошибка'; setTimeout(()=>{btn.textContent=old;btn.disabled=false;},2000); }
+    });
+  });
+}
+document.addEventListener('DOMContentLoaded', bindForms);
+if(document.readyState!=='loading') bindForms();
+
+</script>
+</body>
+</html>

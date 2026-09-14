@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SEO-продвижение — GROWTH</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0a0a0b;--bg-card:#121214;--text:#f5f5f7;--muted:#a1a1aa;--accent:#ff5c1a;--accent-h:#ff7a3d;--border:#2a2a2e;--green:#22c55e;--blue:#5b9cff}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:auto}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;overflow-x:hidden}
+a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:none}
+header{position:sticky;top:0;z-index:100;background:rgba(10,10,11,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav{max-width:1280px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{font-weight:900;font-size:22px;letter-spacing:-.5px}.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:22px;font-size:14px;font-weight:500;color:var(--muted);align-items:center}
+.nav-links a:hover,.nav-item:hover>a{color:var(--text)}
+.nav-item{position:relative}
+.nav-item>a{display:flex;align-items:center;gap:4px;padding:6px 0}
+.dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(8px);background:#16161a;border:1px solid var(--border);border-radius:12px;padding:8px;min-width:220px;opacity:0;visibility:hidden;transition:.2s;box-shadow:0 20px 50px rgba(0,0,0,.5);z-index:50}
+.nav-item:hover .dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(4px)}
+.dropdown a{display:block;padding:10px 14px;border-radius:8px;font-size:13px;color:var(--muted)}
+.dropdown a:hover{background:#1e1e24;color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:10px;font-weight:600;font-size:14px;transition:.25s}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-h);transform:translateY(-2px);box-shadow:0 10px 28px rgba(255,92,26,.35)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-outline:hover{border-color:#555;background:rgba(255,255,255,.04)}
+
+.page-hero{padding:100px 24px 80px;position:relative;overflow:hidden}
+.page-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:50px 50px;mask-image:radial-gradient(ellipse 70% 50% at 30% 40%,black,transparent)}
+.page-hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;position:relative;z-index:2}
+.breadcrumb{font-size:13px;color:var(--muted);margin-bottom:18px}
+.page-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.page-label::after{content:'';width:36px;height:2px;background:var(--accent)}
+.page-hero h1{font-size:clamp(34px,4.5vw,52px);font-weight:900;line-height:1.05;letter-spacing:-1.2px;margin-bottom:20px}
+.page-hero h1 .blue{color:var(--blue)}
+.page-hero p{font-size:16px;color:var(--muted);max-width:440px;margin-bottom:32px}
+.page-hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+
+.seo-mock{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.seo-mock-bar{background:#16161a;padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);font-size:12px;color:var(--muted)}
+.seo-mock-body{padding:20px;font-family:SF Mono,Fira Code,monospace;font-size:13px;line-height:1.8;min-height:260px}
+.seo-line{opacity:0;transform:translateY(6px);transition:.35s}
+.seo-line.show{opacity:1;transform:translateY(0)}
+.seo-line .tag{color:#7dd3fc}.seo-line .val{color:#86efac}.seo-line .ok{color:var(--green)}
+.seo-score{position:absolute;bottom:16px;right:16px;width:70px;height:70px;border-radius:50%;border:4px solid var(--green);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:22px;background:#0f0f12}
+.seo-score span{font-size:10px;font-weight:500;color:var(--muted)}
+
+/* Sticky path */
+.path-wrapper{position:relative;height:700vh;border-top:1px solid var(--border)}
+.path-inner{position:sticky;top:0;height:100vh;display:flex;align-items:center;padding:40px 24px;overflow:hidden}
+.path-content{max-width:1200px;margin:0 auto;width:100%}
+.path-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.path-title{font-size:clamp(26px,4vw,40px);font-weight:800;margin-bottom:32px}
+.path-grid{display:grid;grid-template-columns:260px 1fr;gap:36px;align-items:center}
+.path-steps{display:flex;flex-direction:column;gap:0;position:relative}
+.path-steps::before{content:'';position:absolute;left:15px;top:18px;bottom:18px;width:2px;background:var(--border)}
+.path-step{display:flex;gap:14px;padding:11px 0;opacity:.4;transition:.4s}
+.path-step.active{opacity:1}
+.path-step .num{width:32px;height:32px;border-radius:50%;background:#1e1e24;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;z-index:1;transition:.3s}
+.path-step.active .num{background:var(--accent);border-color:var(--accent);color:#fff}
+.path-step h4{font-size:13px;font-weight:700;margin-bottom:2px}
+.path-step p{font-size:11px;color:var(--muted)}
+
+.path-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:22px;min-height:340px;position:relative}
+.path-card-title{font-size:14px;font-weight:600;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.path-card-title .badge{font-size:11px;padding:3px 10px;border-radius:12px;background:#1e1e24;color:var(--muted)}
+.tags-cloud{display:flex;flex-wrap:wrap;gap:8px}
+.tag-pill{padding:6px 14px;border-radius:20px;background:#1a1a1e;border:1px solid var(--border);font-size:12px;opacity:0;transform:scale(.85);transition:.4s}
+.tag-pill.show{opacity:1;transform:scale(1)}
+.tag-pill.hot{border-color:var(--accent);color:var(--accent)}
+.audit-list{display:flex;flex-direction:column;gap:8px}
+.audit-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#16161a;border-radius:8px;font-size:13px;opacity:.5;transition:.3s}
+.audit-item.done{opacity:1;background:#132a1a}
+.audit-item .check{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.audit-item.done .check{background:var(--green);border-color:var(--green);color:#fff}
+.circle-progress{position:absolute;right:24px;top:50%;transform:translateY(-50%);width:90px;height:90px}
+.circle-progress svg{transform:rotate(-90deg)}
+.circle-progress circle{fill:none;stroke-width:8}
+.circle-progress .bg{stroke:#1e1e24}
+.circle-progress .fg{stroke:var(--green);stroke-dasharray:251;stroke-dashoffset:251;transition:stroke-dashoffset 1s ease}
+.circle-progress .val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:24px}
+.circle-progress .val span{font-size:10px;font-weight:500;color:var(--muted)}
+.bars-list{display:flex;flex-direction:column;gap:10px}
+.bar-row{display:flex;align-items:center;gap:10px}
+.bar-track{flex:1;height:12px;background:#1a1a1e;border-radius:6px;overflow:hidden}
+.bar-fill{height:100%;background:var(--blue);border-radius:6px;width:0;transition:width 1s ease}
+.link-net{display:flex;align-items:center;justify-content:center;height:240px;position:relative}
+.link-center{width:70px;height:70px;border-radius:50%;background:#1e3a5f;border:2px solid var(--blue);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;text-align:center;z-index:2}
+.link-node{position:absolute;width:14px;height:14px;border-radius:50%;background:#2a2a30;border:2px solid #444;transition:.6s;opacity:0}
+.link-node.show{opacity:1}
+.link-line{position:absolute;height:1px;background:#333;transform-origin:left center;opacity:0;transition:.5s}
+.link-line.show{opacity:1}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.stat-box{background:#16161a;border-radius:10px;padding:16px;text-align:center}
+.stat-box .num{font-size:28px;font-weight:800}
+.stat-box .lbl{font-size:11px;color:var(--muted);margin-top:4px}
+.pos-list{display:flex;flex-direction:column;gap:8px}
+.pos-item{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:6px 0;border-bottom:1px solid #1a1a1e}
+.pos-bar{width:80px;height:6px;background:#1a1a1e;border-radius:3px;overflow:hidden}
+.pos-bar-fill{height:100%;background:var(--green);width:0;transition:width .8s ease}
+
+.section{padding:90px 24px}.section-inner{max-width:1200px;margin:0 auto}
+.section-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.section-label::after{content:'';width:32px;height:2px;background:var(--accent)}
+.section h2{font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.8px;margin-bottom:12px}
+.section h2 .blue{color:var(--blue)}
+.section-desc{color:var(--muted);max-width:520px;margin-bottom:40px}
+.includes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.include-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:24px;transition:.3s}
+.include-card:hover{transform:translateY(-4px);border-color:#3a3a42}
+.include-icon{width:40px;height:40px;border-radius:10px;background:#1e1e24;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:14px;color:var(--blue)}
+.include-card h3{font-size:14px;font-weight:700;margin-bottom:12px}
+.include-card ul{list-style:none}
+.include-card li{font-size:13px;color:var(--muted);padding:3px 0;padding-left:16px;position:relative}
+.include-card li::before{content:'✓';position:absolute;left:0;color:var(--green);font-size:11px}
+
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.price-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px;position:relative;transition:.3s}
+.price-card:hover{transform:translateY(-4px);border-color:#3a3a42}
+.price-card.popular{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.price-card .pop{position:absolute;top:-10px;right:20px;background:var(--accent);color:#fff;font-size:11px;padding:3px 12px;border-radius:12px;font-weight:600}
+.price-card h3{font-size:14px;font-weight:700;margin-bottom:4px;color:var(--muted)}
+.price-card .price{font-size:32px;font-weight:900;margin:12px 0}
+.price-card .price span{font-size:14px;font-weight:500;color:var(--muted)}
+.price-card ul{list-style:none;margin:16px 0 24px}
+.price-card li{font-size:13px;color:var(--muted);padding:5px 0;padding-left:16px;position:relative}
+.price-card li::before{content:'✓';position:absolute;left:0;color:var(--green)}
+.price-card .btn{width:100%;justify-content:center}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);z-index:200;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:.3s}
+.modal-overlay.open{opacity:1;visibility:visible}
+.modal{background:#16161a;border:1px solid var(--border);border-radius:18px;padding:32px;width:90%;max-width:420px;position:relative}
+.modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;background:#1e1e24;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--muted)}
+.modal h3{font-size:22px;font-weight:800;margin-bottom:6px}
+.modal p{font-size:14px;color:var(--muted);margin-bottom:24px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+.form-group input,.form-group textarea{width:100%;background:#0f0f12;border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-size:14px;outline:none}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textarea{min-height:80px;resize:vertical}
+.modal .btn{width:100%;justify-content:center;margin-top:8px}
+.modal-secure{text-align:center;font-size:12px;color:var(--muted);margin-top:14px}
+.modal-or{text-align:center;font-size:12px;color:var(--muted);margin:16px 0}
+.modal-messengers{display:flex;gap:10px}
+.modal-messengers a{flex:1;text-align:center;padding:10px;border:1px solid var(--border);border-radius:10px;font-size:13px}
+
+footer{border-top:1px solid var(--border);padding:40px 24px;text-align:center;color:var(--muted);font-size:13px}
+
+@media(max-width:900px){
+  .page-hero-inner,.path-grid{grid-template-columns:1fr}
+  .includes-grid,.pricing-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .path-wrapper{height:auto}
+  .path-inner{position:relative;height:auto;padding:60px 24px}
+  .path-steps{flex-direction:row;overflow-x:auto;gap:8px}
+  .path-steps::before{display:none}
+  .path-step p{display:none}
+}
+</style>
+</head>
+<body>
+<header>
+    <div class="nav">
+    <a href="../index.html" class="logo">GROWTH<span>.</span></a>
+    <div class="nav-links">
+      <div class="nav-item">
+        <a href="sites.html">Создание сайта ▾</a>
+        <div class="dropdown">
+          <a href="sites.html">Лендинг</a>
+          <a href="sites.html">Корпоративный сайт</a>
+          <a href="sites.html">Интернет-магазин</a>
+        </div>
+      </div>
+      <a href="seo.html">Продвижение</a>
+      <a href="ads.html">Реклама</a>
+      <a href="#" onclick="openModal();return false">Битрикс24</a>
+      <a href="support.html">Сопровождение</a>
+      <a href="../index.html#portfolio">Портфолио</a>
+    </div>
+    <button class="btn btn-primary" onclick="openModal()">⚡ Получить аудит</button>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-inner">
+    <div>
+      <div class="breadcrumb"><a href="../index.html">Главная</a> › SEO-продвижение</div>
+      <div class="page-label">SEO-ПРОДВИЖЕНИЕ</div>
+      <h1>ПРОДВИЖЕНИЕ<br>САЙТОВ<br>В <span class="blue">КАЗАХСТАНЕ</span></h1>
+      <p>Выводим сайты в топ Google и Яндекса по всему Казахстану белыми методами — без накруток и рисков. Аудит, семантическое ядро, контент и ссылки, а в отчётах — позиции и заявки, а не сухие показы.</p>
+      <div class="page-hero-btns">
+        <button class="btn btn-primary" onclick="openModal()">🔍 Получить аудит</button>
+        <button class="btn btn-outline">Цены и тарифы ↓</button>
+      </div>
+    </div>
+    <div class="seo-mock" style="position:relative">
+      <div class="seo-mock-bar">
+        <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57;display:inline-block"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#febc2e;display:inline-block"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#28c840;display:inline-block"></span>
+        <span style="margin-left:8px">ваш-сайт.kz /remont-kvartir</span>
+        <span style="margin-left:auto;color:var(--accent)">SEO-АУДИТ</span>
+      </div>
+      <div class="seo-mock-body" id="seoTyping">
+        <div class="seo-line" data-i="0"><span class="tag">&lt;title&gt;</span> Ремонт квартир в Астане — под ключ <span class="tag">&lt;/title&gt;</span> <span class="ok">✓</span></div>
+        <div class="seo-line" data-i="1"><span class="tag">&lt;meta description&gt;</span> Ремонт квартир под ключ: смета за день... <span class="ok">✓</span></div>
+        <div class="seo-line" data-i="2"><span class="tag">H1</span> <span class="val">Ремонт квартир в Астане</span> <span class="ok">✓</span></div>
+        <div class="seo-line" data-i="3" style="margin-top:12px"><span class="tag">alt=</span>"ремонт" <span class="ok">✓</span></div>
+        <div class="seo-line" data-i="4"><span class="tag">schema</span> LocalBusiness <span class="ok">✓</span></div>
+      </div>
+      <div class="seo-score"><div>84</div><span>SEO-SCORE</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="path-wrapper" id="pathWrapper">
+  <div class="path-inner">
+    <div class="path-content">
+      <div class="path-label">КАК МЫ ПРОДВИГАЕМ</div>
+      <h2 class="path-title">ВЕСЬ ПУТЬ САЙТА ДО<br><span style="color:var(--blue)">ТОПА</span></h2>
+      <div class="path-grid">
+        <div class="path-steps">
+          <div class="path-step" data-s="0"><div class="num">01</div><div><h4>СЕМАНТИКА</h4><p>Собираем и кластеризуем ядро запросов.</p></div></div>
+          <div class="path-step" data-s="1"><div class="num">02</div><div><h4>ТЕХНИКА</h4><p>Чиним ошибки, ускоряем, размечаем.</p></div></div>
+          <div class="path-step" data-s="2"><div class="num">03</div><div><h4>КОНТЕНТ</h4><p>Пишем продающие тексты под ключи.</p></div></div>
+          <div class="path-step" data-s="3"><div class="num">04</div><div><h4>ССЫЛКИ</h4><p>Наращиваем траст белыми методами.</p></div></div>
+          <div class="path-step" data-s="4"><div class="num">05</div><div><h4>РЕЗУЛЬТАТ</h4><p>Запросы в топе, трафик и заявки.</p></div></div>
+        </div>
+        <div class="path-card" id="pathCard">
+          <!-- Stage 0: Semantics -->
+          <div class="path-stage" data-stage="0">
+            <div class="path-card-title">Семантическое ядро <span class="badge">587 запросов</span></div>
+            <div class="tags-cloud" id="tagsCloud">
+              <span class="tag-pill">ремонт квартир астана</span>
+              <span class="tag-pill">дизайн интерьера</span>
+              <span class="tag-pill">отделка под ключ</span>
+              <span class="tag-pill">ремонт ванной</span>
+              <span class="tag-pill">натяжные потолки</span>
+              <span class="tag-pill">перепланировка</span>
+              <span class="tag-pill">укладка плитки</span>
+              <span class="tag-pill">ремонт офиса</span>
+              <span class="tag-pill">евроремонт цена</span>
+              <span class="tag-pill">прораб астана</span>
+              <span class="tag-pill">черновая отделка</span>
+            </div>
+          </div>
+          <!-- Stage 1: Tech -->
+          <div class="path-stage" data-stage="1" style="display:none">
+            <div class="path-card-title">Технический аудит <span class="badge">5/6</span></div>
+            <div class="audit-list" id="auditList">
+              <div class="audit-item"><div class="check"></div>Скорость загрузки</div>
+              <div class="audit-item"><div class="check"></div>Мета-теги Title / Desc</div>
+              <div class="audit-item"><div class="check"></div>robots.txt и sitemap</div>
+              <div class="audit-item"><div class="check"></div>Микроразметка Schema</div>
+              <div class="audit-item"><div class="check"></div>Мобильная версия</div>
+              <div class="audit-item"><div class="check"></div>Перелинковка страниц</div>
+            </div>
+            <div class="circle-progress">
+              <svg width="90" height="90"><circle class="bg" cx="45" cy="45" r="40"/><circle class="fg" id="circFg" cx="45" cy="45" r="40"/></svg>
+              <div class="val"><span id="circVal">0</span><span>PAGESPEED</span></div>
+            </div>
+          </div>
+          <!-- Stage 2: Content -->
+          <div class="path-stage" data-stage="2" style="display:none">
+            <div class="path-card-title">Контент под запросы <span class="badge">18 страниц</span></div>
+            <div class="bars-list" id="barsList">
+              <div class="bar-row"><div class="bar-track"><div class="bar-fill" data-w="95"></div></div></div>
+              <div class="bar-row"><div class="bar-track"><div class="bar-fill" data-w="82"></div></div></div>
+              <div class="bar-row"><div class="bar-track"><div class="bar-fill" data-w="70"></div></div></div>
+              <div class="bar-row"><div class="bar-track"><div class="bar-fill" data-w="58"></div></div></div>
+              <div class="bar-row"><div class="bar-track"><div class="bar-fill" data-w="45"></div></div></div>
+              <div class="bar-row"><div class="bar-track"><div class="bar-fill" data-w="38"></div></div></div>
+            </div>
+          </div>
+          <!-- Stage 3: Links -->
+          <div class="path-stage" data-stage="3" style="display:none">
+            <div class="path-card-title">Ссылочная масса <span class="badge">221 ссылок · DR 53</span></div>
+            <div class="link-net" id="linkNet">
+              <div class="link-center">ВАШ<br>САЙТ</div>
+            </div>
+          </div>
+          <!-- Stage 4: Result -->
+          <div class="path-stage" data-stage="4" style="display:none">
+            <div class="path-card-title">Позиции в поиске <span class="badge" style="background:#16331f;color:var(--green)">топ</span></div>
+            <div class="stats-row">
+              <div class="stat-box"><div class="num" data-count="44">0</div><div class="lbl">в ТОП-10</div></div>
+              <div class="stat-box"><div class="num" data-count="142">0</div><div class="lbl">ссылок</div></div>
+              <div class="stat-box"><div class="num" data-count="5.4">0</div><div class="lbl">трафик/мес (K)</div></div>
+            </div>
+            <div class="pos-list">
+              <div class="pos-item"><span>ремонт квартир астана</span><div style="display:flex;align-items:center;gap:8px"><div class="pos-bar"><div class="pos-bar-fill" data-w="80"></div></div><strong>8</strong></div></div>
+              <div class="pos-item"><span>дизайн интерьера</span><div style="display:flex;align-items:center;gap:8px"><div class="pos-bar"><div class="pos-bar-fill" data-w="50"></div></div><strong>5</strong></div></div>
+              <div class="pos-item"><span>отделка под ключ</span><div style="display:flex;align-items:center;gap:8px"><div class="pos-bar"><div class="pos-bar-fill" data-w="90"></div></div><strong>11</strong></div></div>
+              <div class="pos-item"><span>перепланировка квартиры</span><div style="display:flex;align-items:center;gap:8px"><div class="pos-bar"><div class="pos-bar-fill" data-w="60"></div></div><strong>6</strong></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label">СОСТАВ УСЛУГИ</div>
+    <h2>ЧТО ВХОДИТ В <span class="blue">ПРОДВИЖЕНИЕ</span></h2>
+    <p class="section-desc">Комплексная работа над сайтом: техника, семантика, контент, ссылки и поведенческие факторы — всё, что влияет на позиции в Google и Яндекс.</p>
+    <div class="includes-grid">
+      <div class="include-card"><div class="include-icon">🔍</div><h3>SEO-АУДИТ САЙТА</h3><ul><li>Технический аудит и поиск ошибок индексации</li><li>Анализ сайта и конкурентов в нише</li><li>Оценка текущих позиций и видимости</li><li>Проверка скорости и мобильной версии</li><li>План работ на основе результатов аудита</li></ul></div>
+      <div class="include-card"><div class="include-icon">📋</div><h3>СЕМАНТИЧЕСКОЕ ЯДРО</h3><ul><li>Сбор и кластеризация семантического ядра</li><li>Определение регионов продвижения</li><li>Группировка запросов по страницам</li><li>Приоритизация по спросу и конкуренции</li><li>Карта релевантности под структуру сайта</li></ul></div>
+      <div class="include-card"><div class="include-icon">⚙</div><h3>ТЕХНИЧЕСКАЯ ОПТИМИЗАЦИЯ</h3><ul><li>Правка мета-тегов Title и Description</li><li>Микроразметка Schema.org и заголовки</li><li>Настройка robots.txt, sitemap и ЧПУ</li><li>Ускорение загрузки и Core Web Vitals</li><li>Внутренняя перелинковка страниц</li></ul></div>
+      <div class="include-card"><div class="include-icon">✏</div><h3>КОНТЕНТ И ТЕКСТЫ</h3><ul><li>Добавление уникального контента под запросы</li><li>SEO-тексты для разделов и карточек</li><li>Статьи в блог под информационные ключи</li><li>Оптимизация под AI-поиск и быстрые ответы</li><li>Улучшение usability и поведенческих факторов</li></ul></div>
+      <div class="include-card"><div class="include-icon">🔗</div><h3>ССЫЛОЧНАЯ МАССА</h3><ul><li>Закупка качественных ссылок белыми методами</li><li>Регистрация в онлайн-каталогах и картах</li><li>Крауд-маркетинг и упоминания бренда</li><li>Контроль динамики и качества доноров</li><li>Наращивание траста и авторитетности домена</li></ul></div>
+      <div class="include-card"><div class="include-icon">📊</div><h3>ОТЧЁТНОСТЬ И АНАЛИТИКА</h3><ul><li>Настройка Google Analytics и Яндекс Метрики</li><li>Отслеживание позиций по ядру запросов</li><li>Ежемесячная отчётность по работам</li><li>Анализ результатов и корректировка плана</li><li>Прозрачные итоги: трафик, позиции, заявки</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="section-inner">
+    <div class="section-label">ТАРИФЫ И ЦЕНЫ</div>
+    <h2>СТОИМОСТЬ <span class="blue">ПРОДВИЖЕНИЯ</span></h2>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <h3>КУРС 3 МЕСЯЦА</h3>
+        <div class="price">348 450 ₸ <span>/ 3 мес</span></div>
+        <ul><li>SEO-аудит и стратегия продвижения</li><li>Семантическое ядро, один-два региона</li><li>Техническая оптимизация сайта</li><li>Базовый контент и мета-теги</li><li>Ежемесячный отчёт по позициям</li></ul>
+        <button class="btn btn-outline" onclick="openModal()">Заказать SEO</button>
+      </div>
+      <div class="price-card popular">
+        <div class="pop">популярный</div>
+        <h3>КУРС 6 МЕСЯЦЕВ</h3>
+        <div class="price">638 200 ₸ <span>/ 6 мес</span></div>
+        <ul><li>Всё из курса на 3 месяца</li><li>Расширенное ядро и больше регионов</li><li>Контент: план и статьи в блог</li><li>Наращивание ссылочной массы</li><li>Отчётность по позициям и трафику</li></ul>
+        <button class="btn btn-primary" onclick="openModal()">Заказать SEO</button>
+      </div>
+      <div class="price-card">
+        <h3>КУРС НА 1 ГОД</h3>
+        <div class="price">1 148 000 ₸ <span>/ год</span></div>
+        <ul><li>Всё из курса на 6 месяцев</li><li>Максимальное ядро и категории каталога</li><li>Усиленный контент и линкбилдинг</li><li>Приоритетное сопровождение и стратегия</li><li>Бонус: работы по AI-поиску (GEO/AEO)</li></ul>
+        <button class="btn btn-outline" onclick="openModal()">Заказать SEO</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 GROWTH. Создание сайтов и продвижение в Казахстане</footer>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h3>Оставьте заявку</h3>
+    <p>Перезвоним в течение рабочего дня, ответим на вопросы и подберём решение под вашу задачу.</p>
+    <div class="form-group"><label>Ваше имя</label><input type="text" placeholder="Как к вам обращаться"></div>
+    <div class="form-group"><label>Телефон</label><input type="tel" placeholder="+7 700 000 00 00"></div>
+    <div class="form-group"><label>Комментарий</label><textarea placeholder="Коротко о задаче"></textarea></div>
+    <button class="btn btn-primary">✈ Отправить заявку</button>
+    <div class="modal-secure">🔒 Не передаём данные третьим лицам</div>
+    <div class="modal-or">или напишите прямо сейчас</div>
+    <div class="modal-messengers"><a href="https://wa.me/message/HFGTVXVRVIE6G1" target="_blank" rel="noopener">WhatsApp</a></div>
+  </div>
+</div>
+
+<script>
+function openModal(){document.getElementById('modal').classList.add('open')}
+function closeModal(){document.getElementById('modal').classList.remove('open')}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+
+// Typing animation in hero
+document.querySelectorAll('.seo-line').forEach((l,i)=>setTimeout(()=>l.classList.add('show'),300+i*400));
+
+const pathSteps=document.querySelectorAll('.path-step');
+const pathStages=document.querySelectorAll('.path-stage');
+const tags=document.querySelectorAll('.tag-pill');
+const auditItems=document.querySelectorAll('.audit-item');
+const barFills=document.querySelectorAll('.bar-fill');
+const posFills=document.querySelectorAll('.pos-bar-fill');
+const isMobile=window.matchMedia('(max-width:900px)').matches;
+let lastStage=-1;
+let linkNodesBuilt=false;
+
+function applyStage(stage, local){
+  // local = 0..1 progress inside this stage
+  pathSteps.forEach((s,i)=>s.classList.toggle('active',i<=stage));
+  pathStages.forEach((s,i)=>{s.style.display=i===stage?'block':'none'});
+
+  if(stage===0){
+    // First half of stage: tags appear (show), second half: turn orange (hot)
+    // Appear in batches of ~2-3
+    const n=tags.length;
+    const appearEnd=0.55;
+    const colorStart=0.35;
+    tags.forEach((t,i)=>{
+      const appearAt=(i/n)*appearEnd;
+      const colorAt=colorStart+(i/n)*(1-colorStart);
+      if(local>=appearAt) t.classList.add('show'); else t.classList.remove('show');
+      if(local>=colorAt) t.classList.add('hot'); else t.classList.remove('hot');
+    });
+  }
+
+  if(stage===1){
+    const n=auditItems.length;
+    auditItems.forEach((it,i)=>{
+      const at=(i+0.5)/n;
+      if(local>=at){
+        it.classList.add('done');
+        const c=it.querySelector('.check'); if(c) c.textContent='✓';
+      } else {
+        it.classList.remove('done');
+        const c=it.querySelector('.check'); if(c) c.textContent='';
+      }
+    });
+    const p=Math.round(Math.min(83, local*83));
+    const circ=document.getElementById('circFg');
+    const val=document.getElementById('circVal');
+    if(circ) circ.style.strokeDashoffset=251-(251*p/100);
+    if(val) val.textContent=p;
+  }
+
+  if(stage===2){
+    barFills.forEach((b,i)=>{
+      const target=parseFloat(b.dataset.w)||50;
+      const at=i/barFills.length;
+      const w=local>at ? target*Math.min(1,(local-at)*barFills.length) : 0;
+      b.style.width=w+'%';
+    });
+  }
+
+  if(stage===3){
+    const net=document.getElementById('linkNet');
+    if(net && !linkNodesBuilt){
+      linkNodesBuilt=true;
+      for(let i=0;i<12;i++){
+        const ang=(i/12)*Math.PI*2;
+        const r=90+Math.random()*40;
+        const node=document.createElement('div');
+        node.className='link-node';
+        node.style.left=`calc(50% + ${Math.cos(ang)*r}px - 7px)`;
+        node.style.top=`calc(50% + ${Math.sin(ang)*r}px - 7px)`;
+        net.appendChild(node);
+      }
+    }
+    document.querySelectorAll('#linkNet .link-node').forEach((node,i)=>{
+      if(local>=(i+0.5)/12) node.classList.add('show');
+      else node.classList.remove('show');
+    });
+  }
+
+  if(stage===4){
+    document.querySelectorAll('.stat-box .num').forEach(el=>{
+      const target=parseFloat(el.dataset.count)||0;
+      const v=target*local;
+      el.textContent=target%1 ? v.toFixed(1) : Math.round(v);
+    });
+    posFills.forEach((b,i)=>{
+      const target=parseFloat(b.dataset.w)||50;
+      b.style.width=(target*local)+'%';
+    });
+  }
+
+  lastStage=stage;
+}
+
+function updateFromProgress(progress){
+  // 5 stages, each gets equal share; within stage use local 0..1
+  const stages=5;
+  const raw=progress*stages;
+  const stage=Math.min(stages-1, Math.floor(raw));
+  const local=raw-stage;
+  applyStage(stage, local);
+}
+
+if(isMobile){
+  // auto cycle — slower so stages are readable (~18–20s full loop)
+  let t=0;
+  setInterval(()=>{
+    t=(t+0.0025)%1;
+    updateFromProgress(t);
+  },50);
+  updateFromProgress(0);
+}else{
+  const wrap=document.getElementById('pathWrapper');
+  function onScroll(){
+    const rect=wrap.getBoundingClientRect();
+    const total=wrap.offsetHeight-window.innerHeight;
+    if(total<=0) return;
+    const scrolled=-rect.top;
+    const progress=Math.max(0, Math.min(1, scrolled/total));
+    updateFromProgress(progress);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+}
+</script>
+<script>
+
+function openModal(){const m=document.getElementById('modal');if(m)m.classList.add('open')}
+function closeModal(){const m=document.getElementById('modal');if(m)m.classList.remove('open')}
+document.getElementById('modal')&&document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+
+async function sendToTelegram(name, phone, comment){
+  const text = `🆕 Заявка с сайта GROWTH\n\n👤 Имя: ${name||'—'}\n📞 Телефон: ${phone||'—'}\n💬 Комментарий: ${comment||'—'}\n🌐 Страница: ${location.pathname}`;
+  const url = `https://api.telegram.org/bot8945021082:AAFCv_daSsSsZQZ1vPqzvpbSkPehgg7ip9Y/sendMessage`;
+  const res = await fetch(url, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({chat_id:'8274492658', text, parse_mode:'HTML'})
+  });
+  return res.ok;
+}
+
+function bindForms(){
+  document.querySelectorAll('form[data-lead], .modal form, .lead-box form, .audit-form').forEach(f=>{
+    // skip if already bound
+  });
+  // modal button
+  document.querySelectorAll('#modal .btn-primary, .modal .btn-primary').forEach(btn=>{
+    if(btn.dataset.bound) return;
+    btn.dataset.bound='1';
+    btn.addEventListener('click', async (e)=>{
+      e.preventDefault();
+      const modal = btn.closest('.modal') || document.getElementById('modal');
+      if(!modal) return;
+      const inputs = modal.querySelectorAll('input, textarea');
+      let name='', phone='', comment='';
+      inputs.forEach(inp=>{
+        const ph=(inp.placeholder||'').toLowerCase();
+        const lab=((inp.previousElementSibling&&inp.previousElementSibling.textContent)||'').toLowerCase();
+        const v=inp.value.trim();
+        if(inp.type==='tel' || ph.includes('телефон') || ph.includes('+7') || lab.includes('телефон')) phone=v;
+        else if(inp.tagName==='TEXTAREA' || lab.includes('коммент') || ph.includes('задач')) comment=v;
+        else if(inp.type==='text' || lab.includes('имя') || ph.includes('обращ')) name=v;
+      });
+      if(!phone && !name){ alert('Укажите имя и телефон'); return; }
+      btn.disabled=true; const old=btn.textContent; btn.textContent='Отправляем…';
+      try{
+        const ok=await sendToTelegram(name,phone,comment);
+        if(ok){ btn.textContent='✓ Отправлено'; inputs.forEach(i=>i.value=''); setTimeout(()=>{btn.textContent=old;btn.disabled=false;closeModal();},1500); }
+        else { throw new Error('fail'); }
+      }catch(err){ btn.textContent='Ошибка, попробуйте ещё'; setTimeout(()=>{btn.textContent=old;btn.disabled=false;},2000); }
+    });
+  });
+  // lead-box buttons outside modal
+  document.querySelectorAll('.lead-box .btn-primary').forEach(btn=>{
+    if(btn.dataset.bound) return;
+    btn.dataset.bound='1';
+    btn.addEventListener('click', async (e)=>{
+      e.preventDefault();
+      const box=btn.closest('.lead-box');
+      if(!box) return;
+      const inputs=box.querySelectorAll('input, textarea');
+      let name='', phone='', comment='';
+      inputs.forEach(inp=>{
+        const ph=(inp.placeholder||'').toLowerCase();
+        const lab=((inp.previousElementSibling&&inp.previousElementSibling.textContent)||'').toLowerCase();
+        const v=inp.value.trim();
+        if(inp.type==='tel' || ph.includes('+7') || lab.includes('телефон')) phone=v;
+        else if(inp.tagName==='TEXTAREA') comment=v;
+        else name=v;
+      });
+      if(!phone && !name){ alert('Укажите имя и телефон'); return; }
+      btn.disabled=true; const old=btn.textContent; btn.textContent='Отправляем…';
+      try{
+        const ok=await sendToTelegram(name,phone,comment);
+        if(ok){ btn.textContent='✓ Отправлено'; inputs.forEach(i=>i.value=''); setTimeout(()=>{btn.textContent=old;btn.disabled=false;},1500); }
+        else throw new Error('fail');
+      }catch(err){ btn.textContent='Ошибка'; setTimeout(()=>{btn.textContent=old;btn.disabled=false;},2000); }
+    });
+  });
+  // audit form
+  document.querySelectorAll('.audit-form').forEach(form=>{
+    if(form.dataset.bound) return;
+    form.dataset.bound='1';
+    const btn=form.querySelector('button');
+    if(!btn) return;
+    btn.addEventListener('click', async (e)=>{
+      e.preventDefault();
+      const inputs=form.querySelectorAll('input');
+      let name='', phone='';
+      inputs.forEach((inp,i)=>{ if(inp.type==='tel'||(inp.placeholder||'').includes('+7')) phone=inp.value.trim(); else name=inp.value.trim(); });
+      if(!phone && !name){ alert('Укажите имя и телефон'); return; }
+      btn.disabled=true; const old=btn.textContent; btn.textContent='…';
+      try{
+        const ok=await sendToTelegram(name,phone,'Аудит с главной');
+        if(ok){ btn.textContent='✓'; inputs.forEach(i=>i.value=''); setTimeout(()=>{btn.textContent=old;btn.disabled=false;},1500); }
+        else throw new Error('fail');
+      }catch(err){ btn.textContent='Ошибка'; setTimeout(()=>{btn.textContent=old;btn.disabled=false;},2000); }
+    });
+  });
+}
+document.addEventListener('DOMContentLoaded', bindForms);
+if(document.readyState!=='loading') bindForms();
+
+</script>
+</body>
+</html>

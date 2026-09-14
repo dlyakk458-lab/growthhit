@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Сопровождение сайтов — GROWTH</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0a0a0b;--bg-card:#121214;--text:#f5f5f7;--muted:#a1a1aa;--accent:#ff5c1a;--accent-h:#ff7a3d;--border:#2a2a2e;--green:#22c55e;--blue:#5b9cff;--red:#ef4444}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:auto}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;overflow-x:hidden}
+a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:none}
+header{position:sticky;top:0;z-index:100;background:rgba(10,10,11,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav{max-width:1280px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{font-weight:900;font-size:22px;letter-spacing:-.5px}.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:22px;font-size:14px;font-weight:500;color:var(--muted);align-items:center}
+.nav-links a:hover,.nav-item:hover>a{color:var(--text)}
+.nav-item{position:relative}
+.nav-item>a{display:flex;align-items:center;gap:4px;padding:6px 0}
+.dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(8px);background:#16161a;border:1px solid var(--border);border-radius:12px;padding:8px;min-width:220px;opacity:0;visibility:hidden;transition:.2s;box-shadow:0 20px 50px rgba(0,0,0,.5);z-index:50}
+.nav-item:hover .dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(4px)}
+.dropdown a{display:block;padding:10px 14px;border-radius:8px;font-size:13px;color:var(--muted)}
+.dropdown a:hover{background:#1e1e24;color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:10px;font-weight:600;font-size:14px;transition:.25s}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-h);transform:translateY(-2px);box-shadow:0 10px 28px rgba(255,92,26,.35)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-outline:hover{border-color:#555;background:rgba(255,255,255,.04)}
+
+.page-hero{padding:100px 24px 80px;position:relative;overflow:hidden}
+.page-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:50px 50px;mask-image:radial-gradient(ellipse 70% 50% at 30% 40%,black,transparent)}
+.page-hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;position:relative;z-index:2}
+.breadcrumb{font-size:13px;color:var(--muted);margin-bottom:18px}
+.page-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.page-label::after{content:'';width:36px;height:2px;background:var(--accent)}
+.page-hero h1{font-size:clamp(34px,4.5vw,52px);font-weight:900;line-height:1.05;letter-spacing:-1.2px;margin-bottom:20px}
+.page-hero h1 .blue{color:var(--blue)}
+.page-hero p{font-size:16px;color:var(--muted);max-width:440px;margin-bottom:32px}
+.page-hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+
+.monitor{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.4);position:relative}
+.monitor-bar{background:#16161a;padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);font-size:12px;color:var(--muted)}
+.monitor-body{padding:24px;min-height:280px;position:relative}
+.monitor-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.mon-card{background:#16161a;border-radius:10px;padding:14px 10px;text-align:center;border:1px solid var(--border);transition:.4s;position:relative}
+.mon-card.ok{border-color:var(--green)}
+.mon-card.err{border-color:var(--red);background:#1a1010;animation:pulseRed 1s ease infinite}
+@keyframes pulseRed{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.3)}50%{box-shadow:0 0 0 6px rgba(239,68,68,0)}}
+.mon-card .icon{font-size:20px;margin-bottom:6px}
+.mon-card .name{font-size:11px;color:var(--muted)}
+.mon-card .check{position:absolute;top:6px;right:6px;width:16px;height:16px;border-radius:50%;background:var(--green);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;opacity:0;transition:.3s}
+.mon-card.ok .check{opacity:1}
+.cat{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);font-size:48px;transition:left 1.2s cubic-bezier(.22,1,.36,1),bottom .4s;z-index:5}
+.cat.fixing{left:calc(25% + 10px)}
+.cat-phrase{position:absolute;bottom:80px;left:50%;transform:translateX(-50%);background:#1a1a1e;border:1px solid var(--border);border-radius:10px;padding:8px 14px;font-size:12px;opacity:0;transition:.4s;white-space:nowrap}
+.cat-phrase.show{opacity:1}
+.monitor-footer{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);padding:0 4px}
+.monitor-footer .green{color:var(--green)}
+
+.section{padding:90px 24px}.section-inner{max-width:1200px;margin:0 auto}
+.section-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.section-label::after{content:'';width:32px;height:2px;background:var(--accent)}
+.section h2{font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.8px;margin-bottom:12px}
+.section h2 .blue{color:var(--blue)}
+.section-desc{color:var(--muted);max-width:520px;margin-bottom:40px}
+.includes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.include-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:24px;transition:.3s}
+.include-card:hover{transform:translateY(-4px);border-color:#3a3a42}
+.include-icon{width:40px;height:40px;border-radius:10px;background:#1e1e24;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:14px;color:var(--blue)}
+.include-card h3{font-size:14px;font-weight:700;margin-bottom:12px}
+.include-card ul{list-style:none}
+.include-card li{font-size:13px;color:var(--muted);padding:3px 0;padding-left:16px;position:relative}
+.include-card li::before{content:'✓';position:absolute;left:0;color:var(--green);font-size:11px}
+
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:32px}
+.step-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:22px;transition:.3s}
+.step-card:hover{transform:translateY(-4px);border-color:#3a3a42}
+.step-card .num{font-size:12px;color:var(--muted);margin-bottom:10px}
+.step-card .icon{width:36px;height:36px;border-radius:9px;background:#1e1e24;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:16px}
+.step-card h4{font-size:14px;font-weight:700;margin-bottom:8px}
+.step-card p{font-size:13px;color:var(--muted)}
+
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.price-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px;position:relative;transition:.3s}
+.price-card:hover{transform:translateY(-4px);border-color:#3a3a42}
+.price-card.popular{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.price-card .pop{position:absolute;top:-10px;right:20px;background:var(--accent);color:#fff;font-size:11px;padding:3px 12px;border-radius:12px;font-weight:600}
+.price-card h3{font-size:14px;font-weight:700;margin-bottom:4px;color:var(--muted)}
+.price-card .price{font-size:28px;font-weight:900;margin:12px 0}
+.price-card .price span{font-size:13px;font-weight:500;color:var(--muted)}
+.price-card ul{list-style:none;margin:16px 0 24px}
+.price-card li{font-size:13px;color:var(--muted);padding:5px 0;padding-left:16px;position:relative}
+.price-card li::before{content:'✓';position:absolute;left:0;color:var(--green)}
+.price-card .btn{width:100%;justify-content:center}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);z-index:200;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:.3s}
+.modal-overlay.open{opacity:1;visibility:visible}
+.modal{background:#16161a;border:1px solid var(--border);border-radius:18px;padding:32px;width:90%;max-width:420px;position:relative}
+.modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;background:#1e1e24;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--muted)}
+.modal h3{font-size:22px;font-weight:800;margin-bottom:6px}
+.modal p{font-size:14px;color:var(--muted);margin-bottom:24px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+.form-group input,.form-group textarea{width:100%;background:#0f0f12;border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-size:14px;outline:none}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textarea{min-height:80px;resize:vertical}
+.modal .btn{width:100%;justify-content:center;margin-top:8px}
+.modal-secure{text-align:center;font-size:12px;color:var(--muted);margin-top:14px}
+.modal-or{text-align:center;font-size:12px;color:var(--muted);margin:16px 0}
+.modal-messengers{display:flex;gap:10px}
+.modal-messengers a{flex:1;text-align:center;padding:10px;border:1px solid var(--border);border-radius:10px;font-size:13px}
+
+footer{border-top:1px solid var(--border);padding:40px 24px;text-align:center;color:var(--muted);font-size:13px}
+
+@media(max-width:900px){
+  .page-hero-inner{grid-template-columns:1fr}
+  .includes-grid,.steps-grid,.pricing-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .monitor-cards{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<header>
+    <div class="nav">
+    <a href="../index.html" class="logo">GROWTH<span>.</span></a>
+    <div class="nav-links">
+      <div class="nav-item">
+        <a href="sites.html">Создание сайта ▾</a>
+        <div class="dropdown">
+          <a href="sites.html">Лендинг</a>
+          <a href="sites.html">Корпоративный сайт</a>
+          <a href="sites.html">Интернет-магазин</a>
+        </div>
+      </div>
+      <a href="seo.html">Продвижение</a>
+      <a href="ads.html">Реклама</a>
+      <a href="#" onclick="openModal();return false">Битрикс24</a>
+      <a href="support.html">Сопровождение</a>
+      <a href="../index.html#portfolio">Портфолио</a>
+    </div>
+    <button class="btn btn-primary" onclick="openModal()">⚡ Получить аудит</button>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-inner">
+    <div>
+      <div class="breadcrumb"><a href="../index.html">Главная</a> › Сопровождение сайтов</div>
+      <div class="page-label">СОПРОВОЖДЕНИЕ САЙТОВ</div>
+      <h1>ВАШ САЙТ<br>ВСЕГДА ПОД<br><span class="blue">ПРИСМОТРОМ</span></h1>
+      <p>Берём заботы о сайте на себя: мониторинг 24/7, обновления, бэкапы, защита от вирусов, наполнение контентом и быстрое исправление ошибок. Вы занимаетесь бизнесом — мы держим сайт в форме.</p>
+      <div class="page-hero-btns">
+        <button class="btn btn-primary" onclick="openModal()">⚡ Получить аудит</button>
+        <button class="btn btn-outline">Тарифы поддержки ↓</button>
+      </div>
+    </div>
+    <div class="monitor" id="monitor">
+      <div class="monitor-bar">
+        <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57;display:inline-block"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#febc2e;display:inline-block"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#28c840;display:inline-block"></span>
+        <span style="margin-left:8px">ваш-сайт.kz</span>
+        <span style="margin-left:auto;color:var(--green)">● Под присмотром</span>
+      </div>
+      <div class="monitor-body">
+        <div class="monitor-cards">
+          <div class="mon-card ok" data-card="0"><div class="check">✓</div><div class="icon">📄</div><div class="name">Шапка</div></div>
+          <div class="mon-card ok" data-card="1"><div class="check">✓</div><div class="icon">🔄</div><div class="name">Обновления</div></div>
+          <div class="mon-card" data-card="2" id="errCard"><div class="check">✓</div><div class="icon">⚡</div><div class="name">Скорость</div></div>
+          <div class="mon-card ok" data-card="3"><div class="check">✓</div><div class="icon">🛡</div><div class="name">Защита</div></div>
+        </div>
+        <div class="cat" id="cat">🐱</div>
+        <div class="cat-phrase" id="catPhrase">Сейчас починю скорость!</div>
+        <div class="monitor-footer">
+          <span>Исправлено сегодня: <strong id="fixedCount">0</strong></span>
+          <span class="green">Аптайм 99.9%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label">СОСТАВ УСЛУГИ</div>
+    <h2>ЧТО ВХОДИТ В <span class="blue">СОПРОВОЖДЕНИЕ</span></h2>
+    <p class="section-desc">Полный спектр поддержки: постоянный мониторинг, обновления, оптимизация, наполнение контентом и защита от вирусов и атак.</p>
+    <div class="includes-grid">
+      <div class="include-card"><div class="include-icon">✏</div><h3>ДОПОЛНЕНИЕ КОНТЕНТА</h3><ul><li>Публикация новых страниц и статей в блог</li><li>Обновление текстов, цен и контактов</li><li>Замена и оптимизация изображений</li><li>Добавление акций, баннеров и разделов</li><li>Правки по вашему запросу в течение дня</li></ul></div>
+      <div class="include-card"><div class="include-icon">🛒</div><h3>ДОБАВЛЕНИЕ ТОВАРОВ</h3><ul><li>Расширение ассортимента интернет-магазина</li><li>Заполнение карточек: фото, цена, описание</li><li>Категории, фильтры и характеристики</li><li>Загрузка прайсов и обновление остатков</li><li>Импорт каталога из 1С или Excel</li></ul></div>
+      <div class="include-card"><div class="include-icon">⚡</div><h3>ОПТИМИЗАЦИЯ САЙТА</h3><ul><li>Ускорение загрузки и настройка кэша</li><li>Сжатие изображений и чистка базы</li><li>Проверка скорости и Core Web Vitals</li><li>Поддержка корректной мобильной версии</li><li>Максимизация эффективности веб-ресурса</li></ul></div>
+      <div class="include-card"><div class="include-icon">🛡</div><h3>БЕЗОПАСНОСТЬ САЙТА</h3><ul><li>Мониторинг доступности и аптайма 24/7</li><li>Защита от вирусов и вредоносных атак</li><li>Регулярные резервные копии (бэкапы)</li><li>Своевременные обновления ядра и плагинов</li><li>Продление SSL и контроль хостинга</li></ul></div>
+      <div class="include-card"><div class="include-icon">📝</div><h3>НАПОЛНЕНИЕ САЙТА</h3><ul><li>Создание уникального и качественного контента</li><li>Тексты под услуги, разделы и категории</li><li>Базовая SEO-подготовка материалов</li><li>Подбор и обработка фотографий</li><li>Структурирование информации по разделам</li></ul></div>
+      <div class="include-card"><div class="include-icon">🔧</div><h3>ИСПРАВЛЕНИЕ ОШИБОК</h3><ul><li>Обнаружение и устранение сбоев</li><li>Починка форм, кнопок и вёрстки</li><li>Восстановление сайта после сбоя</li><li>Исправление ошибок после обновлений</li><li>Бесперебойная работа сайта</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="section-inner">
+    <div class="section-label">КАК МЫ РАБОТАЕМ</div>
+    <h2>СОПРОВОЖДЕНИЕ <span class="blue">ПО ШАГАМ</span></h2>
+    <p class="section-desc">Прозрачный процесс без сюрпризов: вы всегда знаете, что происходит с сайтом и сколько часов израсходовано.</p>
+    <div class="steps-grid">
+      <div class="step-card"><div class="num">01</div><div class="icon">🔍</div><h4>АУДИТ И ПОДКЛЮЧЕНИЕ</h4><p>Проверяем сайт, делаем первый бэкап, подключаем мониторинг и согласуем регламент задач.</p></div>
+      <div class="step-card"><div class="num">02</div><div class="icon">📋</div><h4>ЗАЯВКА И ОЦЕНКА</h4><p>Вы ставите задачу в WhatsApp или CRM, мы оцениваем срок и время — вы видите статус каждой правки.</p></div>
+      <div class="step-card"><div class="num">03</div><div class="icon">⚙</div><h4>РАБОТА И ПРОВЕРКА</h4><p>Вносим правки, обновляем и тестируем на копии, чтобы изменения не сломали рабочий сайт.</p></div>
+      <div class="step-card"><div class="num">04</div><div class="icon">📊</div><h4>ОТЧЁТ ЗА МЕСЯЦ</h4><p>В конце месяца присылаем отчёт: что сделано, сколько часов потрачено и что улучшили на сайте.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="section-inner">
+    <div class="section-label">ТАРИФЫ И ЦЕНЫ</div>
+    <h2>СТОИМОСТЬ <span class="blue">ПОДДЕРЖКИ</span></h2>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <h3>БАЗОВЫЙ</h3>
+        <div class="price">35 000 ₸ <span>/ мес</span></div>
+        <ul><li>Мониторинг доступности 24/7</li><li>Обновления ядра и плагинов</li><li>Еженедельные бэкапы</li><li>Контроль SSL и хостинга</li><li>До 3 часов правок в месяц</li></ul>
+        <button class="btn btn-outline" onclick="openModal()">Выбрать тариф</button>
+      </div>
+      <div class="price-card popular">
+        <div class="pop">популярный</div>
+        <h3>БИЗНЕС</h3>
+        <div class="price">75 000 ₸ <span>/ мес</span></div>
+        <ul><li>Всё из тарифа «Базовый»</li><li>Защита от вирусов и атак</li><li>Наполнение контентом и товарами</li><li>Оптимизация скорости сайта</li><li>До 8 часов работ + отчёт за месяц</li></ul>
+        <button class="btn btn-primary" onclick="openModal()">Выбрать тариф</button>
+      </div>
+      <div class="price-card">
+        <h3>ПРЕМИУМ</h3>
+        <div class="price">140 000 ₸ <span>/ мес</span></div>
+        <ul><li>Всё из тарифа «Бизнес»</li><li>Приоритетные правки в течение дня</li><li>Доработки функционала и интеграции</li><li>Персональный менеджер проекта</li><li>До 20 часов работ + SEO-поддержка</li></ul>
+        <button class="btn btn-outline" onclick="openModal()">Выбрать тариф</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 GROWTH. Создание сайтов и продвижение в Казахстане</footer>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h3>Оставьте заявку</h3>
+    <p>Перезвоним в течение рабочего дня, ответим на вопросы и подберём решение под вашу задачу.</p>
+    <div class="form-group"><label>Ваше имя</label><input type="text" placeholder="Как к вам обращаться"></div>
+    <div class="form-group"><label>Телефон</label><input type="tel" placeholder="+7 700 000 00 00"></div>
+    <div class="form-group"><label>Комментарий</label><textarea placeholder="Коротко о задаче"></textarea></div>
+    <button class="btn btn-primary">✈ Отправить заявку</button>
+    <div class="modal-secure">🔒 Не передаём данные третьим лицам</div>
+    <div class="modal-or">или напишите прямо сейчас</div>
+    <div class="modal-messengers"><a href="https://wa.me/message/HFGTVXVRVIE6G1" target="_blank" rel="noopener">WhatsApp</a></div>
+  </div>
+</div>
+
+<script>
+function openModal(){document.getElementById('modal').classList.add('open')}
+function closeModal(){document.getElementById('modal').classList.remove('open')}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+
+// Cat animation loop
+const errCard=document.getElementById('errCard');
+const cat=document.getElementById('cat');
+const phrase=document.getElementById('catPhrase');
+const fixed=document.getElementById('fixedCount');
+let fixedN=0;
+
+function runCatCycle(){
+  // Reset
+  errCard.classList.remove('ok','err');
+  cat.classList.remove('fixing');
+  phrase.classList.remove('show');
+  setTimeout(()=>{
+    // Error appears
+    errCard.classList.add('err');
+    phrase.textContent='Сейчас починю скорость!';
+    phrase.classList.add('show');
+    setTimeout(()=>{
+      cat.classList.add('fixing');
+      setTimeout(()=>{
+        errCard.classList.remove('err');
+        errCard.classList.add('ok');
+        phrase.textContent='Готово! ⚡';
+        fixedN++;
+        fixed.textContent=fixedN;
+        setTimeout(()=>{
+          cat.classList.remove('fixing');
+          phrase.classList.remove('show');
+        },1500);
+      },1200);
+    },800);
+  },600);
+}
+runCatCycle();
+setInterval(runCatCycle,6000);
+</script>
+<script>
+
+function openModal(){const m=document.getElementById('modal');if(m)m.classList.add('open')}
+function closeModal(){const m=document.getElementById('modal');if(m)m.classList.remove('open')}
+document.getElementById('modal')&&document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+
+async function sendToTelegram(name, phone, comment){
+  const text = `🆕 Заявка с сайта GROWTH\n\n👤 Имя: ${name||'—'}\n📞 Телефон: ${phone||'—'}\n💬 Комментарий: ${comment||'—'}\n🌐 Страница: ${location.pathname}`;
+  const url = `https://api.telegram.org/bot8945021082:AAFCv_daSsSsZQZ1vPqzvpbSkPehgg7ip9Y/sendMessage`;
+  const res = await fetch(url, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({chat_id:'8274492658', text, parse_mode:'HTML'})
+  });
+  return res.ok;
+}
+
+function bindForms(){
+  document.querySelectorAll('form[data-lead], .modal form, .lead-box form, .audit-form').forEach(f=>{
+    // skip if already bound
+  });
+  // modal button
+  document.querySelectorAll('#modal .btn-primary, .modal .btn-primary').forEach(btn=>{
+    if(btn.dataset.bound) return;
+    btn.dataset.bound='1';
+    btn.addEventListener('click', async (e)=>{
+      e.preventDefault();
+      const modal = btn.closest('.modal') || document.getElementById('modal');
+      if(!modal) return;
+      const inputs = modal.querySelectorAll('input, textarea');
+      let name='', phone='', comment='';
+      inputs.forEach(inp=>{
+        const ph=(inp.placeholder||'').toLowerCase();
+        const lab=((inp.previousElementSibling&&inp.previousElementSibling.textContent)||'').toLowerCase();
+        const v=inp.value.trim();
+        if(inp.type==='tel' || ph.includes('телефон') || ph.includes('+7') || lab.includes('телефон')) phone=v;
+        else if(inp.tagName==='TEXTAREA' || lab.includes('коммент') || ph.includes('задач')) comment=v;
+        else if(inp.type==='text' || lab.includes('имя') || ph.includes('обращ')) name=v;
+      });
+      if(!phone && !name){ alert('Укажите имя и телефон'); return; }
+      btn.disabled=true; const old=btn.textContent; btn.textContent='Отправляем…';
+      try{
+        const ok=await sendToTelegram(name,phone,comment);
+        if(ok){ btn.textContent='✓ Отправлено'; inputs.forEach(i=>i.value=''); setTimeout(()=>{btn.textContent=old;btn.disabled=false;closeModal();},1500); }
+        else { throw new Error('fail'); }
+      }catch(err){ btn.textContent='Ошибка, попробуйте ещё'; setTimeout(()=>{btn.textContent=old;btn.disabled=false;},2000); }
+    });
+  });
+  // lead-box buttons outside modal
+  document.querySelectorAll('.lead-box .btn-primary').forEach(btn=>{
+    if(btn.dataset.bound) return;
+    btn.dataset.bound='1';
+    btn.addEventListener('click', async (e)=>{
+      e.preventDefault();
+      const box=btn.closest('.lead-box');
+      if(!box) return;
+      const inputs=box.querySelectorAll('input, textarea');
+      let name='', phone='', comment='';
+      inputs.forEach(inp=>{
+        const ph=(inp.placeholder||'').toLowerCase();
+        const lab=((inp.previousElementSibling&&inp.previousElementSibling.textContent)||'').toLowerCase();
+        const v=inp.value.trim();
+        if(inp.type==='tel' || ph.includes('+7') || lab.includes('телефон')) phone=v;
+        else if(inp.tagName==='TEXTAREA') comment=v;
+        else name=v;
+      });
+      if(!phone && !name){ alert('Укажите имя и телефон'); return; }
+      btn.disabled=true; const old=btn.textContent; btn.textContent='Отправляем…';
+      try{
+        const ok=await sendToTelegram(name,phone,comment);
+        if(ok){ btn.textContent='✓ Отправлено'; inputs.forEach(i=>i.value=''); setTimeout(()=>{btn.textContent=old;btn.disabled=false;},1500); }
+        else throw new Error('fail');
+      }catch(err){ btn.textContent='Ошибка'; setTimeout(()=>{btn.textContent=old;btn.disabled=false;},2000); }
+    });
+  });
+  // audit form
+  document.querySelectorAll('.audit-form').forEach(form=>{
+    if(form.dataset.bound) return;
+    form.dataset.bound='1';
+    const btn=form.querySelector('button');
+    if(!btn) return;
+    btn.addEventListener('click', async (e)=>{
+      e.preventDefault();
+      const inputs=form.querySelectorAll('input');
+      let name='', phone='';
+      inputs.forEach((inp,i)=>{ if(inp.type==='tel'||(inp.placeholder||'').includes('+7')) phone=inp.value.trim(); else name=inp.value.trim(); });
+      if(!phone && !name){ alert('Укажите имя и телефон'); return; }
+      btn.disabled=true; const old=btn.textContent; btn.textContent='…';
+      try{
+        const ok=await sendToTelegram(name,phone,'Аудит с главной');
+        if(ok){ btn.textContent='✓'; inputs.forEach(i=>i.value=''); setTimeout(()=>{btn.textContent=old;btn.disabled=false;},1500); }
+        else throw new Error('fail');
+      }catch(err){ btn.textContent='Ошибка'; setTimeout(()=>{btn.textContent=old;btn.disabled=false;},2000); }
+    });
+  });
+}
+document.addEventListener('DOMContentLoaded', bindForms);
+if(document.readyState!=='loading') bindForms();
+
+</script>
+</body>
+</html>
